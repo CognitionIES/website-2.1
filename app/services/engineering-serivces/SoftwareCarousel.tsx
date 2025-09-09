@@ -1,35 +1,140 @@
-import { motion } from "framer-motion";
-import { useState } from "react";
-
-// Import logo images
-import CATIA from "@/constants/images/software-logo/DSCatia_logo.png";
-import SiemensNX from "@/constants/images/software-logo/SiemensNX_Logo.png";
-import SolidWorks from "@/constants/images/software-logo/SolidEdge_logo.jpg";
-import Ansys from "@/constants/images/software-logo/Ansys_logo.png";
-import Altair from "@/constants/images/software-logo/altairHyperWorks_logo-bg-removed.png";
-import KiCad from "@/constants/images/software-logo/KiCad_logo.png";
-import AltiumDesigner from "@/constants/images/software-logo/AltiumDesigner_logo.jpg";
-import AutoCAD from "@/constants/images/software-logo/AutoCad_Logo.png";
-import Inventor from "@/constants/images/software-logo/autoDeskInventor_logoo.png";
-import Fusion360 from "@/constants/images/software-logo/festoFluidSim_logo.png";
-import COMSOL from "@/constants/images/software-logo/comsolMultiphysics_logo.jpg";
+import { motion, useAnimation } from "framer-motion";
+import { useState, useEffect } from "react";
 import Image from "next/image";
+import type { StaticImageData } from "next/image";
+
+// Import logo images (unchanged)
+import AI_logo from "@/constants/images/software-logo/AI_logo.jpg";
+import altairHyperWorks_logo from "@/constants/images/software-logo/altairHyperWorks_logo.jpg";
+import AltiumDesigner_logo from "@/constants/images/software-logo/AltiumDesigner_logo.jpg";
+import anasPreProcessor_logo from "@/constants/images/software-logo/ansaPreProcessor_logo.png";
+import Ansys_logo from "@/constants/images/software-logo/Ansys_logo.png";
+import ansysFluent_logo from "@/constants/images/software-logo/ansysFluent_logo.png";
+import arena_logo from "@/constants/images/software-logo/arena_logo.png";
+import assetPanda_logo from "@/constants/images/software-logo/assetPanda_logo.png";
+import AutoCad_Logo from "@/constants/images/software-logo/AutoCad_Logo.png";
+import AutodeskEagle_logo from "@/constants/images/software-logo/AutodeskEagle_logo.jpg";
+import AutodeskElc_logo from "@/constants/images/software-logo/AutodeskElc_logo.jpg";
+import autoDeskInventor_logo from "@/constants/images/software-logo/autoDeskInventor_logoo.png";
+import autodeskMec_logo from "@/constants/images/software-logo/autodeskMec_logo.png";
+import automationStudio_logo from "@/constants/images/software-logo/automationStudio_logo.png";
+import comsolMultiphysics_logo from "@/constants/images/software-logo/comsolMultiphysics_logo.jpg";
+import corelDraw_LOGO from "@/constants/images/software-logo/corelDraw_LOGO.png";
+import Creo_logo from "@/constants/images/software-logo/Creo_logo.png";
+import DesignX_logo from "@/constants/images/software-logo/DesignX_logo.png";
+import DSCatia_logo from "@/constants/images/software-logo/DSCatia_logo.png";
+import DSSolidWorks_logo from "@/constants/images/software-logo/DSSolidWorks_logo.jpg";
+import Enovia_logo from "@/constants/images/software-logo/Enovia_logo.jpg";
+import eplan_logo from "@/constants/images/software-logo/eplan_logo.png";
+import festoFluidSIM_logo from "@/constants/images/software-logo/festoFluidSIM_logo.png";
+import figma_logo from "@/constants/images/software-logo/figma_logo.png";
+import FM_logo from "@/constants/images/software-logo/FM_logo.png";
+import formLabs_logo from "@/constants/images/software-logo/formLabs_logo.png";
+import freeRTOS_logo from "@/constants/images/software-logo/freeRTOS_logo.png";
+import HyDraw_Cad from "@/constants/images/software-logo/HyDraw_Cad.png";
+import hydroSYM_logo from "@/constants/images/software-logo/hydroSYM_logo.png";
+import ID_logo from "@/constants/images/software-logo/ID_logo.png";
+import infor_logo from "@/constants/images/software-logo/infor_logo.png";
+import inforEAM_logo from "@/constants/images/software-logo/inforEAM_logo.jpg";
+import jda_logo from "@/constants/images/software-logo/jda_logo.png";
+import jtag_logo from "@/constants/images/software-logo/jtag_logo.png";
+import keil_logo from "@/constants/images/software-logo/keil_logo.png";
+import keyShot_logo from "@/constants/images/software-logo/keyShot_logo.jpg";
+import KiCad_logo from "@/constants/images/software-logo/KiCad_logo.png";
+import lauterbachD_Logo from "@/constants/images/software-logo/lauterbachD_Logo.png";
+import madcapFlare_logo from "@/constants/images/software-logo/madcapFlare_logo.png";
+import masterCam_logo from "@/constants/images/software-logo/masterCam_logo.png";
+import maximo_logo from "@/constants/images/software-logo/maximo_logo.png";
+import opistruct_logo from "@/constants/images/software-logo/opistruct_logo.png";
+import oracleNestuite_logo from "@/constants/images/software-logo/oracleNestitute_logo.png";
+import orCad_logo from "@/constants/images/software-logo/orCad_logo.png";
+import photoshop_logo from "@/constants/images/software-logo/photoshop_logo.png";
+import powerBI_logo from "@/constants/images/software-logo/powerBI_logo.png";
+import qlick_logo from "@/constants/images/software-logo/qlick_logo.png";
+import qnx_logo from "@/constants/images/software-logo/qnx_logo.png";
+import rh_logo from "@/constants/images/software-logo/rh_logo.png";
+import sap_logo from "@/constants/images/software-logo/sap_logo.jpg";
+import sapAnalyticsCloud_logo from "@/constants/images/software-logo/sapAnalyticsCloud_logo.png";
+import sapEAM_logo from "@/constants/images/software-logo/sapEAM_logo.jpg";
+import SiemensNX_logo from "@/constants/images/software-logo/SiemensNX_logo.png";
+import simbuliaAbaqus_logo from "@/constants/images/software-logo/simbulaAbaqus_logo.png";
+import simplify3d_logo from "@/constants/images/software-logo/simplify3d_logo.png";
+import smartCAM_logo from "@/constants/images/software-logo/smartCAM_logo.png";
+import SolidEdge_logo from "@/constants/images/software-logo/SolidEdge_logo.jpg";
+import star_ccm_logo from "@/constants/images/software-logo/star-cmm_logo.jpg";
+import stm32CubeID_logo from "@/constants/images/software-logo/stm32CubeID_logo.jpg";
+import tableau_logo from "@/constants/images/software-logo/tableau_logo.png";
+import TeamCenter_logo from "@/constants/images/software-logo/TeamCenter_logo.jpg";
+import UltiMakerCura_logo from "@/constants/images/software-logo/UltiMakerCura_logo.png";
+import vxWorks_logo from "@/constants/images/software-logo/vxWorks_logo.png";
+import windchill_logo from "@/constants/images/software-logo/windchill_logo.png";
 
 const softwareLogos = [
-  { name: "CATIA", logo: CATIA },
-  { name: "Siemens NX", logo: SiemensNX },
-  { name: "SolidWorks", logo: SolidWorks },
-  { name: "Ansys", logo: Ansys },
-  { name: "Altair", logo: Altair },
-  { name: "KiCad", logo: KiCad },
-  { name: "Altium Designer", logo: AltiumDesigner },
-  { name: "AutoCAD", logo: AutoCAD },
-  { name: "Inventor", logo: Inventor },
-  { name: "Festor FLuid Sim", logo: Fusion360 },
-  { name: "COMSOL", logo: COMSOL },
+  { name: "Adobe Illustrator", logo: AI_logo },
+  { name: "Altair HyperWorks", logo: altairHyperWorks_logo },
+  { name: "Altium Designer", logo: AltiumDesigner_logo },
+  { name: "Ansa PreProcessor", logo: anasPreProcessor_logo },
+  { name: "Ansys", logo: Ansys_logo },
+  { name: "Ansys Fluent", logo: ansysFluent_logo },
+  { name: "Arena", logo: arena_logo },
+  { name: "Asset Panda", logo: assetPanda_logo },
+  { name: "AutoCAD", logo: AutoCad_Logo },
+  { name: "Autodesk Eagle", logo: AutodeskEagle_logo },
+  { name: "Autodesk Electrical", logo: AutodeskElc_logo },
+  { name: "Inventor", logo: autoDeskInventor_logo },
+  { name: "Autodesk Mechanical", logo: autodeskMec_logo },
+  { name: "Automation Studio", logo: automationStudio_logo },
+  { name: "COMSOL", logo: comsolMultiphysics_logo },
+  { name: "CorelDraw", logo: corelDraw_LOGO },
+  { name: "Creo", logo: Creo_logo },
+  { name: "DesignX", logo: DesignX_logo },
+  { name: "CATIA", logo: DSCatia_logo },
+  { name: "SolidWorks", logo: DSSolidWorks_logo },
+  { name: "Enovia", logo: Enovia_logo },
+  { name: "EPLAN", logo: eplan_logo },
+  { name: "Festo FluidSIM", logo: festoFluidSIM_logo },
+  { name: "Figma", logo: figma_logo },
+  { name: "FrameMaker", logo: FM_logo },
+  { name: "FormLabs", logo: formLabs_logo },
+  { name: "FreeRTOS", logo: freeRTOS_logo },
+  { name: "HyDraw CAD", logo: HyDraw_Cad },
+  { name: "HydroSYM", logo: hydroSYM_logo },
+  { name: "InDesign", logo: ID_logo },
+  { name: "Infor", logo: infor_logo },
+  { name: "Infor EAM", logo: inforEAM_logo },
+  { name: "JDA", logo: jda_logo },
+  { name: "JTAG", logo: jtag_logo },
+  { name: "Keil", logo: keil_logo },
+  { name: "KeyShot", logo: keyShot_logo },
+  { name: "KiCad", logo: KiCad_logo },
+  { name: "Lauterbach Debugger", logo: lauterbachD_Logo },
+  { name: "Madcap Flare", logo: madcapFlare_logo },
+  { name: "MasterCAM", logo: masterCam_logo },
+  { name: "Maximo", logo: maximo_logo },
+  { name: "OptiStruct", logo: opistruct_logo },
+  { name: "Oracle Netsuite", logo: oracleNestuite_logo },
+  { name: "OrCAD", logo: orCad_logo },
+  { name: "Photoshop", logo: photoshop_logo },
+  { name: "Power BI", logo: powerBI_logo },
+  { name: "Qlik", logo: qlick_logo },
+  { name: "QNX", logo: qnx_logo },
+  { name: "Rhapsody", logo: rh_logo },
+  { name: "SAP", logo: sap_logo },
+  { name: "SAP Analytics Cloud", logo: sapAnalyticsCloud_logo },
+  { name: "SAP EAM", logo: sapEAM_logo },
+  { name: "Siemens NX", logo: SiemensNX_logo },
+  { name: "Simulia Abaqus", logo: simbuliaAbaqus_logo },
+  { name: "Simplify3D", logo: simplify3d_logo },
+  { name: "SmartCAM", logo: smartCAM_logo },
+  { name: "Solid Edge", logo: SolidEdge_logo },
+  { name: "Star CCM", logo: star_ccm_logo },
+  { name: "STM32 CubeID", logo: stm32CubeID_logo },
+  { name: "Tableau", logo: tableau_logo },
+  { name: "TeamCenter", logo: TeamCenter_logo },
+  { name: "Ultimaker Cura", logo: UltiMakerCura_logo },
+  { name: "VxWorks", logo: vxWorks_logo },
+  { name: "Windchill", logo: windchill_logo },
 ];
-
-import type { StaticImageData } from "next/image";
 
 const LogoCard = ({
   software,
@@ -73,6 +178,29 @@ const LogoCard = ({
 
 export const SoftwareCarousel = () => {
   const [isHovered, setIsHovered] = useState(false);
+  const controls = useAnimation();
+
+  // Calculate the total width of one set of logos (assuming each card is ~160px wide with margins)
+  const logoWidth = 60  ; // Approximate width of each card (120px min-w + 2 * 16px padding + 2 * 8px margin)
+  const totalWidth = softwareLogos.length * logoWidth;
+
+  useEffect(() => {
+    if (!isHovered) {
+      controls.start({
+        x: [0, -totalWidth],
+        transition: {
+          x: {
+            repeat: Infinity,
+            repeatType: "loop",
+            duration: softwareLogos.length * 0.5, // Adjust speed based on number of logos
+            ease: "linear",
+          },
+        },
+      });
+    } else {
+      controls.stop();
+    }
+  }, [isHovered, controls, totalWidth]);
 
   return (
     <section
@@ -105,7 +233,7 @@ export const SoftwareCarousel = () => {
         }}
       />
 
-      <div className="relative z-10 container max-w-7xl mx-auto px-6">
+      <div className="relative z-10 container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
@@ -146,24 +274,11 @@ export const SoftwareCarousel = () => {
           onMouseLeave={() => setIsHovered(false)}
         >
           <div className="flex">
-            <motion.div
-              className="flex"
-              animate={{
-                x: isHovered ? undefined : [0, -1920],
-              }}
-              transition={{
-                x: {
-                  repeat: Infinity,
-                  repeatType: "loop",
-                  duration: 25,
-                  ease: "linear",
-                },
-              }}
-            >
+            <motion.div className="flex" animate={controls}>
               {[...softwareLogos, ...softwareLogos, ...softwareLogos].map(
                 (software, index) => (
                   <LogoCard
-                    key={index}
+                    key={`${software.name}-${index}`}
                     software={software}
                     index={index % softwareLogos.length}
                   />

@@ -110,7 +110,7 @@ export default function HeroSection() {
             animate={isVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
           >
-            Description
+           Turn ideas into reality with scalable engineering expertise.
           </motion.p>
         </div>
 

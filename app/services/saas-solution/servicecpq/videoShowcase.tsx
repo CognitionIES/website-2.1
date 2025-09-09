@@ -1,6 +1,7 @@
 import React from "react";
 import { Youtube } from "lucide-react";
 import BackgroundGrid from "@/components/ui/backgroundgrid";
+import demoVideo from "./servicecpq.mp4";
 
 const VideoShowcase = () => {
   return (
@@ -42,18 +43,18 @@ const VideoShowcase = () => {
           {/* Video container with aspect ratio */}
           <div className="relative rounded-xl overflow-hidden shadow-2xl transform hover:scale-[1.01] transition-transform duration-300 bg-black">
             {/* 16:9 aspect ratio wrapper */}
-            <div className="relative pt-[54.25%]">
+            <div className="relative pt-[56.25%]">
               <video
                 className="absolute inset-0 w-full h-full"
-                src="/servicecpq.mp4"
                 title="ServiceCPQ Demo Video"
                 controls
                 autoPlay
                 muted
                 loop
+                onError={(e) => console.error("Video error:", e)}
               >
                 <source
-                  src="/saas-solution/servicecpq/servicecpq.mp4"
+                  src={demoVideo}
                   type="video/mp4"
                 />
                 Your browser does not support the video tag.

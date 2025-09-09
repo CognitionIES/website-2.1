@@ -10,7 +10,7 @@ export default function KeyValues() {
 
   return (
     <section className="py-12 sm:py-8 lg:py-12 bg-white relative">
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-4xl md:text-5xl font-bold text-center text-[#003C46] mb-12 tracking-tight">
           {TEXT.VALUES_TITLE}
         </h2>

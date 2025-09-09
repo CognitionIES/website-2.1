@@ -32,9 +32,9 @@ export const heroSlides: HeroSlide[] = [
   },
   {
     id: 2,
-    title: "Build and Operate ",
+    title: "Engineering Solutions ",
     subtitle: "End-to-End Solutions for Sustainable Growth",
-    majorService: "Build & Operate",
+    majorService: "Engineering Solutions",
     description:
       "From concept to daily operations, we design, build, & manage robust technology platforms & infrastructure that drive reliability, scalability, & long-term value.",
     image: buildImage,

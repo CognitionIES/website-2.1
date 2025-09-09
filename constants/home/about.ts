@@ -5,7 +5,7 @@ export const ABOUT_CONSTANTS = {
   SUBTITLE:
     "In 2023, we expanded into Engineering Services, helping industries accelerate design, development, and project execution with specialized technical expertise and offshore delivery models.",
   DESCRIPTION_1:
-    "Cognition IES is a group with a legacy of delivering Recruitment & Resourcing solutions since 2005. Over the years, we have partnered with global clients to bridge talent gaps, support large-scale projects, and provide flexible workforce solutions.",
+    "Cognition is a group with a legacy of delivering Recruitment & Resourcing solutions since 2005. Over the years, we have partnered with global clients to bridge talent gaps, support large-scale projects, and provide flexible workforce solutions.",
   DESCRIPTION_2:
     "We also bring technology to the forefront with our SaaS solution – ServiceCPQ, designed to automate resourcing and project management processes, reduce costs, and enable real-time visibility.",
   DESCRIPTION_3:
