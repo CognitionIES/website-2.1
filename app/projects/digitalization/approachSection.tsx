@@ -22,7 +22,7 @@ export default function ApproachSection() {
         }
       });
     }
-  }, []);
+  }, );
 
   const sectionVariants: Variants = {
     hidden: { opacity: 0, y: 30 },

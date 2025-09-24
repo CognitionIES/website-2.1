@@ -73,7 +73,7 @@ const RecentProjects = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const isMobile = useIsMobile();
   const hasAnimated = useRef(false);
-
+  const late = sectionRef.current;
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -84,11 +84,11 @@ const RecentProjects = () => {
       },
       { threshold: 0.2 }
     );
-    if (sectionRef.current) observer.observe(sectionRef.current);
+    if (late) observer.observe(late);
     return () => {
-      if (sectionRef.current) observer.unobserve(sectionRef.current);
+      if (late) observer.unobserve(late);
     };
-  }, []);
+  },);
 
   return (
     <section

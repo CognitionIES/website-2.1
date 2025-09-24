@@ -154,7 +154,7 @@ const Slider = ({ children }: { children: React.ReactNode }) => {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [totalSlides]);
+  }, );
 
   return (
     <div className="relative overflow-hidden">

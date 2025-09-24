@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState, useRef, useEffect } from "react";
@@ -48,6 +47,10 @@ const AccordionSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
+    const node = sectionRef.current; // ✅ Cache the ref value
+
+    if (!node) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         setIsInView(entry.isIntersecting);
@@ -55,14 +58,10 @@ const AccordionSection = () => {
       { threshold: 0.2 }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
+    observer.observe(node);
 
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
+      observer.unobserve(node); // ✅ Use the cached value here
     };
   }, []);
 

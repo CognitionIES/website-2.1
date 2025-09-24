@@ -31,7 +31,7 @@ export default function Tech() {
         }
       });
     }
-  }, []);
+  }, );
 
   const sectionVariants: Variants = {
     hidden: { opacity: 0, y: 30 },

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { motion } from "framer-motion";
@@ -38,7 +37,7 @@ export default function ContactSection() {
   const sectionRef = useRef<HTMLElement>(null);
 
   const { TITLE, DESCRIPTION, EMAIL } = CONTACT_CONSTANTS.CONTACT;
-
+const late = sectionRef.current;
   useEffect(() => {
     if (isMobile) return;
     const observer = new IntersectionObserver(
@@ -50,16 +49,16 @@ export default function ContactSection() {
       { threshold: 0.2 }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+    if (late) {
+      observer.observe(late);
     }
 
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
+      if (late) {
+        observer.unobserve(late);
       }
     };
-  }, [isMobile, hasAnimated]);
+  }, );
 
   const handleInputChange = useCallback(
     (field: string, value: string | boolean) => {
@@ -108,7 +107,7 @@ export default function ContactSection() {
           setStatus("Oops! Something went wrong.");
         }
       } catch (error) {
-        setStatus("Error submitting form.");
+        setStatus("Error submitting form.", error);
       } finally {
         setIsSubmitting(false);
       }
@@ -220,17 +219,12 @@ export default function ContactSection() {
                     1st floor Kplex, Genda Circle, Vadodara, Gujarat, India
                   </p>
                 </div>
-                <div className="mb-4">
-                  <p className="text-sm font-semibold text-gray-800">
-                    Branch Office
-                  </p>
-                  <p className="text-sm text-gray-600">Delhi, India</p>
-                </div>
+                
                 <div className="mb-0">
                   <p className="text-sm font-semibold text-gray-800">
                     Branch Office
                   </p>
-                  <p className="text-sm text-gray-600">Wisconsin, USA</p>
+                  <p className="text-sm text-gray-600">Mid West, USA</p>
                 </div>
               </div>
             </div>
