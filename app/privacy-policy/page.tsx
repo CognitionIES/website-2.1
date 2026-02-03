@@ -9,13 +9,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Privacy Policy - CognitionIES",
-  description: "Read CognitionIES privacy policy and how we handle your data securely.",
-  alternates: {
-    canonical: "https://www.cognitionies.com/privacy-policy/",
-  },
-};
+
 
 
 const PrivacyPolicy = () => {

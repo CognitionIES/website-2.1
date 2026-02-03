@@ -10,13 +10,7 @@ import KeyValues from "./KeyValues";
 import StatsSection from "./StatsSection";
 import CTASection from "./CTA";
 import About from "./about";
-export const metadata: Metadata = {
-  title: "About Us - CognitionIES",
-  description: "Learn more about CognitionIES, our vision, and expertise in engineering and IT solutions.",
-  alternates: {
-    canonical: "https://www.cognitionies.com/about/",
-  },
-};
+
 
 export default function AboutPage() {
   return (

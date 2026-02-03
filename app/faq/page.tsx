@@ -17,13 +17,6 @@ import CTASection from "@/components/CTA";
 import faqs from "@/constants/faqs";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "FAQ - CognitionIES",
-  description: "Frequently asked questions about CognitionIES services, projects, and solutions.",
-  alternates: {
-    canonical: "https://www.cognitionies.com/faq/",
-  },
-};
 
 
 const FAQ = () => {
