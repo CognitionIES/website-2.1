@@ -6,6 +6,15 @@ import Hero from "./hero";
 import Footer from "@/components/footer";
 import { ProjectsSection } from "./about";
 import CTASection from "@/components/CTA";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Projects - CognitionIES",
+  description: "Discover CognitionIES projects in digitalization, engineering talent deployment, and cost management.",
+  alternates: {
+    canonical: "https://www.cognitionies.com/projects/",
+  },
+};
 
 const Projects: React.FC = () => {
   return (

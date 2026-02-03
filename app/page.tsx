@@ -14,7 +14,7 @@ import EngagementCarousel from "@/components/HomePage/EngagementModel";
 
 const TestimonialSlider = dynamic(
   () => import("@/components/HomePage/Testimonials"),
-  { ssr: false }
+  { ssr: false },
 );
 const Careers = dynamic(() => import("@/components/HomePage/Careers"), {
   ssr: false,
@@ -25,7 +25,7 @@ export default function Home() {
     <div className="relative bg-gradient-to-b from-[#F5FDFF] via-[#E6F0F5] to-[#F0F9FB]/80">
       <MegaMenu />
       <Hero />
-      <div className="min-h-screen text-gray-900 font-sans relative overflow-hidden">
+      <div className="min-h-screen  text-gray-800 font-sans  relative overflow-hidden">
         <main className="relative">
           <section className="w-full relative">
             <AboutUs />

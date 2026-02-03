@@ -122,7 +122,7 @@ export function MegaMenu() {
           "w-full transition-all duration-300 z-50 border-b",
           isSticky
             ? "fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-xl border-gray-200/50 shadow-lg"
-            : "relative bg-white border-gray-200"
+            : "relative bg-white border-gray-200",
         )}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -163,7 +163,7 @@ export function MegaMenu() {
                   <ChevronDown
                     className={cn(
                       "w-4 h-4 transition-transform duration-200",
-                      showServices ? "rotate-180" : "rotate-0"
+                      showServices ? "rotate-180" : "rotate-0",
                     )}
                   />
                   <span className="absolute -bottom-0.5 left-1/2 w-0 h-0.5 bg-cyan-600 transition-all duration-300 transform -translate-x-1/2"></span>
@@ -254,7 +254,7 @@ export function MegaMenu() {
         <div
           className={cn(
             "lg:hidden bg-white border-t border-gray-100 overflow-hidden transition-all duration-300 ease-in-out",
-            isOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
+            isOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0",
           )}
         >
           <div className="px-4 py-4 space-y-1 max-h-[calc(100vh-4rem)] overflow-y-auto">
@@ -277,7 +277,7 @@ export function MegaMenu() {
                 <ChevronDown
                   className={cn(
                     "w-4 h-4 transition-transform duration-300",
-                    openMobileService ? "rotate-180" : "rotate-0"
+                    openMobileService ? "rotate-180" : "rotate-0",
                   )}
                 />
               </button>
@@ -287,7 +287,7 @@ export function MegaMenu() {
                   "overflow-hidden transition-all duration-300 ease-in-out",
                   openMobileService
                     ? "max-h-64 opacity-100"
-                    : "max-h-0 opacity-0"
+                    : "max-h-0 opacity-0",
                 )}
               >
                 <div className="pl-4 space-y-1">

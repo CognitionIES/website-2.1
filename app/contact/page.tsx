@@ -7,7 +7,6 @@ import HeroSection from "./HeroSection";
 import ContactSection from "./ContactSection";
 //import { motion } from "framer-motion";
 //import MapSection from "./MapSection";
-
 export default function ContactPage() {
   return (
     <div className="min-h-screen bg-gray-100 text-gray-900 font-sans overflow-hidden">

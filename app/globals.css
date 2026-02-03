@@ -5,7 +5,31 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
+:root {
+  /* Brand Colors - Use sparingly */
+  --primary: #0098af; /* Your logo teal - CTAs only */
+  --primary-hover: #007a8c; /* Darker teal - hover states */
+  --primary-light: #e6f7fa; /* Tint - backgrounds */
 
+  /* Neutrals - Use 90% of the time */
+  --neutral-950: #1a1a1a; /* Headings */
+  --neutral-900: #2d2d2d; /* Body text */
+  --neutral-700: #5b5b5b; /* Your logo gray - secondary text */
+  --neutral-400: #9ca3af; /* Disabled states */
+  --neutral-200: #e5e7eb; /* Borders */
+  --neutral-100: #f3f4f6; /* Subtle backgrounds */
+  --neutral-50: #f9fafb; /* Section backgrounds */
+
+  /* Semantic Colors */
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #ef4444;
+
+  /* Backgrounds */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f9fafb; /* Very subtle gray */
+  --bg-accent: #e6f7fa; /* Teal tint - use rarely */
+}
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -69,13 +93,13 @@ body {
   body {
     @apply bg-background text-foreground;
   }
-* {
+  * {
     font-family: Calibri, sans-serif;
   }
   .section-title {
     @apply text-3xl sm:text-4xl lg:text-5xl font-bold text-[#003C46] relative mb-2;
   }
-  
+
   .section-subtitle {
     @apply text-lg text-[#5b5b5b] mb-12 max-w-2xl mx-auto;
   }
@@ -92,26 +116,25 @@ body {
 }
 
 .employer-gradient-text {
-  background-image: linear-gradient(120deg, #E6F0F5, #00b4d8, #0098af);
+  background-image: linear-gradient(120deg, #e6f0f5, #00b4d8, #0098af);
 }
 @layer components {
   .glass-morphism {
     @apply backdrop-blur-xl bg-white/10 border border-white/20 shadow-lg;
   }
-  
+
   .card-hover {
     @apply transition-all duration-300 hover:shadow-md hover:-translate-y-1;
   }
- 
 
   .line-indicator {
     @apply absolute bottom-0 left-0 w-12 h-0.5 bg-gradient-to-r from-[#0098af] to-transparent;
   }
-  
+
   .section-title {
     @apply text-3xl sm:text-4xl lg:text-5xl font-bold text-[#003C46] relative mb-2;
   }
-  
+
   .section-subtitle {
     @apply text-lg text-[#5b5b5b] mb-12 max-w-2xl mx-auto;
   }

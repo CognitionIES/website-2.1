@@ -36,7 +36,7 @@ const ApplicationForm = () => {
 
   const handleInputChange = (
     field: string,
-    value: string | boolean | File | null
+    value: string | boolean | File | null,
   ) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
@@ -101,7 +101,7 @@ const ApplicationForm = () => {
         "service_4jm4x6o", // Service ID
         "template_x7agzcz", // Template ID
         templateParams,
-        "YHfV6LAgPBcm9VnHd" // Public Key
+        "YHfV6LAgPBcm9VnHd", // Public Key
       );
 
       if (response.status === 200) {
@@ -148,7 +148,7 @@ const ApplicationForm = () => {
       {
         threshold: 0.2, // Triggers when 20% of the section is visible
         rootMargin: "0px 0px -20% 0px", // Ensures it triggers only when scrolling down into the section
-      }
+      },
     );
 
     if (sectionRef.current) {
@@ -385,26 +385,6 @@ const ApplicationForm = () => {
                     </div>
                   </div>
 
-                  {/* Message */}
-                  {/* <div className="space-y-1">
-                  <Label
-                    htmlFor="message"
-                    className="text-[#003C46] font-medium text-sm sm:text-base"
-                  >
-                    Tell Us About Yourself
-                  </Label>
-                  <Textarea
-                    id="message"
-                    value={formData.message}
-                    onChange={(e) =>
-                      handleInputChange("message", e.target.value)
-                    }
-                    className="min-h-18 sm:min-h-18 border-[#5B5B5B]/30 focus-visible:ring-[#0098AF] text-sm sm:text-base"
-                    placeholder="Tell us about yourself, your experience, and why you're interested in joining our team..."
-                    disabled={isSubmitting}
-                  />
-                </div> */}
-
                   {/* Consent */}
                   <div className="flex items-start space-x-3">
                     <Checkbox
@@ -422,7 +402,10 @@ const ApplicationForm = () => {
                         className="text-[#5B5B5B] text-xs sm:text-sm cursor-pointer"
                       >
                         I agree to the{" "}
-                        <a href="/privacy-policy" className="text-[#0098AF] hover:underline">
+                        <a
+                          href="/privacy-policy"
+                          className="text-[#0098AF] hover:underline"
+                        >
                           Privacy Policy
                         </a>{" "}
                         and consent to having my personal data processed for
