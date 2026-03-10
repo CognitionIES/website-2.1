@@ -1,144 +1,129 @@
 "use client";
 
-import React from "react";
-import { Card } from "@/components/ui/card";
+import React, { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import { Building2, Cpu, Wrench, Radio, Fuel } from "lucide-react";
-import { motion } from "framer-motion";
 
 const industries = [
   {
     icon: Wrench,
     name: "Engineering",
-    description:
-      "Specialized recruitment for engineering roles across mechanical, civil, electrical, and chemical disciplines.",
-    color: "#0098AF",
+    description: "Specialized recruitment for engineering roles across mechanical, civil, electrical, and chemical disciplines.",
   },
   {
     icon: Cpu,
     name: "Information Technology",
-    description:
-      "From software development and IT support to cyber security and project management, we have the expertise to match the right candidate with the right opportunity.",
-    color: "#003C46",
+    description: "From software development and IT support to cyber security and project management, we match the right candidate with the right opportunity.",
   },
   {
     icon: Fuel,
     name: "Oil & Gas",
-    description:
-      "Comprehensive staffing for upstream, midstream, and downstream operations with safety-first approach.",
-    color: "#0098AF",
+    description: "Comprehensive staffing for upstream, midstream, and downstream operations with a safety-first approach.",
   },
   {
     icon: Radio,
     name: "Telecom",
-    description:
-      "Talent solutions for telecommunications, network infrastructure, and 5G technology companies.",
-    color: "#003C46",
+    description: "Talent solutions for telecommunications, network infrastructure, and 5G technology companies.",
   },
   {
     icon: Building2,
     name: "BFSI",
-    description:
-      "From investment banking to accounting and everything in between, we have the expertise to match the right candidate with the right opportunity.",
-    color: "#0098AF",
+    description: "From investment banking to accounting and everything in between, we match the right candidate with the right opportunity.",
   },
 ];
 
 export default function IndustriesWeServe() {
+  const ref = useRef<HTMLElement>(null);
+  const isInView = useInView(ref, { once: true, amount: 0.15 });
+
   return (
     <section
-      className="py-16 sm:py-12 lg:py-16 bg-gradient-to-b from-[#FFF] to-[#E6F0F5]/60 relative overflow-hidden"
+      ref={ref}
+      className="py-20 md:py-28 bg-[#f7f8fa] dark:bg-[#0d0d14] relative overflow-hidden"
       aria-labelledby="industries-section-title"
     >
-      <div className="absolute inset-0 pointer-events-none">
+      {/* Grid texture */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[0.025] dark:opacity-[0.04]"
+        style={{
+          backgroundImage: `linear-gradient(#003C46 1px, transparent 1px), linear-gradient(90deg, #003C46 1px, transparent 1px)`,
+          backgroundSize: "64px 64px",
+        }}
+      />
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        {/* Header */}
         <motion.div
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 0.15, scale: 1 }}
-          transition={{ duration: 1.2 }}
-          className="absolute top-1/4 left-1/4 w-48 h-48 bg-[#0098AF]/20 rounded-full blur-3xl -z-10"
-        />
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.05 }}
-          transition={{ duration: 1 }}
-          className="absolute w-full h-full bg-dot-pattern bg-[length:20px_20px] opacity-[0.03]"
-        />
-      </div>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-12">
+          initial={{ opacity: 0, y: 18 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.55 }}
+          className="mb-12"
+        >
+          <p className="text-[10px] font-bold tracking-[0.22em] uppercase text-[#0098AF] mb-3">
+            Industries
+          </p>
           <h2
             id="industries-section-title"
-            className="text-2xl sm:text-3xl lg:text-4xl font-montserrat font-bold text-[#003C46]"
+            className="text-4xl md:text-[2.75rem] font-bold text-[#003C46] dark:text-white font-display leading-tight mb-4"
           >
-            Industries <span className="text-[#0098AF]">We Serve</span>
+            Industries we{" "}
+            <em className="not-italic text-[#0098AF]">serve.</em>
           </h2>
-          <p className="text-sm sm:text-base lg:text-lg font-roboto text-[#5B5B5B] mt-4 leading-relaxed">
-            Specialized recruitment expertise across key industries, delivering
-            talent solutions that drive business growth.
+          <p className="text-[15px] text-[#556677] dark:text-[#8899aa] max-w-xl leading-relaxed">
+            Specialized recruitment expertise across key industries, delivering talent solutions that drive business growth.
           </p>
-        </div>
-        <div className="space-y-8">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+        </motion.div>
+
+        {/* Cards — 3 cols top row, 2 cols bottom row centered */}
+        <div className="space-y-5">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {industries.slice(0, 3).map((industry, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <Card className="group p-6 bg-white/95 backdrop-blur-md shadow-lg border-[#003C46]/20 hover:shadow-[0_8px_20px_rgba(0,152,175,0.2)] hover:border-[#0098AF]/50 hover:scale-[1.02] transition-all duration-500 h-[220px] flex flex-col">
-                  <div className="space-y-4 flex-1">
-                    <div className="relative">
-                      <div className="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110 bg-[#0098AF]/20 group-hover:bg-[#0098AF]/30">
-                        <industry.icon
-                          size={24}
-                          style={{ color: industry.color }}
-                        />
-                      </div>
-                    </div>
-                    <h3 className="text-lg sm:text-xl font-montserrat font-bold text-[#003C46] group-hover:text-[#0098AF] transition-colors duration-300">
-                      {industry.name}
-                    </h3>
-                    <p className="text-sm sm:text-base font-roboto text-[#5B5B5B] leading-relaxed line-clamp-3">
-                      {industry.description}
-                    </p>
-                  </div>
-                </Card>
-              </motion.div>
+              <IndustryCard key={industry.name} industry={industry} index={index} isInView={isInView} />
             ))}
           </div>
-          <div className="grid md:grid-cols-2 gap-8 lg:gap-10 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-2xl mx-auto">
             {industries.slice(3).map((industry, index) => (
-              <motion.div
-                key={index + 3}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: (index + 3) * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <Card className="group p-6 bg-white/95 backdrop-blur-md shadow-lg border-[#003C46]/20 hover:shadow-[0_8px_20px_rgba(0,152,175,0.2)] hover:border-[#0098AF]/50 hover:scale-[1.02] transition-all duration-500 h-[220px] flex flex-col">
-                  <div className="space-y-4 flex-1">
-                    <div className="relative">
-                      <div className="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110 bg-[#0098AF]/20 group-hover:bg-[#0098AF]/30">
-                        <industry.icon
-                          size={24} // Changed from 32 to 24 for consistency
-                          style={{ color: industry.color }}
-                        />
-                      </div>
-                    </div>
-                    <h3 className="text-lg sm:text-xl font-montserrat font-bold text-[#003C46] group-hover:text-[#0098AF] transition-colors duration-300">
-                      {industry.name}
-                    </h3>
-                    <p className="text-sm sm:text-base font-roboto text-[#5B5B5B] leading-relaxed line-clamp-3">
-                      {industry.description}
-                    </p>
-                  </div>
-                </Card>
-              </motion.div>
+              <IndustryCard key={industry.name} industry={industry} index={index + 3} isInView={isInView} />
             ))}
           </div>
         </div>
       </div>
     </section>
+  );
+}
+
+function IndustryCard({
+  industry,
+  index,
+  isInView,
+}: {
+  industry: { icon: React.ElementType; name: string; description: string };
+  index: number;
+  isInView: boolean;
+}) {
+  const Icon = industry.icon;
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 18 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.5, delay: index * 0.07 }}
+      className="group bg-white dark:bg-[#0a0a0f] border border-[#e8eaed] dark:border-[#1e1e2e] rounded-xl p-6 hover:border-[#0098AF]/30 transition-colors duration-200 relative overflow-hidden"
+    >
+      {/* Icon */}
+      <div className="w-10 h-10 rounded-full bg-[#0098AF]/10 flex items-center justify-center mb-4 group-hover:bg-[#0098AF] transition-colors duration-200">
+        <Icon className="w-5 h-5 text-[#0098AF] group-hover:text-white transition-colors duration-200" />
+      </div>
+
+      <h3 className="text-[19px] font-semibold text-[#003C46] dark:text-white mb-2 group-hover:text-[#0098AF] font-display transition-colors duration-200">
+        {industry.name}
+      </h3>
+      <p className="text-[13px] text-[#778899] dark:text-[#6677aa] leading-relaxed">
+        {industry.description}
+      </p>
+
+      {/* Bottom accent */}
+      <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#0098AF] to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+    </motion.div>
   );
 }

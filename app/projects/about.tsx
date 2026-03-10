@@ -1,11 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-// about.tsx (ProjectsSection)
 "use client";
 
-import React from "react";
-import { motion, Variants } from "framer-motion";
-import { useIntersectionObserver } from "../../hooks/use-intersection-observer";
-import { useIsMobile } from "@/hooks/use-mobile";
+import React, { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import {
   staffingProjects,
   buildOperateProjects,
@@ -13,171 +9,143 @@ import {
 import { ProjectCard } from "./ProjectCard";
 import { Users, Settings } from "lucide-react";
 
+
+function CategoryHeader({
+  icon: Icon,
+  title,
+  subtitle,
+  isInView,
+  delay,
+}: {
+  icon: React.ElementType;
+  title: string;
+  subtitle: string;
+  isInView: boolean;
+  delay: number;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.5, delay }}
+      className="flex items-center gap-4 mb-8"
+    >
+      <div className="flex items-center gap-3 flex-shrink-0">
+        <div className="w-10 h-10 rounded-full bg-[#0098AF]/10 flex items-center justify-center group-hover:bg-[#0098AF] transition-colors duration-200">
+          <Icon className="w-5 h-5 text-[#0098AF]" />
+        </div>
+        <div>
+          <h3 className="text-[16px] font-semibold text-[#003C46] dark:text-white font-display">
+            {title}
+          </h3>
+          <p className="text-[12px] text-[#778899] dark:text-[#6677aa]">
+            {subtitle}
+          </p>
+        </div>
+      </div>
+
+      {/* Rule */}
+      <motion.div
+        className="flex-1 h-px bg-gradient-to-r from-[#0098AF]/30 to-transparent"
+        initial={{ scaleX: 0, originX: 0 }}
+        animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
+        transition={{ duration: 0.7, delay: delay + 0.15 }}
+      />
+    </motion.div>
+  );
+}
+
+// ─── ProjectsSection ──────────────────────────────────────────────────────────
+
 export function ProjectsSection() {
-  const { ref, isIntersecting } = useIntersectionObserver({
-    threshold: 0.2,
-  });
-  const isMozbile = useIsMobile();
-
-  const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { duration: 0.7, staggerChildren: 0.1 },
-    },
-  };
-
-  const headerVariants: Variants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.7, ease: "easeOut" },
-    },
-  };
-
-  const sectionVariants: Variants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.7, ease: "easeOut" },
-    },
-  };
+  const ref = useRef<HTMLElement>(null);
+  const isInView = useInView(ref, { once: true, amount: 0.1 });
 
   return (
     <section
       ref={ref}
-      className="relative py-16 sm:py-12 lg:py-16 bg-gradient-to-b from-[#F0F9FB] to-[#E6F0F5]/80 overflow-hidden"
+      className="py-20 md:py-28 bg-[#f7f8fa] dark:bg-[#0d0d14] relative overflow-hidden"
       aria-labelledby="projects-section-title"
     >
-      <div className="absolute inset-0 pointer-events-none">
+      {/* Grid texture */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[0.025] dark:opacity-[0.04]"
+        style={{
+          backgroundImage: `linear-gradient(#003C46 1px, transparent 1px), linear-gradient(90deg, #003C46 1px, transparent 1px)`,
+          backgroundSize: "64px 64px",
+        }}
+      />
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        {/* Section header */}
         <motion.div
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 0.15, scale: 1 }}
-          transition={{ duration: 1.2 }}
-          className="absolute top-1/4 left-1/4 w-48 h-48 bg-[#0098AF]/20 rounded-full blur-3xl -z-10"
-        />
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.05 }}
-          transition={{ duration: 1 }}
-          className="absolute w-full h-full bg-dot-pattern bg-[length:20px_20px] opacity-[0.03]"
-        />
-      </div>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          className="mb-12"
-          variants={containerVariants}
-          initial="hidden"
-          animate={isIntersecting ? "visible" : "hidden"}
+          initial={{ opacity: 0, y: 18 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.55 }}
+          className="mb-14"
         >
-          <span className="inline-block px-3 py-1 bg-[#0098AF]/10 text-[#0098AF] text-xs font-roboto font-medium uppercase tracking-wider rounded-full mb-4">
+          <p className="text-[10px] font-bold tracking-[0.22em] uppercase text-[#0098AF] mb-3">
             Featured Work
-          </span>
-          <motion.h2
+          </p>
+          <h2
             id="projects-section-title"
-            variants={headerVariants}
-            className="text-2xl sm:text-3xl lg:text-4xl font-montserrat font-bold text-[#003C46]"
+            className="text-4xl md:text-[2.75rem] font-bold text-[#003C46] dark:text-white font-display leading-tight mb-4"
           >
-            Our Recent <span className="text-[#0098AF]">Projects</span>
-          </motion.h2>
-          <motion.p
-            variants={headerVariants}
-            className="text-sm sm:text-base lg:text-lg font-roboto text-[#5B5B5B] mt-4 leading-relaxed max-w-7xl"
-          >
-            Explore how Cognition IES is transforming businesses through
-            <span className="text-[#0098AF] font-medium">
-              {" "}
-              Recruitment solutions
-            </span>{" "}
-            and
-            <span className="text-[#0098AF] font-medium">
-              {" "}
-              Build & Operate models
-            </span>{" "}
-            across
-            <span className="text-[#003C46] font-medium">
-              {" "}
-              IT and Engineering sectors.
-            </span>
-          </motion.p>
+            Our recent{" "}
+            <em className="not-italic text-[#0098AF]">projects.</em>
+          </h2>
+          <p className="text-[15px] text-[#556677] dark:text-[#8899aa] max-w-2xl leading-relaxed">
+            Explore how Cognition IES is transforming businesses through{" "}
+            <span className="text-[#0098AF] font-medium">recruitment solutions</span>{" "}
+            and{" "}
+            <span className="text-[#0098AF] font-medium">Build & Operate models</span>{" "}
+            across IT and engineering sectors.
+          </p>
         </motion.div>
-        <motion.div
-          className="mb-12"
-          variants={sectionVariants}
-          initial="hidden"
-          animate={isIntersecting ? "visible" : "hidden"}
-        >
-          <div className="flex items-center gap-4 mb-8">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-[#0098AF] rounded-xl flex items-center justify-center hover:bg-[#007A8C] transition-colors duration-300">
-                <Users className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h3 className="text-lg sm:text-xl font-montserrat font-bold text-[#003C46]">
-                  Recruitment & Resourcing
-                </h3>
-                <p className="text-sm font-roboto text-[#5B5B5B] font-medium">
-                  Expert talent deployment solutions
-                </p>
-              </div>
-            </div>
-            <motion.div
-              className="flex-1 h-px bg-gradient-to-r from-[#0098AF]/50 to-transparent ml-8"
-              initial={{ scaleX: 0, originX: 0 }}
-              animate={isIntersecting ? { scaleX: 1 } : { scaleX: 0 }}
-              transition={{ duration: 0.7, delay: 0.3 }}
-            />
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 lg:gap-10">
+
+        {/* Recruitment & Resourcing */}
+        <div className="mb-14">
+          <CategoryHeader
+            icon={Users}
+            title="Recruitment & Resourcing"
+            subtitle="Expert talent deployment solutions"
+            isInView={isInView}
+            delay={0.1}
+          />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
             {staffingProjects.map((project, index) => (
               <ProjectCard
                 key={project.id}
                 project={project}
                 index={index}
-                isInView={isIntersecting}
+                isInView={isInView}
               />
             ))}
           </div>
-        </motion.div>
-        <motion.div
-          variants={sectionVariants}
-          initial="hidden"
-          animate={isIntersecting ? "visible" : "hidden"}
-        >
-          <div className="flex items-center gap-4 mb-8">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-[#0098AF] rounded-xl flex items-center justify-center hover:bg-[#007A8C] transition-colors duration-300">
-                <Settings className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h3 className="text-lg sm:text-xl font-montserrat font-bold text-[#003C46]">
-                  Build & Operate
-                </h3>
-                <p className="text-sm font-roboto text-[#5B5B5B] font-medium">
-                  End-to-end solution development
-                </p>
-              </div>
-            </div>
-            <motion.div
-              className="flex-1 h-px bg-gradient-to-r from-[#0098AF]/50 to-transparent ml-8"
-              initial={{ scaleX: 0, originX: 0 }}
-              animate={isIntersecting ? { scaleX: 1 } : { scaleX: 0 }}
-              transition={{ duration: 0.7, delay: 0.3 }}
-            />
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 lg:gap-10">
+        </div>
+
+        {/* Build & Operate */}
+        <div>
+          <CategoryHeader
+            icon={Settings}
+            title="Build & Operate"
+            subtitle="End-to-end solution development"
+            isInView={isInView}
+            delay={0.2}
+          />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
             {buildOperateProjects.map((project, index) => (
               <ProjectCard
                 key={project.id}
                 project={project}
                 index={index + staffingProjects.length}
-                isInView={isIntersecting}
+                isInView={isInView}
               />
             ))}
           </div>
-        </motion.div>
+        </div>
+
       </div>
     </section>
   );

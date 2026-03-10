@@ -5,13 +5,13 @@ import { SetStateAction, useEffect, useState } from "react";
 import { heroSlides } from "@/constants/hero";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { motion } from "framer-motion";
 
 function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const isMobile = useIsMobile();
 
-  // Auto-slide with pause on hover
   useEffect(() => {
     if (isPaused) return;
     const timer = setInterval(() => {
@@ -20,18 +20,15 @@ function Hero() {
     return () => clearInterval(timer);
   }, [isPaused]);
 
-  // Navigation functions
   const goToPrevSlide = () =>
-    setCurrentSlide(
-      (prev) => (prev - 1 + heroSlides.length) % heroSlides.length
-    );
+    setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
   const goToNextSlide = () =>
     setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
   const goToSlide = (index: SetStateAction<number>) => setCurrentSlide(index);
 
   return (
     <section
-      className="relative h-[calc(100vh-4rem)] w-full overflow-hidden font-sans"
+      className="relative h-[calc(100vh-4rem)] w-full overflow-hidden"
       onMouseEnter={() => !isMobile && setIsPaused(true)}
       onMouseLeave={() => !isMobile && setIsPaused(false)}
       onTouchStart={() => isMobile && setIsPaused(true)}
@@ -43,123 +40,133 @@ function Hero() {
         <div
           key={slide.id}
           className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
-            currentSlide === index ? "opacity-100" : "opacity-0"
+            currentSlide === index ? "opacity-100" : "opacity-0 pointer-events-none"
           }`}
         >
           <Image
             src={isMobile ? slide.mobileImage : slide.image}
             alt={slide.title}
-            width={1920}
-            height={1080}
+            fill
             priority={index === 0}
             sizes="100vw"
-            className="w-full h-full object-cover brightness-90"
+            className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-[#003C46]/70 to-[#0098AF]/50" />
+
+          {/* Layered overlay matching the careers hero */}
+          <div className="absolute inset-0 bg-gradient-to-br from-[#003C46]/80 via-[#004f5e]/70 to-[#0098AF]/55" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#002930]/50 via-transparent to-transparent" />
+
+          {/* Deterministic particles — no Math.random(), no SSR mismatch */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            {[...Array(10)].map((_, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: [0, 0.3, 0], y: [0, -90] }}
+                transition={{
+                  duration: 4 + (i * 0.6) % 3,
+                  repeat: Infinity,
+                  delay: (i * 0.45) % 4,
+                }}
+                className="absolute w-1 h-1 bg-[#0098AF]/60 rounded-full"
+                style={{ left: `${10 + (i * 8.5) % 80}%`, bottom: "18%" }}
+              />
+            ))}
+          </div>
 
           {/* Text Overlay */}
           {isMobile ? (
-            <div className="absolute bottom-12 left-0 right-0 flex items-center justify-center z-10">
-              <div className="text-right text-white px-4 max-w-md">
-                <span className="inline-block py-1 px-3 bg-white/15 backdrop-blur-sm text-white text-xs uppercase tracking-widest rounded-full border border-white/10 shadow-lg">
+            <div className="absolute bottom-14 left-0 right-0 z-10 px-5">
+              <div className="text-white">
+                <span className="inline-block py-1 px-3 bg-white/10 backdrop-blur-sm text-white text-[10px] uppercase tracking-[0.18em] font-semibold rounded-full border border-white/20 mb-3">
                   {slide.majorService}
                 </span>
-                <p className="text-xs text-[#99D5DF] font-medium tracking-widest uppercase drop-shadow-sm mt-2">
+                <p className="text-[11px] text-[#0098AF] font-semibold tracking-[0.18em] uppercase mb-1">
                   {slide.subtitle}
                 </p>
-                <h1 className="text-xl font-bold mb-3 leading-tight text-white drop-shadow-lg">
+                <h1 className="text-2xl font-bold leading-tight text-white mb-2"
+                  style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}>
                   {slide.title}
                 </h1>
-                <p className="text-xs font-light leading-relaxed text-gray-100 drop-shadow-md">
+                <p className="text-[13px] font-light leading-relaxed text-white/80">
                   {slide.description}
                 </p>
-                
               </div>
             </div>
           ) : (
-            <div className="absolute bottom-8 right-8 flex items-end justify-end z-10">
-              <div className="text-right text-white px-4 sm:px-6 max-w-5xl">
-                <span className="inline-block py-1.5 px-4 bg-white/15 backdrop-blur-sm text-white text-xs uppercase tracking-widest font-semibold rounded-full border border-white/10 animate-slide-right shadow-lg">
+            <div className="absolute bottom-12 right-10 z-10 text-right max-w-2xl">
+              <motion.div
+                key={`slide-content-${index}`}
+                initial={{ opacity: 0, y: 18 }}
+                animate={currentSlide === index ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <span className="inline-block py-1.5 px-4 bg-white/10 backdrop-blur-sm text-white text-[10px] uppercase tracking-[0.2em] font-semibold rounded-full border border-white/20 mb-3">
                   {slide.majorService}
                 </span>
-                <p className="text-sm sm:text-base md:text-lg lg:text-xl text-[#99D5DF] font-medium tracking-widest uppercase drop-shadow-sm">
+                <p className="text-sm text-[#0098AF] font-semibold tracking-[0.18em] uppercase mb-1">
                   {slide.subtitle}
                 </p>
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-5 leading-tight text-white drop-shadow-lg">
+                <h1
+                  className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold leading-tight text-white mb-4"
+                  style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}
+                >
                   {slide.title}
                 </h1>
-                <p className="text-sm sm:text-base md:text-lg lg:text-xl mb-5 text-gray-100 font-light leading-relaxed drop-shadow-md">
+                <p className="text-base md:text-lg text-white/75 font-light leading-relaxed">
                   {slide.description}
                 </p>
-              </div>
+              </motion.div>
             </div>
           )}
         </div>
       ))}
 
-      {/* Navigation Arrows */}
-      {isMobile ? (
-        <>
-          <button
-            onClick={goToPrevSlide}
-            className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 p-1.5 rounded-full z-20 hover:bg-[#0098AF]/80 transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#0098AF]"
-            aria-label="Previous Slide"
-          >
-            <ChevronLeft className="text-white w-4 h-4" />
-          </button>
-          <button
-            onClick={goToNextSlide}
-            className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 p-1.5 rounded-full z-20 hover:bg-[#0098AF]/80 transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#0098AF]"
-            aria-label="Next Slide"
-          >
-            <ChevronRight className="text-white w-4 h-4" />
-          </button>
-        </>
-      ) : (
-        <>
-          <button
-            onClick={goToPrevSlide}
-            className="absolute left-6 top-1/2 -translate-y-1/2 bg-black/40 p-2 rounded-full z-20 hover:bg-[#0098AF]/70 transition-all duration-200 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-[#0098AF]"
-            aria-label="Previous Slide"
-          >
-            <ChevronLeft className="text-white w-5 h-5" />
-          </button>
-          <button
-            onClick={goToNextSlide}
-            className="absolute right-6 top-1/2 -translate-y-1/2 bg-black/40 p-2 rounded-full z-20 hover:bg-[#0098AF]/70 transition-all duration-200 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-[#0098AF]"
-            aria-label="Next Slide"
-          >
-            <ChevronRight className="text-white w-5 h-5" />
-          </button>
-        </>
-      )}
+      {/* Top accent line */}
+      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#0098AF]/50 to-transparent z-10" />
 
-      {/* Slide Indicators */}
+      {/* Navigation Arrows */}
+      <button
+        onClick={goToPrevSlide}
+        className="absolute left-4 md:left-6 top-1/2 -translate-y-1/2 z-20 w-9 h-9 md:w-10 md:h-10 rounded-full bg-black/30 hover:bg-[#0098AF]/70 border border-white/20 flex items-center justify-center transition-all duration-200"
+        aria-label="Previous Slide"
+      >
+        <ChevronLeft className="text-white w-4 h-4 md:w-5 md:h-5" />
+      </button>
+      <button
+        onClick={goToNextSlide}
+        className="absolute right-4 md:right-6 top-1/2 -translate-y-1/2 z-20 w-9 h-9 md:w-10 md:h-10 rounded-full bg-black/30 hover:bg-[#0098AF]/70 border border-white/20 flex items-center justify-center transition-all duration-200"
+        aria-label="Next Slide"
+      >
+        <ChevronRight className="text-white w-4 h-4 md:w-5 md:h-5" />
+      </button>
+
+      {/* Slide indicators — vertical on desktop, horizontal on mobile */}
       {isMobile ? (
-        <div className="absolute bottom-4 left-0 right-0 flex justify-center space-x-2 z-20">
+        <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-20">
           {heroSlides.map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`w-2 h-2 rounded-full transition-all duration-200 ${
+              className={`rounded-full transition-all duration-300 ${
                 currentSlide === index
-                  ? "bg-[#0098AF] scale-125"
-                  : "bg-white/60 hover:bg-white/90 hover:scale-110"
+                  ? "w-5 h-2 bg-[#0098AF]"
+                  : "w-2 h-2 bg-white/50 hover:bg-white/80"
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />
           ))}
         </div>
       ) : (
-        <div className="absolute bottom-8 right-8 flex flex-col space-y-2.5 z-20">
+        <div className="absolute bottom-12 right-4 flex flex-col gap-2.5 z-20">
           {heroSlides.map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`w-2 h-2 rounded-full transition-all duration-200 ${
+              className={`rounded-full transition-all duration-300 ${
                 currentSlide === index
-                  ? "bg-[#0098AF] h-5"
-                  : "bg-white/60 hover:bg-white/90 hover:scale-125"
+                  ? "w-2 h-5 bg-[#0098AF]"
+                  : "w-2 h-2 bg-white/50 hover:bg-white/80"
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />

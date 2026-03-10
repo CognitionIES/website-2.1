@@ -1,138 +1,98 @@
 import * as React from "react";
-import { motion, Variants } from "framer-motion";
-import { useIsMobile } from "../../hooks/use-mobile";
-import { ExternalLink, ChevronRight } from "lucide-react";
+import { motion } from "framer-motion";
+import { ChevronRight, ExternalLink } from "lucide-react";
 import Link from "next/link";
+import { useRef } from "react";
+import { useInView } from "framer-motion";
+
+const usefulLinks = [
+  { name: "Home", href: "/" },
+  { name: "Projects", href: "/projects" },
+  { name: "Careers", href: "/careers" },
+  { name: "About Us", href: "/about" },
+  { name: "Contact Us", href: "/contact" },
+  { name: "FAQs", href: "/faq" },
+];
+
+const services = [
+  { name: "Recruitment & Resourcing", href: "/services/recruitment-resourcing" },
+  { name: "Engineering Services", href: "/services/engineering-serivces/" },
+  { name: "SaaS Solutions", href: "/services/saas-solution/servicecpq" },
+];
+
+const ColHeading = ({ children }: { children: React.ReactNode }) => (
+  <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#0098AF] mb-4">
+    {children}
+  </p>
+);
 
 export default function UsefulLinks() {
-  const isMobile = useIsMobile();
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, amount: 0.2 });
 
-  const containerVariants: Variants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: "easeOut",
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants: Variants = {
-    hidden: { opacity: 0, x: -20 },
-    visible: {
+  const child = {
+    hidden: { opacity: 0, x: -10 },
+    visible: (i: number) => ({
       opacity: 1,
       x: 0,
-      transition: { duration: 0.5, ease: "easeOut" },
-    },
+      transition: { duration: 0.4, delay: i * 0.06, ease: "easeOut" },
+    }),
   };
-
-  const linkVariants: Variants = {
-    rest: { x: 0 },
-    hover: { x: 4 },
-  };
-
-  const Container = isMobile ? "div" : motion.div;
-
-  const usefulLinks = [
-    { name: "Home", href: "/" },
-    { name: "Projects", href: "/projects" },
-    { name: "Careers", href: "/careers" },
-    { name: "About Us", href: "/about" },
-    { name: "Contact Us", href: "/contact" },
-    { name: "FAQs", href: "/faq" },
-  ];
-
-  const services = [
-    { name: "Recruitment & Resourcing", href: "/services/recruitment-resourcing" },
-    { name: "Engineering Services", href: "/services/engineering-serivces/" },
-    { name: "SaaS Solutions", href: "/services/saas-solution/servicecpq" },
-  ];
 
   return (
-    <Container
-      {...(!isMobile && {
-        variants: containerVariants,
-        initial: "hidden",
-        whileInView: "visible",
-        viewport: { once: true, margin: "-50px" },
-      })}
-      className="grid grid-cols-1 sm:grid-cols-2 "
-    >
-      {/* Quick Links Column */}
-      <motion.div variants={!isMobile ? itemVariants : undefined}>
-        <div className="mb-6">
-          <h3 className="text-xl  font-semibold text-[#F5FDFF] ml-5 mb-2">
-            Quick Links
-          </h3>
-        </div>
+    <div ref={ref} className="grid grid-cols-1 sm:grid-cols-2 gap-8">
 
-        <ul className="space-y-3">
-          {usefulLinks.map((link) => (
+      {/* Quick Links */}
+      <div>
+        <ColHeading>Quick Links</ColHeading>
+        <ul className="space-y-2.5">
+          {usefulLinks.map((link, i) => (
             <motion.li
               key={link.name}
-              variants={!isMobile ? itemVariants : undefined}
-              whileHover="hover"
-              initial="rest"
+              custom={i}
+              variants={child}
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
             >
               <Link
                 href={link.href}
-                className="group flex items-center text-[#E6F0F5]/70 hover:text-[#99D5DF] transition-all duration-300 text-sm"
+                className="group flex items-center gap-1.5 text-[13px] text-white/55 hover:text-white transition-colors duration-200"
               >
-                <motion.div
-                  variants={linkVariants}
-                  className="flex items-center"
-                >
-                  <ChevronRight className="w-3 h-3 mr-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <span className="group-hover:font-medium transition-all text-base duration-300">
-                    {link.name}
-                  </span>
-                </motion.div>
+                <ChevronRight className="w-3 h-3 text-[#0098AF] opacity-0 group-hover:opacity-100 -ml-1 transition-all duration-200 group-hover:translate-x-0.5" />
+                {link.name}
               </Link>
             </motion.li>
           ))}
         </ul>
-      </motion.div>
+      </div>
 
-      {/* Services Column */}
-      <motion.div variants={!isMobile ? itemVariants : undefined}>
-        <div className="mb-6">
-          <h3 className="text-xl font-semibold text-[#F5FDFF] mb-2 ml-5">
-            Our Services
-          </h3>
-        </div>
-
-        <ul className="space-y-3">
-          {services.map((service) => (
+      {/* Services */}
+      <div>
+        <ColHeading>Our Services</ColHeading>
+        <ul className="space-y-2.5">
+          {services.map((service, i) => (
             <motion.li
               key={service.name}
-              variants={!isMobile ? itemVariants : undefined}
-              whileHover="hover"
-              initial="rest"
+              custom={i}
+              variants={child}
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
             >
               <Link
                 href={service.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center text-[#E6F0F5]/70 hover:text-[#0098AF] transition-all duration-300 text-sm"
+                className="group flex items-start gap-1.5 text-[13px] text-white/55 hover:text-white transition-colors duration-200"
               >
-                <motion.div
-                  variants={linkVariants}
-                  className="flex items-center"
-                >
-                  <ChevronRight className="w-3 h-3 mr-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <span className="group-hover:font-medium transition-all text-base duration-300">
-                    {service.name}
-                  </span>
-                  <ExternalLink className="w-3 h-3 ml-2 opacity-50 group-hover:opacity-100 transition-opacity duration-300" />
-                </motion.div>
+                <ChevronRight className="w-3 h-3 text-[#0098AF] opacity-0 group-hover:opacity-100 -ml-1 mt-0.5 flex-shrink-0 transition-all duration-200 group-hover:translate-x-0.5" />
+                <span>{service.name}</span>
+                <ExternalLink className="w-3 h-3 mt-0.5 flex-shrink-0 text-white/30 group-hover:text-[#0098AF] transition-colors duration-200" />
               </Link>
             </motion.li>
           ))}
         </ul>
-      </motion.div>
-    </Container>
+      </div>
+
+    </div>
   );
 }

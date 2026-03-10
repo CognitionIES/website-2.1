@@ -1,4 +1,4 @@
-"use client"; 
+"use client";
 
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -8,11 +8,11 @@ import {
   MapPin,
   Briefcase,
   Clock,
-  Building,
-  CheckCircle2,
-  ExternalLink,
+  Building2,
+  ArrowUpRight,
   Share2,
   Heart,
+  ChevronRight,
 } from "lucide-react";
 import { getJobById } from "@/data/jobs";
 import { Button } from "@/components/ui/button";
@@ -21,30 +21,40 @@ import { useEffect, useState } from "react";
 import { MegaMenu } from "@/components/ui/Megamenu/MegaMenu";
 
 interface JobDetailsProps {
-  jobId: string; // ← Receive from server prop
+  jobId: string;
 }
+
+const SectionHeading = ({ children }: { children: React.ReactNode }) => (
+  <h2
+    className="text-2xl md:text-[1.75rem] font-bold text-[#003C46] dark:text-white mb-5"
+    style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}
+  >
+    {children}
+  </h2>
+);
 
 const JobDetails = ({ jobId }: JobDetailsProps) => {
   const router = useRouter();
   const job = getJobById(jobId);
   const [isSaved, setIsSaved] = useState(false);
-const [mounted, setMounted] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  useEffect(() => { setMounted(true); }, []);
+
   if (!job) {
     return (
-      <div className="min-h-screen bg-[hsl(220_20%_99%)] dark:bg-[hsl(240_80%_4%)] flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="font-display text-3xl font-bold text-[hsl(240_80%_12%)] dark:text-[hsl(243_50%_18%)] mb-4">
-            Job Not Found
+      <div className="min-h-screen bg-white dark:bg-[#0a0a0f] flex items-center justify-center">
+        <div className="text-center px-4">
+          <p className="text-[11px] font-bold tracking-[0.2em] uppercase text-[#0098AF] mb-3">404</p>
+          <h1 className="text-3xl font-bold text-[#003C46] dark:text-white mb-3"
+            style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}>
+            Position not found
           </h1>
-          <p className="text-[hsl(0_0%_36%)] dark:text-[hsl(220_15%_65%)] mb-6">
-            The position you're looking for doesn't exist or has been removed.
+          <p className="text-[15px] text-[#778899] dark:text-[#6677aa] mb-6">
+            This role doesn't exist or has been removed.
           </p>
           <Link href="/careers">
-            <Button>
+            <Button className="bg-[#0098AF] hover:bg-[#007B8F] text-white">
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Careers
             </Button>
@@ -54,319 +64,277 @@ const [mounted, setMounted] = useState(false);
     );
   }
 
-  const handleApply = () => {
-    window.open("https://docs.google.com/forms", "_blank");
-  };
-
   const handleShare = async () => {
     if (navigator.share) {
       try {
-        await navigator.share({
-          title: `${job.title} at Cognition IES`,
-          text: job.description,
-          url: window.location.href,
-        });
-      } catch (err) {
-        console.log("Share cancelled");
-      }
+        await navigator.share({ title: `${job.title} at Cognition IES`, text: job.description, url: window.location.href });
+      } catch (_) {}
     } else {
       navigator.clipboard.writeText(window.location.href);
     }
   };
 
   return (
-    <div className="min-h-screen bg-[hsl(220_20%_99%)] dark:bg-[hsl(240_80%_4%)]">
-      {/* Hero Header */}
+    <div className="min-h-screen bg-white dark:bg-[#0a0a0f]">
       <MegaMenu />
-      <section className="bg-gradient-to-br from-[#0098af] dark:from-[#0098af] via-[#0098af]/80 dark:via-[#0098af]/80 to-[#0098af]/80 dark:to-[#0098af]/80 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0098af] dark:from-[#0098af] to-[#0098af]/90 dark:to-[#0098af]/80" />
-      
-        {/* Animated particles */}
-      <div className="absolute inset-0 overflow-hidden">
-          {[...Array(15)].map((_, i) => {
-            // On server (or pre-mount): render with safe/default values
-            // On client after mount: use real randoms
-            const left = mounted ? `${Math.random() * 100}%` : "50%";
-            const duration = mounted ? 3 + Math.random() * 2 : 5;
-            const delay = mounted ? Math.random() * 3 : 0;
 
-            return (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0 }}
-                animate={{
-                  opacity: [0, 0.2, 0],
-                  y: [-20, -100],
-                }}
-                transition={{
-                  duration,
-                  repeat: Infinity,
-                  delay,
-                }}
-                className="absolute w-1 h-1 bg-[hsl(220_20%_99%/0.3)] dark:bg-[hsl(240_80%_4%/0.3)] rounded-full"
-                style={{
-                  left,
-                  bottom: "20%",
-                }}
-              />
-            );
-          })}
+      {/* ── Hero ── */}
+      <section className="relative bg-[#003C46] overflow-hidden">
+
+        {/* Faint grid */}
+        <div
+          className="absolute inset-0 opacity-[0.06] pointer-events-none"
+          style={{
+            backgroundImage: `linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px)`,
+            backgroundSize: "64px 64px",
+          }}
+        />
+
+        {/* Glow */}
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#0098AF]/20 rounded-full blur-3xl pointer-events-none -translate-y-1/2 translate-x-1/3" />
+
+        {/* Deterministic particles */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {[...Array(12)].map((_, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: [0, 0.25, 0], y: [0, -90] }}
+              transition={{ duration: 4 + (i * 0.5) % 3, repeat: Infinity, delay: (i * 0.41) % 4 }}
+              className="absolute w-1 h-1 bg-[#0098AF]/70 rounded-full"
+              style={{ left: `${10 + (i * 7.3) % 80}%`, bottom: "15%" }}
+            />
+          ))}
         </div>
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-          {/* Back button */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-20 md:pt-16 md:pb-28">
+
+          {/* Breadcrumb */}
+          <motion.nav
+            initial={{ opacity: 0, x: -12 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.45 }}
+            className="flex items-center gap-2 text-[13px] mb-10"
           >
             <button
               onClick={() => router.push("/careers")}
-              className="inline-flex items-center gap-2 text-[hsl(220_20%_99%)] dark:text-[hsl(240_80%_4%)]/80 hover:text-[hsl(220_20%_99%)] dark:hover:text-[hsl(240_80%_4%)] transition-colors mb-8 group"
+              className="flex items-center gap-1.5 text-white/50 hover:text-white/90 transition-colors group"
             >
-              <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-              <span className="font-medium">Back to all positions</span>
+              <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-0.5" />
+              <span>Careers</span>
             </button>
-          </motion.div>
+            <ChevronRight className="w-3 h-3 text-white/25" />
+            <span className="text-[#0098AF]/90 font-medium truncate max-w-[200px]">{job.title}</span>
+          </motion.nav>
 
-          {/* Job header */}
+          {/* Badges */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            transition={{ duration: 0.5, delay: 0.05 }}
+            className="flex flex-wrap items-center gap-2 mb-4"
           >
-            <div className="flex flex-wrap items-center gap-3 mb-4">
-              <span className="px-3 py-1.5 bg-[hsl(220_20%_99%/0.1)] dark:bg-[hsl(240_80%_4%/0.1)] backdrop-blur-sm border border-[hsl(220_20%_99%/0.2)] dark:border-[hsl(240_80%_4%/0.2)] rounded-full text-[hsl(220_20%_99%)] dark:text-[hsl(240_80%_4%)] text-sm font-medium">
-                {job.department}
-              </span>
-              <span className="px-3 py-1.5 bg-[hsl(220_20%_99%/0.1)] dark:bg-[hsl(240_80%_4%/0.1)] backdrop-blur-sm border border-[hsl(220_20%_99%/0.2)] dark:border-[hsl(240_80%_4%/0.2)] rounded-full text-[hsl(220_20%_99%)] dark:text-[hsl(240_80%_4%)] text-sm font-medium">
-                {job.type}
-              </span>
-            </div>
+            <span className="text-[11px] font-semibold tracking-[0.12em] uppercase px-3 py-1 bg-white/10 border border-white/20 rounded-full text-white/80">
+              {job.department}
+            </span>
+            <span className="text-[11px] font-semibold tracking-[0.12em] uppercase px-3 py-1 bg-[#0098AF]/20 border border-[#0098AF]/30 rounded-full text-[#0098AF]">
+              {job.type}
+            </span>
+          </motion.div>
 
-            <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-[hsl(220_20%_99%)] dark:text-[hsl(240_80%_4%)] mb-6">
-              {job.title}
-            </h1>
+          {/* Title */}
+          <motion.h1
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="text-4xl sm:text-5xl md:text-[3.25rem] font-bold text-white leading-tight mb-7"
+            style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}
+          >
+            {job.title}
+          </motion.h1>
 
-            <div className="flex flex-wrap items-center gap-6 text-[hsl(220_20%_99%)] dark:text-[hsl(240_80%_4%)]/80">
-              <span className="flex items-center gap-2">
-                <MapPin className="w-5 h-5" />
-                {job.location}
-              </span>
-              <span className="flex items-center gap-2">
-                <Briefcase className="w-5 h-5" />
-                {job.experience}
-              </span>
-              <span className="flex items-center gap-2">
-                <Clock className="w-5 h-5" />
-                {job.type}
-              </span>
-              <span className="flex items-center gap-2">
-                <Building className="w-5 h-5" />
-                {job.department}
-              </span>
-            </div>
+          {/* Meta row */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="flex flex-wrap items-center gap-6 text-[14px] text-white/60"
+          >
+            <span className="flex items-center gap-2">
+              <MapPin className="w-4 h-4 text-[#0098AF]" />
+              {job.location}
+            </span>
+            <span className="flex items-center gap-2">
+              <Briefcase className="w-4 h-4 text-[#0098AF]" />
+              {job.experience}
+            </span>
+            <span className="flex items-center gap-2">
+              <Clock className="w-4 h-4 text-[#0098AF]" />
+              {job.type}
+            </span>
+            <span className="flex items-center gap-2">
+              <Building2 className="w-4 h-4 text-[#0098AF]" />
+              {job.department}
+            </span>
           </motion.div>
         </div>
 
-        {/* Wave */}
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg
-            viewBox="0 0 1440 80"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-full h-auto"
-            preserveAspectRatio="none"
-          >
-            <path
-              d="M0 80L48 73.3C96 67 192 53 288 48C384 43 480 47 576 50C672 53 768 57 864 58.3C960 60 1056 58 1152 53.3C1248 48 1344 40 1392 36.7L1440 33V80H1392C1344 80 1248 80 1152 80C1056 80 960 80 864 80C768 80 672 80 576 80C480 80 384 80 288 80C192 80 96 80 48 80H0Z"
-              className="fill-[hsl(220_20%_99%)] dark:fill-[hsl(240_80%_4%)]"
-            />
-          </svg>
-        </div>
+        {/* Bottom edge — clean diagonal cut */}
+        <div className="absolute bottom-0 left-0 right-0 h-10 bg-white dark:bg-[#0a0a0f]"
+          style={{ clipPath: "ellipse(55% 100% at 50% 100%)" }} />
       </section>
 
-      {/* Content */}
-      <section className="py-12 md:py-16">
+      {/* ── Body ── */}
+      <section className="py-14 md:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+
             {/* Main content */}
-            <div className="lg:col-span-2 space-y-10">
+            <div className="lg:col-span-2 space-y-14">
+
               {/* Description */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-              >
-                <h2 className="font-display text-2xl font-bold text-[#003C46] mb-4">
-                  About This Role
-                </h2>
-                <p className="text-[hsl(0_0%_36%)] dark:text-[hsl(220_15%_65%)] leading-relaxed text-lg">
+              <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.15 }}>
+                <SectionHeading>About This Role</SectionHeading>
+                <p className="text-[16px] text-[#556677] dark:text-[#8899aa] leading-[1.85]">
                   {job.description}
                 </p>
               </motion.div>
 
               {/* Responsibilities */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-              >
-                <h2 className="font-display text-2xl font-bold text-[#003C46]  mb-4">
-                  Responsibilities
-                </h2>
-                <ul className="space-y-3">
+              <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}>
+                <SectionHeading>Responsibilities</SectionHeading>
+                <ul className="space-y-3.5">
                   {job.responsibilities.map((item, index) => (
                     <motion.li
                       key={index}
-                      initial={{ opacity: 0, x: -10 }}
+                      initial={{ opacity: 0, x: -8 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.3, delay: 0.4 + index * 0.05 }}
-                      className="flex items-start gap-3"
+                      transition={{ duration: 0.28, delay: 0.25 + index * 0.04 }}
+                      className="flex items-start gap-3.5"
                     >
-                      <CheckCircle2 className="w-5 h-5 text-[#0098AF] mt-0.5 flex-shrink-0" />
-                      <span className="text-[hsl(0_0%_36%)] dark:text-[hsl(220_15%_65%)]">{item}</span>
+                      <span className="mt-2 w-1.5 h-1.5 rounded-full bg-[#0098AF] flex-shrink-0" />
+                      <span className="text-[15px] text-[#556677] dark:text-[#8899aa] leading-relaxed">{item}</span>
                     </motion.li>
                   ))}
                 </ul>
               </motion.div>
 
               {/* Requirements */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-              >
-                <h2 className="font-display text-2xl font-bold text-[#003C46]  mb-4">
-                  Requirements
-                </h2>
-                <ul className="space-y-3">
+              <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.25 }}>
+                <SectionHeading>Requirements</SectionHeading>
+                <ul className="space-y-3.5">
                   {job.requirements.map((item, index) => (
                     <motion.li
                       key={index}
-                      initial={{ opacity: 0, x: -10 }}
+                      initial={{ opacity: 0, x: -8 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.3, delay: 0.5 + index * 0.05 }}
-                      className="flex items-start gap-3"
+                      transition={{ duration: 0.28, delay: 0.3 + index * 0.04 }}
+                      className="flex items-start gap-3.5"
                     >
-                      <CheckCircle2 className="w-5 h-5 text-[#0098AF] mt-0.5 flex-shrink-0" />
-                      <span className="text-[hsl(0_0%_36%)] dark:text-[hsl(220_15%_65%)]">{item}</span>
+                      <span className="mt-2 w-1.5 h-1.5 rounded-full bg-[#003C46] dark:bg-white/40 flex-shrink-0" />
+                      <span className="text-[15px] text-[#556677] dark:text-[#8899aa] leading-relaxed">{item}</span>
                     </motion.li>
                   ))}
                 </ul>
               </motion.div>
 
               {/* Benefits */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.5 }}
-              >
-                <h2 className="font-display text-2xl font-bold text-[#003C46]  mb-4">
-                  What We Offer
-                </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }}>
+                <SectionHeading>What We Offer</SectionHeading>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-[#e8eaed] dark:bg-[#1e1e2e] rounded-xl overflow-hidden border border-[#e8eaed] dark:border-[#1e1e2e]">
                   {job.benefits.map((item, index) => (
                     <motion.div
                       key={index}
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.3, delay: 0.6 + index * 0.05 }}
-                      className="flex items-center gap-3 bg-[#0098AF]/5  rounded-lg p-4"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.3, delay: 0.35 + index * 0.05 }}
+                      className="flex items-center gap-3 bg-white dark:bg-[#0a0a0f] hover:bg-[#f7fbfc] dark:hover:bg-[#0098AF]/[0.04] transition-colors p-5"
                     >
-                      <CheckCircle2 className="w-5 h-5 text-[#0098AF] flex-shrink-0" />
-                      <span className="text-[hsl(240_80%_12%)] dark:text-[hsl(220_20%_95%)] font-medium">
-                        {item}
-                      </span>
+                      <span className="w-2 h-2 rounded-full bg-[#0098AF] flex-shrink-0" />
+                      <span className="text-[15px] font-medium text-[#003C46] dark:text-white">{item}</span>
                     </motion.div>
                   ))}
                 </div>
               </motion.div>
+
             </div>
 
             {/* Sidebar */}
             <div className="lg:col-span-1">
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                className="sticky top-8"
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="sticky top-8 space-y-4"
               >
-                <div className="bg-[hsl(0_0%_100%)] dark:bg-[hsl(240_60%_8%)] rounded-2xl border border-[hsl(240_20%_88%)] dark:border-[hsl(240_40%_20%)] p-6 shadow-sm">
-                  <h3 className="font-display text-lg font-semibold text-[hsl(240_80%_12%)] dark:text-[hsl(220_20%_95%)] mb-4">
-                    Interested in this role?
+
+                {/* Apply card */}
+                <div className="bg-white dark:bg-[#0d0d14] rounded-xl border border-[#e8eaed] dark:border-[#1e1e2e] p-6">
+                  <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#0098AF] mb-2">
+                    Interested?
+                  </p>
+                  <h3
+                    className="text-[1.25rem] font-bold text-[#003C46] dark:text-white mb-2"
+                    style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}
+                  >
+                    Apply for this role
                   </h3>
-                  <p className="text-sm text-[hsl(0_0%_36%)] dark:text-[hsl(220_15%_65%)] mb-6">
-                    Apply now and take the next step in your career journey with
-                    us.
+                  <p className="text-[14px] text-[#778899] dark:text-[#6677aa] mb-5 leading-relaxed">
+                    Take the next step in your career. We'd love to hear from you.
                   </p>
 
-                  <Button
-                    onClick={handleApply}
-                    className="w-full mb-3 bg-[#0098AF] hover:bg-[#007B8F] text-white  h-12 text-base font-medium"
-                  >
-                    Apply Now
-                    <ExternalLink className="w-4 h-4 ml-2" />
-                  </Button>
+                  <Link href="https://forms.gle/pFKFAJcqepA4jr9V7">
+                    <Button className="w-full h-11 text-[15px] font-semibold bg-[#0098AF] hover:bg-[#007B8F] text-white rounded-lg mb-3">
+                      Apply Now
+                      <ArrowUpRight className="w-4 h-4 ml-2" />
+                    </Button>
+                  </Link>
 
                   <div className="flex gap-3">
                     <Button
                       variant="outline"
                       onClick={() => setIsSaved(!isSaved)}
-                      className={`flex-1 ${isSaved ? "border-[#0098AF] dark:border-[#0098AF] text-[#0098AF] dark:text-[#0098AF]" : "border-[hsl(240_20%_88%)] dark:border-[hsl(240_40%_20%)]"}`}
+                      className={`flex-1 h-10 text-[14px] rounded-lg border-[#e8eaed] dark:border-[#1e1e2e] ${isSaved ? "border-[#0098AF] text-[#0098AF]" : "text-[#778899]"} hover:border-[#0098AF] hover:text-[#0098AF] transition-colors`}
                     >
-                      <Heart
-                        className={`w-4 h-4 mr-2 ${isSaved ? "fill-[#0098AF] dark:fill-[#0098AF]" : ""}`}
-                      />
+                      <Heart className={`w-4 h-4 mr-2 ${isSaved ? "fill-[#0098AF]" : ""}`} />
                       {isSaved ? "Saved" : "Save"}
                     </Button>
                     <Button
                       variant="outline"
                       onClick={handleShare}
-                      className="flex-1"
+                      className="flex-1 h-10 text-[14px] rounded-lg border-[#e8eaed] dark:border-[#1e1e2e] text-[#778899] hover:border-[#0098AF] hover:text-[#0098AF] transition-colors"
                     >
                       <Share2 className="w-4 h-4 mr-2" />
                       Share
                     </Button>
                   </div>
+                </div>
 
-                  <div className="mt-6 pt-6 border-t border-[#DFDFEE] dark:border-[hsl(240_40%_20%)]">
-                    <h4 className="font-medium text-[hsl(240_80%_12%)] dark:text-[hsl(220_20%_95%)] mb-3">
+                {/* Quick info card */}
+                <div className="bg-[#f7f8fa] dark:bg-[#0d0d14] rounded-xl border border-[#e8eaed] dark:border-[#1e1e2e] overflow-hidden">
+                  <div className="px-5 py-3.5 border-b border-[#e8eaed] dark:border-[#1e1e2e]">
+                    <p className="text-[11px] font-bold tracking-[0.15em] uppercase text-[#aabbcc]">
                       Quick Info
-                    </h4>
-                    <div className="space-y-3 text-sm">
-                      <div className="flex justify-between">
-                        <span className="text-[#5C5C5C]">
-                          Department
-                        </span>
-                        <span className="font-medium text-[#003C46]">
-                          {job.department}
-                        </span>
+                    </p>
+                  </div>
+                  <div className="divide-y divide-[#e8eaed] dark:divide-[#1e1e2e]">
+                    {[
+                      { label: "Department", value: job.department },
+                      { label: "Location", value: job.location },
+                      { label: "Experience", value: job.experience },
+                      { label: "Job Type", value: job.type },
+                    ].map(({ label, value }) => (
+                      <div key={label} className="flex justify-between items-center px-5 py-3.5">
+                        <span className="text-[13px] text-[#778899] dark:text-[#6677aa]">{label}</span>
+                        <span className="text-[13px] font-semibold text-[#003C46] dark:text-white">{value}</span>
                       </div>
-                      <div className="flex justify-between">
-                        <span className="text-[#5C5C5C]">Location</span>
-                        <span className="font-medium text-[#003C46]">
-                          {job.location}
-                        </span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-[#5C5C5C]">
-                          Experience
-                        </span>
-                        <span className="font-medium text-[#003C46]">
-                          {job.experience}
-                        </span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-[#5C5C5C]">Job Type</span>
-                        <span className="font-medium text-[#003C46]">
-                          {job.type}
-                        </span>
-                      </div>
-                    </div>
+                    ))}
                   </div>
                 </div>
+
               </motion.div>
             </div>
+
           </div>
         </div>
       </section>

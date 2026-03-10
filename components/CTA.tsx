@@ -1,18 +1,18 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Calendar } from "lucide-react";
 import Link from "next/link";
 import { PROJECTS_PAGE_CONSTANTS } from "@/constants/project/home";
 
 export default function CTASection() {
-  const [isInView, setIsInView] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const hasAnimated = useRef(false);
+  const [isInView, setIsInView] = useState(false);
 
   useEffect(() => {
+    const el = sectionRef.current;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !hasAnimated.current) {
@@ -22,74 +22,59 @@ export default function CTASection() {
       },
       { threshold: 0.2 }
     );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-    };
+    if (el) observer.observe(el);
+    return () => { if (el) observer.unobserve(el); };
   }, []);
 
   return (
     <section
       ref={sectionRef}
-      className="relative py-16 bg-gradient-to-r from-[#007B8F] to-[#0098AF] text-[#F5FDFF] overflow-hidden"
+      className="relative py-20 md:py-24 bg-[#003C46] overflow-hidden"
       aria-labelledby="cta-section-title"
     >
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          initial={{ opacity: 0, scale: 0 }}
-          whileInView={{ opacity: 0.2, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.2 }}
-          className="absolute top-10 left-10 w-48 h-48 bg-[#F5FDFF]/20 rounded-full blur-3xl -z-10"
-        />
-        <motion.div
-          initial={{ opacity: 0, scale: 0 }}
-          whileInView={{ opacity: 0.15, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.5 }}
-          className="absolute bottom-10 right-10 w-56 h-56 bg-[#F5FDFF]/15 rounded-full blur-3xl -z-10"
-        />
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 0.05 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1 }}
-          className="absolute w-full h-full bg-dot-pattern bg-[length:20px_20px] opacity-[0.03]"
-        />
-      </div>
+      {/* Grid texture */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[0.07]"
+        style={{
+          backgroundImage: `linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)`,
+          backgroundSize: "64px 64px",
+        }}
+      />
+
+      {/* Glow blobs — static, no repeating animation */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-[#0098AF]/20 rounded-full blur-3xl pointer-events-none -translate-y-1/2 translate-x-1/3" />
+      <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#0098AF]/10 rounded-full blur-3xl pointer-events-none translate-y-1/3 -translate-x-1/4" />
+
+      {/* Accent top line */}
+      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#0098AF]/60 to-transparent" />
+
       <motion.div
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
+        className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10"
         initial={{ opacity: 0, y: 20 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-        transition={{ duration: 0.7, ease: "easeOut" }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
       >
+        <p className="text-[10px] font-bold tracking-[0.22em] uppercase text-[#0098AF] mb-4">
+          Let's Work Together
+        </p>
         <h2
           id="cta-section-title"
-          className="text-3xl md:text-4xl lg:text-5xl font-bold font-montserrat mb-6 leading-tight"
+          className="text-4xl md:text-5xl font-bold text-white leading-tight mb-5"
+          style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}
         >
           {PROJECTS_PAGE_CONSTANTS.CTA.TITLE}
         </h2>
-        <p className="text-base md:text-lg font-roboto text-white/80 mb-8 leading-relaxed max-w-4xl mx-auto">
+        <p className="text-[15px] md:text-[16px] text-white/65 leading-relaxed max-w-2xl mx-auto mb-9">
           {PROJECTS_PAGE_CONSTANTS.CTA.DESCRIPTION}
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <Link href="/contact">
-            <button className="group relative overflow-hidden px-8 py-3 bg-white text-[#0098AF] rounded-xl font-medium font-roboto transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-              <span className="relative z-10 flex items-center gap-2">
-                <Calendar className="h-5 w-5" />
-                {PROJECTS_PAGE_CONSTANTS.CTA.BUTTON}
-                <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
-              </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-[#F5FDFF] to-[#E6F0F5] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-            </button>
-          </Link>
-        </div>
+
+        <Link href="/contact">
+          <button className="group relative inline-flex items-center gap-2 px-7 py-3 bg-[#0098AF] hover:bg-[#007B8F] text-white text-[15px] font-semibold rounded-lg transition-colors duration-200">
+            <Calendar className="w-4 h-4" />
+            {PROJECTS_PAGE_CONSTANTS.CTA.BUTTON}
+            <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+          </button>
+        </Link>
       </motion.div>
     </section>
   );

@@ -13,13 +13,19 @@ export default {
   ],
   theme: {
     extend: {
+      // ─── Typography ──────────────────────────────────────────────────────────
       fontFamily: {
-        calibri: ["Calibri", "sans-serif"], // Adding Calibri
+        // font-sans  → Inter (body, UI, labels — everything by default)
+        sans: ["var(--font-inter)", "ui-sans-serif", "system-ui", "sans-serif"],
+        // font-display → DM Serif Display (headings ONLY)
+        // Usage in components: className="font-display"
+        // Replaces all:  style={{ fontFamily: "'DM Serif Display'..." }}
+        display: ["var(--font-dm-serif)", "Georgia", "serif"],
+        // Legacy alias — maps old font-calibri refs to Inter
+        calibri: ["var(--font-inter)", "sans-serif"],
       },
-      filter: {
-        "teal-900":
-          "invert(20%) sepia(50%) saturate(500%) hue-rotate(160deg) brightness(40%) contrast(120%)",
-      },
+
+      // ─── Colors ──────────────────────────────────────────────────────────────
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
@@ -61,49 +67,24 @@ export default {
           "4": "hsl(var(--chart-4))",
           "5": "hsl(var(--chart-5))",
         },
+        brand: {
+          primary: "#0098af",
+          "primary-hover": "#007B8F",
+          dark: "#003C46",
+          secondary: "#5b5b5b",
+          light: "#E6F0F5",
+          accent: "#00b4d8",
+        },
       },
+
+      // ─── Border radius ───────────────────────────────────────────────────────
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
-      careers: {
-        primary: "#0098AF",
-        secondary: "#003C46",
-        accent: "#99D5DF",
-        muted: "#5B5B5B",
-        light: "#F5FDFF",
-        "primary-hover": "#007B8F",
-      },
-      brand: {
-        primary: "#0098af",
-        secondary: "#5b5b5b",
-        dark: "#003C46",
-        light: "#E6F0F5",
-        accent: "#00b4d8",
-      },
-      keyframes: {
-        "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
-        },
-        "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
-        },
-      },
-      animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-      },
+
+      // ─── Background gradients ────────────────────────────────────────────────
       backgroundImage: {
         "frosty-minimalist":
           "linear-gradient(to bottom, #F5FDFF 0%, rgba(153, 213, 223, 0.3) 100%)",
@@ -113,19 +94,38 @@ export default {
         "icy-neutral":
           "linear-gradient(to bottom right, #F5FDFF 0%, rgba(153, 213, 223, 0.5) 50%, rgba(91, 91, 91, 0.2) 100%)",
       },
+
+      // ─── Keyframes & animations ──────────────────────────────────────────────
+      keyframes: {
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
+      },
+
+      filter: {
+        "teal-900":
+          "invert(20%) sepia(50%) saturate(500%) hue-rotate(160deg) brightness(40%) contrast(120%)",
+      },
     },
   },
   // eslint-disable-next-line @typescript-eslint/no-require-imports
   plugins: [require("tailwindcss-animate"), addVariablesForColors],
 } satisfies Config;
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function addVariablesForColors({ addBase, theme }: any) {
   const allColors = flattenColorPalette(theme("colors"));
   const newVars = Object.fromEntries(
     Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
   );
-
-  addBase({
-    ":root": newVars,
-  });
+  addBase({ ":root": newVars });
 }

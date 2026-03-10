@@ -1,132 +1,105 @@
 "use client";
+
 import { ABOUT_CONSTANTS } from "@/constants/home/about";
 import Image from "next/image";
-import { useEffect, useRef } from "react";
-import { motion, useInView, useAnimation, Variants } from "framer-motion";
+import { useRef } from "react";
+import { motion, useInView, easeOut } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const AboutUs = () => {
   const sectionRef = useRef<HTMLElement>(null);
-  const controls = useAnimation();
-  const isInView = useInView(sectionRef, { amount: 0.2, once: true });
   const isMobile = useIsMobile();
+  // once: true — animates only the first time it enters view
+  const isInView = useInView(sectionRef, { amount: 0.2, once: true });
 
-  useEffect(() => {
-    if (isInView) {
-      controls.start("visible");
-    }
-  }, [isInView, controls]);
-
-  // Variants for text content (staggered children with fade-in)
-  const containerVariants = {
+  const container = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
-      },
+      transition: { staggerChildren: 0.15, delayChildren: 0.1 },
     },
   };
 
-  const childVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.7, ease: "easeOut" as const },
-    },
+  const child = {
+    hidden: { opacity: 0, y: 18 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: easeOut } },
   };
 
-  const imageVariants: Variants = {
-    hidden: { opacity: 0, x: 50 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: { duration: 0.8, ease: "easeOut", delay: 0.5 },
-    },
-  };
-
-  const circleVariants: Variants = {
-    hidden: { scale: 0.8, opacity: 0 },
-    visible: {
-      scale: 1,
-      opacity: 0.04,
-      transition: { duration: 1.2, ease: "easeOut" },
-    },
+  const imageAnim = {
+    hidden: { opacity: 0, x: isMobile ? 0 : 40 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.75, ease: easeOut, delay: 0.2 } },
   };
 
   return (
     <section
       ref={sectionRef}
-      className="w-full py-16 sm:py-12 lg:py-16 relative"
+      className="w-full py-20 md:py-28 bg-white dark:bg-[#0a0a0f] relative overflow-hidden"
     >
-      {/* Subtle background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          className="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-[#0098af] blur-3xl"
-          variants={circleVariants}
-          initial="hidden"
-          animate={controls}
-        />
-        <motion.div
-          className="absolute bottom-10 left-10 w-40 h-40 rounded-full bg-[#0098af] blur-3xl"
-          variants={circleVariants}
-          initial="hidden"
-          animate={controls}
-        />
-        <div className="absolute w-full h-full bg-dot-pattern bg-[length:20px_20px] opacity-[0.02]" />
-      </div>
+      {/* Faint grid */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[0.02] dark:opacity-[0.035]"
+        style={{
+          backgroundImage: `linear-gradient(#003C46 1px, transparent 1px), linear-gradient(90deg, #003C46 1px, transparent 1px)`,
+          backgroundSize: "64px 64px",
+        }}
+      />
 
-      <div className="max-w-7xl mx-auto  px-4 sm:px-6 lg:px-8">
-        <motion.h2
-          className={`text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-[#003C46] ${
-            isMobile ? "text-center" : "text-justify"
-          }`}
-          variants={childVariants}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+
+        {/* Section label + heading */}
+        <motion.div
+          variants={container}
           initial="hidden"
-          animate={controls}
+          animate={isInView ? "visible" : "hidden"}
+          className={`mb-10 ${isMobile ? "text-center" : ""}`}
         >
-          {ABOUT_CONSTANTS.TITLE}
-        </motion.h2>
-        <motion.div
-          className={`w-[80px] sm:w-[100px] h-[3px] bg-gradient-to-r from-[#0098af] to-transparent rounded-full mt-1 ${
-            isMobile ? "mx-auto" : ""
-          }`}
-          variants={childVariants}
-          initial="hidden"
-          animate={controls}
-        />
-
-        <div className="grid grid-cols-1 mt-6 md:grid-cols-[1fr_auto] items-start gap-10 md:gap-8 max-w-7xl mx-auto">
-          {/* Text content */}
+          <motion.p variants={child} className="text-[10px] font-bold tracking-[0.22em] uppercase text-[#0098AF] mb-3">
+            About Us
+          </motion.p>
+          <motion.h2
+            variants={child}
+            className="text-3xl md:text-4xl font-bold text-[#003C46] dark:text-white leading-tight"
+            style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}
+          >
+            {ABOUT_CONSTANTS.TITLE}
+          </motion.h2>
           <motion.div
-            className="order-2 mt-4 md:order-1"
-            variants={containerVariants}
+            variants={child}
+            className={`mt-2 w-16 h-[3px] bg-gradient-to-r from-[#0098AF] to-transparent rounded-full ${isMobile ? "mx-auto" : ""}`}
+          />
+        </motion.div>
+
+        {/* Content grid */}
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] items-start gap-10 md:gap-12">
+
+          {/* Text */}
+          <motion.div
+            variants={container}
             initial="hidden"
-            animate={controls}
+            animate={isInView ? "visible" : "hidden"}
+            className="order-2 md:order-1 space-y-4"
           >
             <motion.p
-              className="text-sm sm:text-base md:text-lg text-justify text-gray-600 leading-relaxed"
-              variants={childVariants}
+              variants={child}
+              className="text-[15px] md:text-[16px] text-[#556677] dark:text-[#8899aa] leading-[1.85]"
             >
               {ABOUT_CONSTANTS.DESCRIPTION_1}
             </motion.p>
             <motion.h3
-              className="text-lg sm:text-xl font-semibold py-2 text-justify text-[#003c46]"
-              variants={childVariants}
+              variants={child}
+              className="text-[17px] md:text-lg font-semibold text-[#003C46] dark:text-white"
             >
               {ABOUT_CONSTANTS.SUBTITLE}
             </motion.h3>
             <motion.p
-              className="text-sm sm:text-base md:text-lg text-justify text-gray-600 leading-relaxed"
-              variants={childVariants}
+              variants={child}
+              className="text-[15px] md:text-[16px] text-[#556677] dark:text-[#8899aa] leading-[1.85]"
             >
               {ABOUT_CONSTANTS.DESCRIPTION_2}
             </motion.p>
             <motion.p
-              className="text-lg sm:text-xl font-semibold py-2 text-justify text-[#003c46]"
-              variants={childVariants}
+              variants={child}
+              className="text-[17px] md:text-lg font-semibold text-[#003C46] dark:text-white"
             >
               {ABOUT_CONSTANTS.DESCRIPTION_3}
             </motion.p>
@@ -134,20 +107,18 @@ const AboutUs = () => {
 
           {/* Image */}
           <motion.div
-            className={`order-1 md:order-2 relative ${
-              isMobile
-                ? "w-full h-[200px] sm:h-[250px]"
-                : "md:h-[400px] md:w-[555px]"
-            } rounded-xl shadow-md overflow-hidden justify-self-end`}
-            variants={imageVariants}
+            variants={imageAnim}
             initial="hidden"
-            animate={controls}
+            animate={isInView ? "visible" : "hidden"}
+            className={`order-1 md:order-2 relative rounded-xl overflow-hidden shadow-sm border border-[#e8eaed] dark:border-[#1e1e2e] ${
+              isMobile ? "w-full h-[200px] sm:h-[260px]" : "md:h-[400px] md:w-[540px]"
+            }`}
           >
             <Image
               src={ABOUT_CONSTANTS.IMAGE}
               alt="Team collaboration"
               fill
-              className="w-full h-full object-cover"
+              className="object-cover"
             />
           </motion.div>
         </div>

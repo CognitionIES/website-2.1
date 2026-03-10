@@ -1,13 +1,18 @@
 import { jobs } from "@/data/jobs";
-import JobDetails from "./JobDetails";  
+import JobDetails from "./JobDetails";
 
 export async function generateStaticParams() {
   return jobs.map((job) => ({
-    jobId: job.id,  // ← Pre-builds pages like /careers/electrical-automation-engineer
+    jobId: job.id,
   }));
 }
 
-// Default export: Pass params to the client component
-export default function JobDetailsPage({ params }: { params: { jobId: string } }) {
-  return <JobDetails jobId={params.jobId} />;  // ← Pass jobId as prop (no client hooks here!)
+// Next.js 15: params must be awaited before accessing properties
+export default async function JobDetailsPage({
+  params,
+}: {
+  params: Promise<{ jobId: string }>;
+}) {
+  const { jobId } = await params;
+  return <JobDetails jobId={jobId} />;
 }

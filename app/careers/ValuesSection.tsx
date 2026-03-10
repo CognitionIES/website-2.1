@@ -1,91 +1,79 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
-import { motion, Variants } from "framer-motion";
+import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { CAREERS_CONSTANTS } from "@/constants/careersPage/constants";
 
-export default function AboutSection() {
+export default function ValuesSection() {
   const { ITEMS } = CAREERS_CONSTANTS.VALUES;
   const [isInView, setIsInView] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
-  const { CARD_HOVER } = CAREERS_CONSTANTS.ANIMATIONS;
+  const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsInView(entry.isIntersecting);
-      },
-      {
-        threshold: 0.2,
-        rootMargin: "0px 0px -20% 0px",
-      }
+      ([entry]) => setIsInView(entry.isIntersecting),
+      { threshold: 0.15, rootMargin: "0px 0px -15% 0px" },
     );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
+    if (sectionRef.current) observer.observe(sectionRef.current);
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
+      if (sectionRef.current) observer.unobserve(sectionRef.current);
     };
   }, []);
 
-  const contentVariants: Variants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: "easeInOut",
-      },
-    },
-  };
   return (
-    <div className="py-8 sm:py-12 lg:py-16">
-      <section
-        ref={sectionRef}
-        className="w-full py-4 sm:py-8 lg:py-4 sm:h-[620px] relative bg-[#0098af]/10 rounded-xl"
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="text-center mb-4">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#003C46] relative drop-shadow-md text-center">
-              Our Values
-            </h2>
-          </div>
+    <div ref={sectionRef} className="py-10 sm:py-14 lg:py-16">
 
+      {/* Header */}
+      <motion.div
+        initial={{ opacity: 0, y: 18 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        className="mb-8"
+      >
+        <p className="text-[10px] font-bold tracking-[0.22em] uppercase text-[#0098AF] mb-3">
+          What Drives Us
+        </p>
+        <h2
+          className="text-3xl md:text-4xl font-bold text-[#003C46] dark:text-white"
+          style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}
+        >
+          Our <em className="not-italic text-[#0098AF]">values.</em>
+        </h2>
+      </motion.div>
+
+      {/* Values list */}
+      <div className="space-y-0 divide-y divide-[#e8eaed] dark:divide-[#1e1e2e] border-y border-[#e8eaed] dark:border-[#1e1e2e]">
+        {ITEMS.map((value, index) => (
           <motion.div
-            variants={contentVariants}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-            className="items-center"
+            key={index}
+            initial={{ opacity: 0, x: -12 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -12 }}
+            transition={{
+              duration: 0.45,
+              delay: 0.1 + index * 0.08,
+              ease: "easeOut",
+            }}
+            className="group py-5 hover:bg-[#0098AF]/[0.03] dark:hover:bg-[#0098AF]/[0.05] px-2 rounded-lg transition-colors duration-200 cursor-default"
           >
-            <div className="grid md:grid-cols-1 gap-4">
-              {ITEMS.map((value, index) => (
-                <motion.div
-                  key={index}
-                  variants={CARD_HOVER}
-                  initial="rest"
-                  whileHover="hover"
-                  className="bg-white p-4 rounded-lg border border-[#0098AF]/10 shadow-sm"
-                >
-                  <div className="grid md:grid-cols-1 gap-1">
-                    <div className="text-xl font-bold text-[#5B5B5B] mb-2 hover:text-[#0098AF] transition-colors duration-200">
-                      {value.title}
-                    </div>
-                    <div className="text-sm sm:text-base leading-relaxed text-gray-600">
-                      {value.description}
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
+            {/* Number + title row */}
+            <div className="flex items-start gap-3 mb-1.5">
+              <span className="text-[11px] font-bold tracking-[0.12em] text-[#0098AF]/50 tabular-nums mt-0.5 w-5 shrink-0">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <h3 className="text-[15px] font-semibold text-[#003C46] dark:text-white group-hover:text-[#0098AF] transition-colors duration-200 leading-snug">
+                {value.title}
+              </h3>
             </div>
+
+            {/* Description */}
+            <p className="text-[13px] text-[#778899] dark:text-[#6677aa] leading-relaxed pl-8">
+              {value.description}
+            </p>
           </motion.div>
-        </div>
-      </section>
+        ))}
+      </div>
+
     </div>
   );
 }

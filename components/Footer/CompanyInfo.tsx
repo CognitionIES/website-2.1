@@ -1,95 +1,67 @@
-import { motion, Variants } from "framer-motion";
+import { motion } from "framer-motion";
 import { FOOTER_CONSTANTS } from "../../constants/footer/constants";
-import { useIsMobile } from "../../hooks/use-mobile";
 import Image from "next/image";
+import { useRef } from "react";
+import { useInView } from "framer-motion";
 
 export default function CompanyInfo() {
   const { DESCRIPTION, iamge } = FOOTER_CONSTANTS.COMPANY;
-  const isMobile = useIsMobile();
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, amount: 0.2 });
 
-  const containerVariants: Variants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
+  const child = {
+    hidden: { opacity: 0, y: 16 },
+    visible: (i: number) => ({
       opacity: 1,
       y: 0,
-      transition: {
-        duration: 0.8,
-        ease: "easeOut",
-        staggerChildren: 0.2,
-      },
-    },
+      transition: { duration: 0.55, delay: i * 0.1, ease: "easeOut" },
+    }),
   };
-
-  const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
-    },
-  };
-
-  const Container = isMobile ? "div" : motion.div;
 
   return (
-    <Container
-      {...(!isMobile && {
-        variants: containerVariants,
-        initial: "hidden",
-        whileInView: "visible",
-        viewport: { once: true, margin: "-50px" },
-      })}
-      className="space-y-6"
-    >
-      {/* Company Logo */}
+    <div ref={ref} className="space-y-6">
+
+      {/* Logo */}
       <motion.div
-        variants={!isMobile ? itemVariants : undefined}
-        className="flex items-center justify-center lg:justify-start"
+        custom={0}
+        variants={child}
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
       >
-        <div className="relative">
-          <Image
-            src={iamge}
-            alt="Cognition IES Logo"
-            width={380}
-            height={80}
-            className="filter brightness-110"
-            priority
-          />
-          {/* Subtle glow effect */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#99D5DF]/20 to-[#0098AF]/20 blur-xl -z-10 opacity-50" />
-        </div>
+        <Image
+          src={iamge}
+          alt="Cognition IES"
+          width={220}
+          height={52}
+          className="brightness-110"
+          priority
+        />
       </motion.div>
 
-      {/* Company Description */}
-      <motion.div
-        variants={!isMobile ? itemVariants : undefined}
-        className="flex text-justify mr-20"
+      {/* Description */}
+      <motion.p
+        custom={1}
+        variants={child}
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+        className="text-[14px] text-white/60 leading-[1.85] max-w-sm"
       >
-        <p className="text-[#E6F0F5]/80 max-w-xl mx-auto text-sm sm:text-base leading-relaxed font-light">
-          {" "}
-          {DESCRIPTION}
-        </p>
+        {DESCRIPTION}
+      </motion.p>
+
+      {/* Decorative line */}
+      <motion.div
+        custom={2}
+        variants={child}
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+        className="flex items-center gap-3"
+      >
+        <div className="h-px w-16 bg-gradient-to-r from-[#0098AF] to-transparent" />
+        <div className="w-1.5 h-1.5 rounded-full bg-[#0098AF]/60" />
+        <div className="w-1.5 h-1.5 rounded-full bg-[#0098AF]/30" />
       </motion.div>
 
-      {/* Decorative Elements */}
-      {!isMobile && (
-        <motion.div
-          variants={itemVariants}
-          className="flex items-center space-x-4"
-        >
-          <motion.div
-            initial={{ width: 0 }}
-            whileInView={{ width: "60%" }}
-            transition={{ delay: 1, duration: 1.2, ease: "easeOut" }}
-            className="h-0.5 bg-gradient-to-r from-[#99D5DF] via-[#0098AF] to-transparent rounded-full"
-          />
-          <div className="flex space-x-2">
-            <div className="w-2 h-2 bg-[#99D5DF] rounded-full opacity-60" />
-            <div className="w-2 h-2 bg-[#0098AF] rounded-full opacity-40" />
-            <div className="w-2 h-2 bg-[#007B8F] rounded-full opacity-20" />
-          </div>
-        </motion.div>
-      )}
-    </Container>
+    </div>
   );
 }

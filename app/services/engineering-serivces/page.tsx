@@ -1,4 +1,5 @@
 "use client";
+
 import HeroSection from "./HeroSection";
 import { AboutSection } from "./AboutSection";
 import { ServicesIntro } from "./ServicesIntro";
@@ -10,7 +11,7 @@ import CTASection from "./CTASection";
 
 const Index = () => {
   return (
-    <div className="min-h-screen ">
+    <div className="w-full bg-white dark:bg-[#0a0a0f]">
       <MegaMenu />
       <HeroSection />
       <AboutSection />

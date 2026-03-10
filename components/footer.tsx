@@ -1,79 +1,68 @@
 "use client";
+
 import React from "react";
 import CompanyInfo from "./Footer/CompanyInfo";
 import UsefulLinks from "./Footer/UsefulLinks";
 import SocialConnect from "./Footer/SocialConnect";
 import Link from "next/link";
-import { motion } from "framer-motion";
-//import Newsletter from "./Footer/Newsletter";
 
 export default function Footer() {
   return (
-    <footer className=" bg-gradient-to-br from-[#003C46] via-[#003C46] to-[#007B8F] text-[#F5FDFF] relative overflow-hidden">
-      {/* Background decorative elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          whileInView={{ opacity: 0.1, scale: 1 }}
-          transition={{ delay: 0.3, duration: 1.2 }}
-          viewport={{ once: true }}
-          className="absolute -top-20 -left-20 w-80 h-80 bg-[#99D5DF] rounded-full blur-3xl"
-        />
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          whileInView={{ opacity: 0.08, scale: 1 }}
-          transition={{ delay: 0.5, duration: 1.2 }}
-          viewport={{ once: true }}
-          className="absolute -bottom-32 -right-32 w-96 h-96 bg-[#0098AF] rounded-full blur-3xl"
-        />
+    <footer className="bg-[#003C46] text-[#F5FDFF] relative overflow-hidden">
+
+      {/* Grid texture — same as other dark sections */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[0.06]"
+        style={{
+          backgroundImage: `linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)`,
+          backgroundSize: "64px 64px",
+        }}
+      />
+
+      {/* Soft glow — top right only, static */}
+      <div className="absolute top-0 right-0 w-[480px] h-[480px] bg-[#0098AF]/15 rounded-full blur-3xl pointer-events-none -translate-y-1/2 translate-x-1/3" />
+
+      {/* Top accent line */}
+      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#0098AF]/50 to-transparent" />
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12">
+
+          {/* Company info */}
+          <div className="lg:col-span-5">
+            <CompanyInfo />
+          </div>
+
+          {/* Links */}
+          <div className="lg:col-span-4">
+            <UsefulLinks />
+          </div>
+
+          {/* Social / CTA */}
+          <div className="lg:col-span-3">
+            <SocialConnect />
+          </div>
+
+        </div>
       </div>
 
-      <div className="relative pt-8">
-        {/* Main footer content */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
-            {/* Company Info - Takes more space on desktop */}
-            <div className="lg:col-span-5">
-              <CompanyInfo />
-            </div>
-
-            {/* Links Section */}
-            <div className="lg:col-span-4">
-              <UsefulLinks />
-            </div>
-
-            {/* Newsletter & Social */}
-            <div className="lg:col-span-3 space-y-8">
-              <SocialConnect />
-            </div>
+      {/* Bottom bar */}
+      <div className="relative border-t border-white/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-3">
+            <p className="text-[13px] text-white/50 font-light">
+              © {new Date().getFullYear()} Cognition IES. All rights reserved.
+            </p>
+            <Link
+              href="/privacy"
+              className="text-[13px] text-white/50 hover:text-[#0098AF] transition-colors duration-200"
+            >
+              Privacy Policy
+            </Link>
           </div>
         </div>
-
-        {/* Bottom bar */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.8, duration: 0.6 }}
-          viewport={{ once: true }}
-          className="border-t border-[#007B8F]/30 bg-[#003C46]/50 backdrop-blur-sm"
-        >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
-              <p className="text-sm text-[#E6F0F5]/70 font-light">
-                © 2025 Cognition IES. All rights reserved.
-              </p>
-              <div className="flex items-center space-x-6 text-sm text-[#E6F0F5]/70">
-                <motion.div
-                  whileHover={{ color: "#99D5DF" }}
-                  className="hover:text-[#99D5DF] transition-colors duration-200"
-                >
-                  <Link href="/privacy">Privacy Policy</Link>
-                </motion.div>
-              </div>
-            </div>
-          </div>
-        </motion.div>
       </div>
+
     </footer>
   );
 }

@@ -2,34 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
+/* ─────────────────────────────────────────────────────────────────────────────
+   Brand tokens (raw CSS vars — used outside Tailwind where needed)
+   ───────────────────────────────────────────────────────────────────────────── */
 :root {
-  /* Brand Colors - Use sparingly */
-  --primary: #0098af; /* Your logo teal - CTAs only */
-  --primary-hover: #007a8c; /* Darker teal - hover states */
-  --primary-light: #e6f7fa; /* Tint - backgrounds */
+  --primary: #0098af;
+  --primary-hover: #007a8c;
+  --primary-light: #e6f7fa;
 
-  /* Neutrals - Use 90% of the time */
-  --neutral-950: #1a1a1a; /* Headings */
-  --neutral-900: #2d2d2d; /* Body text */
-  --neutral-700: #5b5b5b; /* Your logo gray - secondary text */
-  --neutral-400: #9ca3af; /* Disabled states */
-  --neutral-200: #e5e7eb; /* Borders */
-  --neutral-100: #f3f4f6; /* Subtle backgrounds */
-  --neutral-50: #f9fafb; /* Section backgrounds */
+  --neutral-950: #1a1a1a;
+  --neutral-900: #2d2d2d;
+  --neutral-700: #5b5b5b;
+  --neutral-400: #9ca3af;
+  --neutral-200: #e5e7eb;
+  --neutral-100: #f3f4f6;
+  --neutral-50: #f9fafb;
 
-  /* Semantic Colors */
   --success: #10b981;
   --warning: #f59e0b;
   --error: #ef4444;
 
-  /* Backgrounds */
   --bg-primary: #ffffff;
-  --bg-secondary: #f9fafb; /* Very subtle gray */
-  --bg-accent: #e6f7fa; /* Teal tint - use rarely */
+  --bg-secondary: #f9fafb;
+  --bg-accent: #e6f7fa;
 }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   shadcn/ui tokens
+   ───────────────────────────────────────────────────────────────────────────── */
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -58,6 +58,7 @@ body {
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
   }
+
   .dark {
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
@@ -86,24 +87,72 @@ body {
   }
 }
 
+/* ─────────────────────────────────────────────────────────────────────────────
+   Base resets & font wiring
+   ───────────────────────────────────────────────────────────────────────────── */
 @layer base {
   * {
     @apply border-border;
   }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
-    @apply bg-background text-foreground;
+    /* font-sans = Inter (via tailwind.config fontFamily.sans) */
+    @apply bg-background text-foreground font-sans;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
-  * {
-    font-family: Calibri, sans-serif;
+
+  /*
+    Headings default to DM Serif Display (font-display).
+    Individual components can override with font-sans if needed.
+  */
+  h1, h2, h3, h4 {
+    @apply font-display;
   }
+
+  /* Ensure interactive / body elements always use Inter */
+  p, li, span, label, input, textarea, button, a, select {
+    @apply font-sans;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Component utilities
+   ───────────────────────────────────────────────────────────────────────────── */
+@layer components {
   .section-title {
-    @apply text-3xl sm:text-4xl lg:text-5xl font-bold text-[#003C46] relative mb-2;
+    @apply font-display text-3xl sm:text-4xl lg:text-5xl font-normal text-[#003C46] mb-2;
   }
 
   .section-subtitle {
-    @apply text-lg text-[#5b5b5b] mb-12 max-w-2xl mx-auto;
+    @apply font-sans text-lg text-[#5b5b5b] mb-12 max-w-2xl mx-auto;
+  }
+
+  .card-hover {
+    @apply transition-all duration-200 hover:border-[#0098AF]/30;
+  }
+
+  .line-indicator {
+    @apply absolute bottom-0 left-0 w-12 h-0.5 bg-gradient-to-r from-[#0098af] to-transparent;
+  }
+
+  .glass-morphism {
+    @apply backdrop-blur-xl bg-white/10 border border-white/20 shadow-lg;
+  }
+
+  .subCategoryLink {
+    @apply font-sans text-base font-normal tracking-wide leading-snug;
   }
 }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Gradient text
+   ───────────────────────────────────────────────────────────────────────────── */
 .gradient-text {
   background-clip: text;
   -webkit-background-clip: text;
@@ -117,28 +166,4 @@ body {
 
 .employer-gradient-text {
   background-image: linear-gradient(120deg, #e6f0f5, #00b4d8, #0098af);
-}
-@layer components {
-  .glass-morphism {
-    @apply backdrop-blur-xl bg-white/10 border border-white/20 shadow-lg;
-  }
-
-  .card-hover {
-    @apply transition-all duration-300 hover:shadow-md hover:-translate-y-1;
-  }
-
-  .line-indicator {
-    @apply absolute bottom-0 left-0 w-12 h-0.5 bg-gradient-to-r from-[#0098af] to-transparent;
-  }
-
-  .section-title {
-    @apply text-3xl sm:text-4xl lg:text-5xl font-bold text-[#003C46] relative mb-2;
-  }
-
-  .section-subtitle {
-    @apply text-lg text-[#5b5b5b] mb-12 max-w-2xl mx-auto;
-  }
-}
-.subCategoryLink {
-  @apply text-base font-normal tracking-wide leading-snug;
 }

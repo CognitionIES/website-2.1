@@ -1,95 +1,64 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
-import { Button } from "@/components/ui/button";
+import { useRef } from "react";
+import { useInView } from "framer-motion";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 export default function CTASection() {
-  const [isInView, setIsInView] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
-  const hasAnimated = useRef(false); // Track if animation has run
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasAnimated.current) {
-          setIsInView(true);
-          hasAnimated.current = true; // Set to true after first view
-        }
-      },
-      { threshold: 0.2 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-    };
-  }, []);
+  const ref = useRef<HTMLElement>(null);
+  const isInView = useInView(ref, { once: true, amount: 0.3 });
 
   return (
-    <div>
-      <section
-        ref={sectionRef}
-        className="w-full relative bg-gradient-to-b from-[#F5FDFF] to-[#99D5DF]/30"
+    <section
+      ref={ref}
+      className="relative py-20 md:py-24 bg-[#003C46] overflow-hidden"
+      aria-labelledby="cta-title"
+    >
+      {/* Grid texture */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[0.07]"
+        style={{
+          backgroundImage: `linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)`,
+          backgroundSize: "64px 64px",
+        }}
+      />
+
+      {/* Glow blobs — static */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-[#0098AF]/20 rounded-full blur-3xl pointer-events-none -translate-y-1/2 translate-x-1/3" />
+      <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#0098AF]/10 rounded-full blur-3xl pointer-events-none translate-y-1/3 -translate-x-1/4" />
+
+      {/* Top accent line */}
+      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#0098AF]/60 to-transparent" />
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+        className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          {/* Add content here if needed */}
-        </div>
-      </section>
-      <section className="w-full py-12 sm:py-14 lg:py-22 bg-gradient-to-r from-[#007B8F] to-[#0098AF] text-white relative overflow-hidden">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.7, delay: 0.4, ease: "easeOut" }}
-          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10"
+        <p className="text-[10px] font-bold tracking-[0.22em] uppercase text-[#0098AF] mb-4">
+          Partner With Us
+        </p>
+        <h2
+          id="cta-title"
+          className="text-4xl md:text-5xl font-bold text-white font-display leading-tight mb-5"
         >
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.7, delay: 0.5, ease: "easeOut" }}
-            className="text-2xl sm:text-4xl lg:text-5xl font-bold mb-6 drop-shadow-md"
-          >
-            Ready to Transform Your Hiring?
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.7, delay: 0.6, ease: "easeOut" }}
-            className="text-sm sm:text-lg lg:text-xl mb-8 max-w-3xl mx-auto leading-relaxed"
-          >
-            Join hundreds of companies who trust us with their most important
-            hiring decisions.
-          </motion.p>
-          <Link href="/contact">
-            <Button className="group bg-white text-[#0098AF] rounded-lg border-2 border-[#003C46]/20 hover:border-[#0098af]/50 hover:bg-[#F5FDFF] hover:shadow-lg hover:scale-[1.02] transition-all duration-500 text-lg px-8 py-3 w-fit font-semibold">
-              Get Started
-            </Button>
-          </Link>
-        </motion.div>
-        <motion.div
-          initial={{ opacity: 0, scale: 0 }}
-          animate={
-            isInView ? { opacity: 0.1, scale: 1 } : { opacity: 0, scale: 0 }
-          }
-          transition={{ delay: 0.7, duration: 1, ease: "easeOut" }}
-          className="absolute bottom-1/3 left-1/3 w-64 h-64 bg-[#0098AF] opacity-10 rounded-full blur-3xl -z-10"
-        />
-        <motion.div
-          initial={{ opacity: 0, scale: 0 }}
-          animate={
-            isInView ? { opacity: 0.1, scale: 1 } : { opacity: 0, scale: 0 }
-          }
-          transition={{ delay: 0.9, duration: 1, ease: "easeOut" }}
-          className="absolute top-1/4 right-1/4 w-48 h-48 bg-[#003C46] opacity-10 rounded-full blur-3xl -z-10"
-        />
-      </section>
-    </div>
+          Ready to transform{" "}
+          <em className="not-italic text-[#0098AF]">your hiring?</em>
+        </h2>
+        <p className="text-[15px] md:text-[16px] text-white/65 leading-relaxed max-w-2xl mx-auto mb-9">
+          Join hundreds of companies who trust us with their most important hiring decisions.
+        </p>
+
+        <Link href="/contact">
+          <button className="group inline-flex items-center gap-2 px-7 py-3 bg-[#0098AF] hover:bg-[#007B8F] text-white text-[15px] font-semibold rounded-lg transition-colors duration-200">
+            Get Started
+            <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+          </button>
+        </Link>
+      </motion.div>
+    </section>
   );
 }

@@ -1,9 +1,11 @@
-import { motion, useAnimation } from "framer-motion";
-import { useState, useEffect } from "react";
+"use client";
+
+import { motion, useAnimation, useInView } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import type { StaticImageData } from "next/image";
 
-// Import logo images (unchanged)
+// ─── Logo imports (unchanged) ──────────────────────────────────────────────────
 import AI_logo from "@/constants/images/software-logo/AI_logo.jpg";
 import altairHyperWorks_logo from "@/constants/images/software-logo/altairHyperWorks_logo.jpg";
 import AltiumDesigner_logo from "@/constants/images/software-logo/AltiumDesigner_logo.jpg";
@@ -136,172 +138,110 @@ const softwareLogos = [
   { name: "Windchill", logo: windchill_logo },
 ];
 
-const LogoCard = ({
-  software,
-  index,
-}: {
-  software: { name: string; logo: StaticImageData };
-  index: number;
-}) => {
-  return (
-    <motion.div
-      className="flex-shrink-0 bg-white rounded-2xl p-6 mx-4"
-      style={{
-        boxShadow: "0 4px 20px -2px hsla(185, 100%, 34%, 0.08)",
-        border: "1px solid hsla(186, 67%, 85%, 0.5)",
-      }}
-      whileHover={{
-        scale: 1.05,
-        y: -5,
-        boxShadow: "0 20px 60px -10px hsla(185, 100%, 34%, 0.25)",
-      }}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.1 }}
-    >
-      <div className="flex flex-col items-center space-y-3 min-w-[120px]">
+// ─── LogoCard ─────────────────────────────────────────────────────────────────
+
+const LogoCard = ({ software }: { software: { name: string; logo: StaticImageData } }) => (
+  <div className="flex-shrink-0 bg-white dark:bg-[#0d0d14] border border-[#e8eaed] dark:border-[#1e1e2e] rounded-xl p-4 mx-2.5 hover:border-[#0098AF]/30 transition-colors duration-200 group">
+    <div className="flex flex-col items-center gap-2.5 min-w-[100px]">
+      <div className="w-12 h-12 flex items-center justify-center">
         <Image
           src={software.logo}
           alt={`${software.name} logo`}
-          className="w-16 h-16 object-contain"
+          className="w-full h-full object-contain grayscale group-hover:grayscale-0 transition-all duration-200 opacity-70 group-hover:opacity-100"
         />
-        <h4
-          className="text-sm font-semibold text-center"
-          style={{ color: "hsl(184, 31%, 36%)" }}
-        >
-          {software.name}
-        </h4>
       </div>
-    </motion.div>
-  );
-};
+      <p className="text-[11px] font-medium text-center text-[#778899] dark:text-[#6677aa] group-hover:text-[#003C46] dark:group-hover:text-white transition-colors duration-200 leading-tight">
+        {software.name}
+      </p>
+    </div>
+  </div>
+);
+
+// ─── SoftwareCarousel (exported) ──────────────────────────────────────────────
 
 export const SoftwareCarousel = () => {
+  const ref = useRef<HTMLElement>(null);
+  const isInView = useInView(ref, { once: true, amount: 0.2 });
   const [isHovered, setIsHovered] = useState(false);
   const controls = useAnimation();
 
-  // Calculate the total width of one set of logos (assuming each card is ~160px wide with margins)
-  const logoWidth = 60  ; // Approximate width of each card (120px min-w + 2 * 16px padding + 2 * 8px margin)
-  const totalWidth = softwareLogos.length * logoWidth;
+  // Split into two rows
+  const midpoint = Math.ceil(softwareLogos.length / 2);
+  const row1 = softwareLogos.slice(0, midpoint);
+  const row2 = softwareLogos.slice(midpoint);
+
+  const cardWidth = 140; // min-w 100 + 2*px-4 + 2*mx-2.5
+  const row1Width = row1.length * cardWidth;
+  const row2Width = row2.length * cardWidth;
+
+  const controls1 = useAnimation();
+  const controls2 = useAnimation();
 
   useEffect(() => {
     if (!isHovered) {
-      controls.start({
-        x: [0, -totalWidth],
-        transition: {
-          x: {
-            repeat: Infinity,
-            repeatType: "loop",
-            duration: softwareLogos.length * 0.5, // Adjust speed based on number of logos
-            ease: "linear",
-          },
-        },
-      });
+      controls1.start({ x: [0, -row1Width], transition: { duration: row1.length * 1.8, repeat: Infinity, ease: "linear", repeatType: "loop" } });
+      controls2.start({ x: [-row2Width, 0], transition: { duration: row2.length * 1.8, repeat: Infinity, ease: "linear", repeatType: "loop" } });
     } else {
-      controls.stop();
+      controls1.stop();
+      controls2.stop();
     }
-  }, [isHovered, controls, totalWidth]);
+  }, [isHovered]);
+
+  const child = {
+    hidden: { opacity: 0, y: 18 },
+    visible: (i: number) => ({ opacity: 1, y: 0, transition: { duration: 0.55, delay: i * 0.1 } }),
+  };
 
   return (
-    <section
-      className="relative py-16 sm:py-20 lg:py-16 overflow-hidden"
-      style={{
-        backgroundImage:
-          "linear-gradient(to bottom right, hsl(196, 100%, 98%), hsla(195, 17%, 86%, 0.10), hsla(185, 100%, 28%, 0.05))",
-      }}
-    >
-      {/* Layered background gradients */}
+    <section ref={ref} className="py-20 md:py-28 bg-white dark:bg-[#0a0a0f] relative overflow-hidden">
+
+      {/* Grid texture */}
       <div
-        className="absolute inset-0 opacity-30"
+        className="absolute inset-0 pointer-events-none opacity-[0.02] dark:opacity-[0.035]"
         style={{
-          backgroundImage:
-            "linear-gradient(135deg, hsla(180, 8%, 91%, 1.00), hsl(185, 100%, 28%))",
-        }}
-      />
-      <div
-        className="absolute top-1/4 left-0 w-1/2 h-1/2 opacity-5 rounded-full blur-3xl"
-        style={{
-          backgroundImage:
-            "linear-gradient(135deg, hsl(185, 100%, 34%), hsl(185, 100%, 28%))",
-        }}
-      />
-      <div
-        className="absolute bottom-1/4 right-0 w-1/3 h-1/3 opacity-10 rounded-full blur-2xl"
-        style={{
-          backgroundImage:
-            "linear-gradient(135deg, hsl(185, 100%, 28%), hsl(185, 100%, 28%))",
+          backgroundImage: `linear-gradient(#003C46 1px, transparent 1px), linear-gradient(90deg, #003C46 1px, transparent 1px)`,
+          backgroundSize: "64px 64px",
         }}
       />
 
-      <div className="relative z-10 container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-8">
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="text-3xl lg:text-4xl font-bold mb-4"
-            style={{ color: "hsl(184, 31%, 36%)" }}
-          >
-            Advanced Software{" "}
-            <span
-              className="text-transparent bg-clip-text"
-              style={{
-                backgroundImage:
-                  "linear-gradient(135deg, hsl(185, 100%, 34%), hsl(185, 100%, 28%))",
-              }}
-            >
-              & Tools
-            </span>
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-lg max-w-7xl mx-auto"
-            style={{ color: "hsl(184, 31%, 36%)" }}
-          >
-            We leverage industry-leading software and cutting-edge tools to
-            deliver exceptional engineering solutions
-          </motion.p>
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+        <motion.p custom={0} variants={child} initial="hidden" animate={isInView ? "visible" : "hidden"}
+          className="text-[10px] font-bold tracking-[0.22em] uppercase text-[#0098AF] mb-3">
+          Tools & Software
+        </motion.p>
+        <motion.h2 custom={1} variants={child} initial="hidden" animate={isInView ? "visible" : "hidden"}
+          className="text-4xl md:text-[2.75rem] font-bold text-[#003C46] dark:text-white font-display leading-tight mb-3">
+          Advanced software{" "}
+          <em className="not-italic text-[#0098AF]">&amp; tools.</em>
+        </motion.h2>
+        <motion.p custom={2} variants={child} initial="hidden" animate={isInView ? "visible" : "hidden"}
+          className="text-[15px] text-[#556677] dark:text-[#8899aa] max-w-xl leading-relaxed">
+          We leverage industry-leading software and cutting-edge tools to deliver exceptional engineering solutions.
+        </motion.p>
+      </div>
+
+      {/* Two-row marquee */}
+      <div
+        className="space-y-4"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        {/* Row 1 — left to right */}
+        <div className="relative overflow-hidden">
+          <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white dark:from-[#0a0a0f] to-transparent pointer-events-none z-10" />
+          <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-white dark:from-[#0a0a0f] to-transparent pointer-events-none z-10" />
+          <motion.div className="flex" animate={controls1} style={{ width: `${row1Width * 2}px` }}>
+            {[...row1, ...row1].map((s, i) => <LogoCard key={`r1-${s.name}-${i}`} software={s} />)}
+          </motion.div>
         </div>
 
-        {/* Infinite Scrolling Carousel */}
-        <div
-          className="relative overflow-hidden"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
-          <div className="flex">
-            <motion.div className="flex" animate={controls}>
-              {[...softwareLogos, ...softwareLogos, ...softwareLogos].map(
-                (software, index) => (
-                  <LogoCard
-                    key={`${software.name}-${index}`}
-                    software={software}
-                    index={index % softwareLogos.length}
-                  />
-                )
-              )}
-            </motion.div>
-          </div>
-
-          {/* Gradient Overlays for smooth fade effect */}
-          <div
-            className="absolute left-0 top-0 bottom-0 w-32 pointer-events-none z-10"
-            style={{
-              backgroundImage:
-                "linear-gradient(to right, hsl(196, 100%, 98%), transparent)",
-            }}
-          />
-          <div
-            className="absolute right-0 top-0 bottom-0 w-32 pointer-events-none z-10"
-            style={{
-              backgroundImage:
-                "linear-gradient(to left, hsl(196, 100%, 98%), transparent)",
-            }}
-          />
+        {/* Row 2 — right to left */}
+        <div className="relative overflow-hidden">
+          <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white dark:from-[#0a0a0f] to-transparent pointer-events-none z-10" />
+          <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-white dark:from-[#0a0a0f] to-transparent pointer-events-none z-10" />
+          <motion.div className="flex" animate={controls2} style={{ width: `${row2Width * 2}px` }}>
+            {[...row2, ...row2].map((s, i) => <LogoCard key={`r2-${s.name}-${i}`} software={s} />)}
+          </motion.div>
         </div>
       </div>
     </section>
