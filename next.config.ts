@@ -8,25 +8,19 @@ const nextConfig = {
   assetPrefix: isProd ? "" : "",
 
   images: {
-    domains: [
-      "images.unsplash.com",
-      "upload.wikimedia.org",
-      "plus.unsplash.com",
-    ],
     unoptimized: true,
-  },
-
-  eslint: {
-    // ❌ Skip linting during build (use CI/local separately)
-    ignoreDuringBuilds: true,
+    remotePatterns: [
+      { protocol: "https", hostname: "images.unsplash.com" },
+      { protocol: "https", hostname: "upload.wikimedia.org" },
+      { protocol: "https", hostname: "plus.unsplash.com" },
+    ],
   },
 
   typescript: {
-    // ❌ Skip type-checking during build
     ignoreBuildErrors: true,
   },
 
-  webpack(config) {
+  webpack(config: any) {
     config.module.rules.push({
       test: /\.(mp4|webm|ogg)$/,
       use: {
