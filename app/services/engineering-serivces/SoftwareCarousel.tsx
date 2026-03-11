@@ -28,7 +28,7 @@ import DSCatia_logo from "@/constants/images/software-logo/DSCatia_logo.png";
 import DSSolidWorks_logo from "@/constants/images/software-logo/DSSolidWorks_logo.jpg";
 import Enovia_logo from "@/constants/images/software-logo/Enovia_logo.jpg";
 import eplan_logo from "@/constants/images/software-logo/eplan_logo.png";
-import festoFluidSIM_logo from "@/constants/images/software-logo/festoFluidSIM_logo.png";
+//import festoFluidSIM_logo from "@/constants/images/software-logo/festoFluidSIM_logo.png";
 import figma_logo from "@/constants/images/software-logo/figma_logo.png";
 import FM_logo from "@/constants/images/software-logo/FM_logo.png";
 import formLabs_logo from "@/constants/images/software-logo/formLabs_logo.png";
@@ -58,7 +58,7 @@ import rh_logo from "@/constants/images/software-logo/rh_logo.png";
 import sap_logo from "@/constants/images/software-logo/sap_logo.jpg";
 import sapAnalyticsCloud_logo from "@/constants/images/software-logo/sapAnalyticsCloud_logo.png";
 import sapEAM_logo from "@/constants/images/software-logo/sapEAM_logo.jpg";
-import SiemensNX_logo from "@/constants/images/software-logo/SiemensNX_logo.png";
+//import SiemensNX_logo from "@/constants/images/software-logo/SiemensNX_logo.png";
 import simbuliaAbaqus_logo from "@/constants/images/software-logo/simbulaAbaqus_logo.png";
 import simplify3d_logo from "@/constants/images/software-logo/simplify3d_logo.png";
 import smartCAM_logo from "@/constants/images/software-logo/smartCAM_logo.png";
@@ -94,7 +94,7 @@ const softwareLogos = [
   { name: "SolidWorks", logo: DSSolidWorks_logo },
   { name: "Enovia", logo: Enovia_logo },
   { name: "EPLAN", logo: eplan_logo },
-  { name: "Festo FluidSIM", logo: festoFluidSIM_logo },
+  //{ name: "Festo FluidSIM", logo: festoFluidSIM_logo },
   { name: "Figma", logo: figma_logo },
   { name: "FrameMaker", logo: FM_logo },
   { name: "FormLabs", logo: formLabs_logo },
@@ -124,7 +124,7 @@ const softwareLogos = [
   { name: "SAP", logo: sap_logo },
   { name: "SAP Analytics Cloud", logo: sapAnalyticsCloud_logo },
   { name: "SAP EAM", logo: sapEAM_logo },
-  { name: "Siemens NX", logo: SiemensNX_logo },
+ // { name: "Siemens NX", logo: SiemensNX_logo },
   { name: "Simulia Abaqus", logo: simbuliaAbaqus_logo },
   { name: "Simplify3D", logo: simplify3d_logo },
   { name: "SmartCAM", logo: smartCAM_logo },

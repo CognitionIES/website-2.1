@@ -20,7 +20,7 @@ import DSCatia from "@/constants/images/Company_logo/DSCatia_logo.png";
 import DSSolidWorks from "@/constants/images/Company_logo/DSSolidWorks_logo.jpg";
 import Enovia from "@/constants/images/Company_logo/Enovia_logo.jpg";
 import eplan from "@/constants/images/Company_logo/eplan_logo.png";
-import festoFluidSim from "@/constants/images/software-logo/festoFluidSIM_logo.png";
+//import festoFluidSim from "@/constants/images/software-logo/festoFluidSIM_logo.png";
 import figma from "@/constants/images/Company_logo/figma_logo.png";
 import FM from "@/constants/images/Company_logo/FM_logo.png";
 import formLabs from "@/constants/images/Company_logo/formLabs_logo.png";
@@ -45,7 +45,7 @@ import qnx from "@/constants/images/Company_logo/qnx_logo.png";
 import rh from "@/constants/images/Company_logo/rh_logo.png";
 import sapAnalyticsCloud from "@/constants/images/Company_logo/sapAnalyticsCloud_logo.png";
 import sapEAM from "@/constants/images/Company_logo/sapEAM_logo.jpg";
-import SiemensNX from "@/constants/images/Company_logo/SiemensNX_Logo.png";
+//import SiemensNX from "@/constants/images/Company_logo/SiemensNX_Logo.png";
 import simulaAbaqus from "@/constants/images/Company_logo/simbulaAbaqus_logo.png";
 import simplify3d from "@/constants/images/Company_logo/simplify3d_logo.png";
 import smartCAM from "@/constants/images/Company_logo/smartCAM_logo.png";
@@ -91,7 +91,7 @@ const logo = {
     DSSolidWorks,
     Enovia,
     eplan,
-    festoFluidSim,
+   // festoFluidSim,
     figma,
     FM,
     formLabs,
@@ -117,7 +117,7 @@ const logo = {
     rh,
     sapAnalyticsCloud,
     sapEAM,
-    SiemensNX,
+   // SiemensNX,
     simulaAbaqus,
     simplify3d,
     smartCAM,
