@@ -20,7 +20,7 @@ import DSCatia from "@/constants/images/Company_logo/DSCatia_logo.png";
 import DSSolidWorks from "@/constants/images/Company_logo/DSSolidWorks_logo.jpg";
 import Enovia from "@/constants/images/Company_logo/Enovia_logo.jpg";
 import eplan from "@/constants/images/Company_logo/eplan_logo.png";
-import festoFluidSim from "@/constants/images/Company_logo/festoFluidSim_logo.png";
+import festoFluidSim from "@/constants/images/software-logo/festoFluidSIM_logo.png";
 import figma from "@/constants/images/Company_logo/figma_logo.png";
 import FM from "@/constants/images/Company_logo/FM_logo.png";
 import formLabs from "@/constants/images/Company_logo/formLabs_logo.png";
