@@ -13,7 +13,7 @@ export default function Hero() {
     <section>
       <div className="relative h-[450px] overflow-hidden">
         <Image
-          src={IMAGES.HERO_IMAGE.HeroImage}
+          src={IMAGES.HERO_IMAGE}
           alt="Plant Engineering Hero Image"
           fill
           className="object-cover"

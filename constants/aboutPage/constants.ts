@@ -10,8 +10,8 @@ import statsImage from "@/constants/images/about/stats.jpg";
 export const ABOUT_CONSTANTS = {
   // Image URLs
   IMAGES: {
-    HERO_IMAGE: { HeroImage },
-    STORY_IMAGE: { OurJourneyImage },
+    HERO_IMAGE: HeroImage,
+    STORY_IMAGE: OurJourneyImage,
     MISSION_VISION_BG: missionVisionImage,
     TECH_PATTERN: statsImage,
     KEY_VALUES: [
