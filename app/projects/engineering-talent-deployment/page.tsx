@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
-import React, { useState, useEffect } from "react";
+
+import React, { useRef } from "react";
 import {
   ChevronRight,
   Home,
@@ -16,931 +16,940 @@ import {
   Zap,
   Shield,
   Target,
+  ArrowDown,
 } from "lucide-react";
 import Image from "next/image";
 import { MegaMenu } from "@/components/ui/Megamenu/MegaMenu";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import Footer from "@/components/footer";
 import heroImage from "@/constants/images/hero/pexels-edmond-dantes-8068878.jpg";
 import aboutImage from "@/constants/images/projects/it/about.jpg";
 import objectiveImage from "@/constants/images/projects/it/objective.jpg";
 import overviewImage from "@/constants/images/projects/it/overview.jpg";
-import KeyResults from "./KeyResults";
 
-const useIntersectionObserver = (threshold = 0.1) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [ref, setRef] = useState<Element | null>(null);
+// ─── Shared helpers ───────────────────────────────────────────────────────────
 
-  useEffect(() => {
-    if (!ref) return;
+const Grid = ({ light = false }: { light?: boolean }) => (
+  <div
+    className={`absolute inset-0 pointer-events-none ${light ? "opacity-[0.025]" : "opacity-[0.06]"}`}
+    style={{
+      backgroundImage: `linear-gradient(${light ? "#003C46" : "rgba(255,255,255,0.3)"} 1px, transparent 1px), linear-gradient(90deg, ${light ? "#003C46" : "rgba(255,255,255,0.3)"} 1px, transparent 1px)`,
+      backgroundSize: "64px 64px",
+    }}
+  />
+);
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(ref);
-        }
-      },
-      { threshold, rootMargin: "0px 0px -50px 0px" }
-    );
+const SectionLabel = ({ children }: { children: React.ReactNode }) => (
+  <p className="text-[10px] font-bold tracking-[0.22em] uppercase text-[#0098AF] mb-3">
+    {children}
+  </p>
+);
 
-    observer.observe(ref);
-    return () => observer.disconnect();
-  }, [ref, threshold]);
+const SectionHeading = ({ children }: { children: React.ReactNode }) => (
+  <h2 className="text-4xl md:text-[2.75rem] font-bold text-[#003C46] dark:text-white font-display leading-tight mb-4">
+    {children}
+  </h2>
+);
 
-  return [setRef, isVisible] as const;
-};
+// ─── Hero ─────────────────────────────────────────────────────────────────────
 
 const Hero = () => {
-  const [setRef, isVisible] = useIntersectionObserver(0.1);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const ref = useRef<HTMLElement>(null);
+  const isInView = useInView(ref, { once: true, amount: 0.1 });
 
   return (
     <section
-      ref={setRef}
-      className="relative h-[500px] overflow-hidden"
-      style={{
-        backgroundImage: `url(${heroImage.src})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundAttachment: "fixed",
-      }}
+      ref={ref}
+      className="relative h-[480px] md:h-[520px] overflow-hidden"
     >
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#003C46]/75 to-[#0098AF]/65" />
+      <Image
+        src={heroImage}
+        alt="Engineering Talent Deployment"
+        fill
+        className="object-cover"
+        priority
+      />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#003C46]/85 via-[#004f5e]/75 to-[#0098AF]/60" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#002930]/50 via-transparent to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#0098AF]/50 to-transparent" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 lg:px-8 h-full flex flex-col justify-center">
-        <div className="relative z-20 h-full flex flex-col justify-center">
-          {/* Breadcrumb Navigation */}
-          <motion.nav
-            className="absolute bottom-8 flex items-center space-x-2 text-sm text-white/70"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.9, ease: "easeOut" }}
-          >
-            <Link
-              href="/"
-              className="hover:text-blue-300 flex items-center gap-1.5 transition-colors duration-300"
-            >
-              <Home className="w-4 h-4" />
-              <span className="font-medium">Home</span>
-            </Link>
-            <ChevronRight className="w-3.5 h-3.5" />
-            <Link
-              href="/projects"
-              className="hover:text-blue-300 transition-colors duration-300"
-            >
-              <span className="text-blue-200 font-medium">Projects</span>
-            </Link>
-            <ChevronRight className="w-3.5 h-3.5" />
-            <Link
-              href="/projects/it-talent-deployment"
-              className="hover:text-blue-300 transition-colors duration-300"
-            >
-              <span className="text-blue-200 font-medium">
-                Engineering Talent Deployment
-              </span>
-            </Link>
-          </motion.nav>
-
-          {/* Hero Content */}
-          <div className="space-y-8">
-            <div className="space-y-6">
-              {/* Main Heading */}
-              <motion.div
-                className="relative"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-              >
-                <h1 className="text-5xl md:text-6xl lg:text-7xl text-white font-bold tracking-tight leading-tight">
-                  <span className="text-white">
-                    {" "}
-                    Engineering Talent Deployment
-                  </span>
-                </h1>
-                <motion.div
-                  className="absolute -bottom-2 left-1 w-32 h-1 bg-gradient-to-r from-[#60a5fa] to-transparent rounded-full"
-                  initial={{ width: 0 }}
-                  animate={{ width: 128 }}
-                  transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
-                />
-              </motion.div>
-
-              {/* Subtitle */}
-              <motion.p
-                className="text-xl md:text-2xl text-white/90 max-w-3xl leading-relaxed"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-              >
-                Strategic staffing solution for engineering teams across
-                multiple disciplines.
-              </motion.p>
-            </div>
-          </div>
-        </div>
-
-        {/* Subtle Floating Particles */}
-        {[...Array(12)].map((_, i) => (
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {[...Array(10)].map((_, i) => (
           <motion.div
             key={i}
             initial={{ opacity: 0 }}
-            animate={{
-              opacity: [0, 0.4, 0],
-              y: [0, -120],
-              x: [0, Math.random() * 150 - 75],
-            }}
+            animate={{ opacity: [0, 0.25, 0], y: [0, -80] }}
             transition={{
-              duration: 5 + Math.random() * 3,
+              duration: 4 + ((i * 0.5) % 3),
               repeat: Infinity,
-              delay: Math.random() * 4,
-              ease: "easeOut",
+              delay: (i * 0.43) % 4,
             }}
-            className="absolute w-1 h-1 bg-blue-200/40 rounded-full"
-            style={{
-              left: `${15 + Math.random() * 70}%`,
-              bottom: "15px",
-            }}
+            className="absolute w-1 h-1 bg-[#0098AF]/60 rounded-full"
+            style={{ left: `${10 + ((i * 8.3) % 80)}%`, bottom: "15%" }}
           />
         ))}
       </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col justify-center">
+        <motion.nav
+          initial={{ opacity: 0, x: -12 }}
+          animate={isInView ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: 0.45 }}
+          className="flex items-center gap-2 text-[12px] text-white/50 mb-8"
+        >
+          <Link
+            href="/"
+            className="flex items-center gap-1 hover:text-white/80 transition-colors"
+          >
+            <Home className="w-3.5 h-3.5" /> Home
+          </Link>
+          <ChevronRight className="w-3 h-3 text-white/30" />
+          <Link
+            href="/projects"
+            className="hover:text-white/80 transition-colors"
+          >
+            Projects
+          </Link>
+          <ChevronRight className="w-3 h-3 text-white/30" />
+          <span className="text-[#0098AF]/90">
+            Engineering Talent Deployment
+          </span>
+        </motion.nav>
+
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.05 }}
+          className="text-[10px] font-bold tracking-[0.22em] uppercase text-[#0098AF] mb-3"
+        >
+          Case Study · Engineering Staffing
+        </motion.p>
+
+        <motion.h1
+          initial={{ opacity: 0, y: 18 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.65, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          className="text-4xl sm:text-5xl md:text-[3.25rem] font-bold text-white leading-tight max-w-2xl font-display"
+        >
+          Engineering Talent{" "}
+          <em className="not-italic text-[#0098AF]">Deployment.</em>
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.55, delay: 0.2 }}
+          className="mt-4 text-[15px] text-white/65 max-w-xl leading-relaxed"
+        >
+          Strategic staffing solution for engineering teams across multiple
+          disciplines.
+        </motion.p>
+      </div>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: [0, 0.6, 0], y: [0, 6, 0] }}
+        transition={{ duration: 2, repeat: Infinity, delay: 1 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/50"
+      >
+        <ArrowDown className="w-5 h-5" />
+      </motion.div>
+
+      {/* Bottom clip — next section is white */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none z-20"
+        style={{ clipPath: "ellipse(55% 100% at 50% 100%)" }}
+      >
+        <div className="absolute inset-0 bg-white dark:bg-[#0a0a0f]" />
+        <div
+          className="absolute inset-0 opacity-[0.025]"
+          style={{
+            backgroundImage: `linear-gradient(#003C46 1px, transparent 1px), linear-gradient(90deg, #003C46 1px, transparent 1px)`,
+            backgroundSize: "64px 64px",
+          }}
+        />
+      </div>
     </section>
   );
 };
 
-const RecentProjects = () => {
-  const [setRef, isVisible] = useIntersectionObserver();
+// ─── Project Objective ────────────────────────────────────────────────────────
+
+const ProjectObjective = () => {
+  const ref = useRef<HTMLElement>(null);
+  const isInView = useInView(ref, { once: true, amount: 0.15 });
 
   return (
     <section
-      id="recent-projects"
-      ref={setRef}
-      className="py-16 bg-gradient-to-br from-[#F5FDFF] via-[#F5FDFF] to-[#E6F0F5] relative overflow-hidden"
+      ref={ref}
+      className="py-20 md:py-28 bg-white dark:bg-[#0a0a0f] relative overflow-hidden"
     >
-      {/* Subtle background pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-20 left-20 w-40 h-40 border border-[#0098AF] rounded-full animate-spin-slow"></div>
-        <div className="absolute bottom-32 right-32 w-32 h-32 border border-[#0098AF] rounded-full animate-spin-reverse"></div>
-        <div className="absolute top-1/2 left-1/4 w-2 h-2 bg-[#0098AF] rounded-full animate-ping"></div>
-        <div className="absolute top-1/3 right-1/3 w-3 h-3 bg-[#0098AF] rounded-full animate-pulse"></div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div
-          className={` mb-10 transition-all duration-800 ease-out ${
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
-          }`}
+      <Grid light />
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.55 }}
+          className="mb-10"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-[#003C46] mb-6 leading-tight">
-            Project{" "}
-            <span className="bg-gradient-to-r from-[#0098AF] to-[#007B8F] bg-clip-text text-transparent">
-              Objective
-            </span>
-          </h2>
-          <p className="text-xl text-[#5B5B5B] max-w-7xl mx-auto">
-            Showcasing our latest success in Engineering talent deployment and
-            staffing excellence
+          <SectionLabel>Project Objective</SectionLabel>
+          <SectionHeading>
+            Engineering Talent{" "}
+            <em className="not-italic text-[#0098AF]">Resourcing.</em>
+          </SectionHeading>
+          <p className="text-[15px] text-[#556677] dark:text-[#8899aa] max-w-xl leading-relaxed">
+            Showcasing our latest success in engineering talent deployment and
+            staffing excellence.
           </p>
-        </div>
+        </motion.div>
 
-        <div
-          className={`transition-all duration-1000 ease-out delay-200 ${
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-          }`}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="border border-[#e8eaed] dark:border-[#1e1e2e] rounded-xl overflow-hidden group hover:border-[#0098AF]/30 transition-colors duration-200 relative"
         >
-          <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-700 hover:scale-[1.01] group border border-[#0098AF]/10">
-            <div className="md:flex">
-              <div className="md:w-2/5 relative overflow-hidden">
-                <Image
-                  src="https://images.pexels.com/photos/3862379/pexels-photo-3862379.jpeg"
-                  alt="IT talent deployment team"
-                  className="w-full h-64 md:h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                  width={800}
-                  height={80}
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-[#003C46]/30 via-transparent to-[#0098AF]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-
-                {/* Floating badges on image */}
-                <div className="absolute top-4 left-4 flex flex-col space-y-2">
-                  <div className="px-3 py-1 bg-[#0098AF]/90 backdrop-blur-sm text-white text-xs font-semibold rounded-full">
-                    Contractual Staffing
-                  </div>
-                  <div className="px-3 py-1 bg-[#99D5DF]/90 backdrop-blur-sm text-[#003C46] text-xs font-semibold rounded-full">
-                    Zero Attrition
-                  </div>
-                </div>
+          <div className="md:flex">
+            <div className="md:w-2/5 relative overflow-hidden h-64 md:h-auto">
+              <Image
+                src={aboutImage}
+                alt="Engineering talent deployment"
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#003C46]/20 to-transparent" />
+              <div className="absolute top-4 left-4 flex flex-col gap-2">
+                <span className="px-3 py-1 bg-[#0098AF] text-white text-[11px] font-bold tracking-wider rounded-full">
+                  Contractual Staffing
+                </span>
+                <span className="px-3 py-1 bg-white/90 dark:bg-[#0d0d14]/90 text-[#003C46] dark:text-white text-[11px] font-bold tracking-wider rounded-full">
+                  Zero Attrition
+                </span>
               </div>
-              <div className="md:w-3/5 p-8 md:p-12 relative">
-                {/* Decorative corner element */}
-                <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-[#0098AF]/10 to-transparent rounded-bl-3xl"></div>
-
-                <h3
-                  className={`text-3xl md:text-4xl font-bold text-[#003C46] mb-3 transition-all duration-500 ${
-                    isVisible
-                      ? "translate-x-0 opacity-100"
-                      : "translate-x-4 opacity-0"
-                  }`}
-                  style={{ transitionDelay: "500ms" }}
-                >
-                  Engineering Talent Resourcing
-                </h3>
-
-                <h4
-                  className={`text-xl font-semibold text-[#0098AF] mb-6 transition-all duration-500 ${
-                    isVisible
-                      ? "translate-x-0 opacity-100"
-                      : "translate-x-4 opacity-0"
-                  }`}
-                  style={{ transitionDelay: "600ms" }}
-                >
-                  Multidisciplinary Engineering Recruitment for Design, Plant,
-                  and EPC Projects
-                </h4>
-
-                <p
-                  className={`text-[#5B5B5B] mb-8 leading-relaxed text-lg transition-all duration-500 ${
-                    isVisible
-                      ? "translate-x-0 opacity-100"
-                      : "translate-x-4 opacity-0"
-                  }`}
-                  style={{ transitionDelay: "700ms" }}
-                >
-                  Successfully deployed key engineering personnel including
-                  Mechanical Design Engineers, Electrical & Instrumentation
-                  (E&I) Engineers, and SmartPlant/AutoCAD-based tool specialists
-                  for ongoing plant engineering and industrial design projects.
-                </p>
-
-                {/* Key highlights */}
-                <div
-                  className={`grid grid-cols-1 gap-4 mb-8 transition-all duration-500 ${
-                    isVisible
-                      ? "translate-x-0 opacity-100"
-                      : "translate-x-4 opacity-0"
-                  }`}
-                  style={{ transitionDelay: "750ms" }}
-                >
-                  <div className="flex flex-col space-y-2">
-                    <span className="text-xl text-[#5B5B5B] font-semibold">
-                      Engagement Type:
-                    </span>
-                    <span className="text-md text-[#5B5B5B]">
-                      Contractual & Permanent Staffing
-                    </span>
+            </div>
+            <div className="md:w-3/5 p-8 md:p-12">
+              <p className="text-[10px] font-bold tracking-[0.22em] uppercase text-[#0098af] mb-2">
+                Multidisciplinary Recruitment
+              </p>
+              <h3 className="text-2xl md:text-3xl font-bold text-[#003C46] dark:text-white font-display mb-1">
+                Engineering Talent Resourcing
+              </h3>
+              <p className="text-[15px] font-semibold text-[#0098AF] mb-5">
+                Design, Plant & EPC Projects
+              </p>
+              <p className="text-[15px] text-[#556677] dark:text-[#8899aa] leading-relaxed mb-7">
+                Successfully deployed key engineering personnel including
+                Mechanical Design Engineers, Electrical & Instrumentation (E&I)
+                Engineers, and SmartPlant/AutoCAD-based tool specialists for
+                ongoing plant engineering and industrial design projects.
+              </p>
+              <div className="grid grid-cols-1 gap-4">
+                {[
+                  {
+                    label: "Engagement Type",
+                    value: "Contractual & Permanent Staffing",
+                  },
+                  {
+                    label: "Core Tools",
+                    value:
+                      "SmartPlant 3D, AutoCAD, CAESAR II, STAAD.Pro, SPI, SolidWorks",
+                  },
+                ].map(({ label, value }) => (
+                  <div
+                    key={label}
+                    className="flex items-start gap-3 p-4 bg-[#f7f8fa] dark:bg-[#0d0d14] border border-[#e8eaed] dark:border-[#1e1e2e] rounded-lg"
+                  >
+                    <span className="mt-1 w-1.5 h-1.5 rounded-full bg-[#0098AF] flex-shrink-0" />
+                    <div>
+                      <p className="text-[12px] font-bold text-[#aabbcc] uppercase tracking-wider mb-0.5">
+                        {label}
+                      </p>
+                      <p className="text-[13px] text-[#556677] dark:text-[#8899aa]">
+                        {value}
+                      </p>
+                    </div>
                   </div>
-                  <div className="flex flex-col space-y-2">
-                    <span className="text-xl text-[#5B5B5B] font-semibold">
-                      Core Tools:
-                    </span>
-                    <span className="text-md text-[#5B5B5B]">
-                      SmartPlant 3D, AutoCAD, CAESAR II, STAAD.Pro, SPI,
-                      SolidWorks
-                    </span>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
-        </div>
+          <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#0098AF] to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+        </motion.div>
       </div>
     </section>
   );
 };
+
+// ─── Project Overview ─────────────────────────────────────────────────────────
 
 const ProjectOverview = () => {
-  const [setRef, isVisible] = useIntersectionObserver();
+  const ref = useRef<HTMLElement>(null);
+  const isInView = useInView(ref, { once: true, amount: 0.15 });
 
   return (
     <section
-      id="project-overview"
-      ref={setRef}
-      className="py-16 bg-gradient-to-br from-[#E6F0F5] via-[#F5FDFF] to-[#E6F0F5] relative overflow-hidden"
+      ref={ref}
+      className="py-20 md:py-28 bg-[#f7f8fa] dark:bg-[#0d0d14] relative overflow-hidden"
     >
-      {/* Background decorative elements */}
-      <div className="absolute top-20 right-10 w-64 h-64 bg-[#0098AF]/5 rounded-full blur-3xl animate-pulse"></div>
-      <div className="absolute bottom-20 left-10 w-48 h-48 bg-[#99D5DF]/10 rounded-full blur-2xl animate-float"></div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div
-          className={`transition-all duration-1000 ease-out ${
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-12 opacity-0"
-          }`}
+      <Grid light />
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="bg-[#003C46] rounded-xl overflow-hidden border border-[#0098AF]/20 relative group"
         >
-          <div className="bg-gradient-to-br from-[#003C46] via-[#003C46] to-[#0098AF]/90 rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-700 group border border-[#0098AF]/20">
-            <div className="md:flex">
-              <div className="md:w-2/5 relative overflow-hidden">
-                <Image
-                  src={objectiveImage}
-                  alt="SaaS platform development"
-                  className="w-full h-80 md:h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-                  width={800}
-                  height={80}
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-[#003C46]/40 via-transparent to-[#0098AF]/30"></div>
-
-                {/* Floating stats on image */}
+          <Grid />
+          <div className="absolute top-0 right-0 w-96 h-96 bg-[#0098AF]/15 rounded-full blur-3xl pointer-events-none -translate-y-1/2 translate-x-1/3" />
+          <div className="md:flex relative z-10">
+            <div className="md:w-2/5 relative overflow-hidden h-72 md:h-auto">
+              <Image
+                src={objectiveImage}
+                alt="Project overview"
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#003C46]/40 to-transparent" />
+            </div>
+            <div className="md:w-3/5 p-8 md:p-12 text-white">
+              <SectionLabel>Case Background</SectionLabel>
+              <h2 className="text-3xl md:text-4xl font-bold text-white font-display mb-6">
+                Project Overview
+              </h2>
+              <div className="space-y-4 mb-8">
+                <p className="text-[15px] text-white/75 leading-relaxed">
+                  A major engineering project required rapid mobilization of
+                  skilled professionals across mechanical, electrical, and
+                  piping disciplines. The client needed engineers familiar with
+                  advanced design tools and standards, capable of integrating
+                  with their existing offshore project support team.
+                </p>
+                <p className="text-[15px] text-white/65 leading-relaxed">
+                  This project demanded not just technical skill but also domain
+                  familiarity, tool-specific expertise, and quick adaptability
+                  to client processes. Our challenge was to ensure full
+                  operational readiness in under four weeks while ensuring team
+                  stability over the long term.
+                </p>
               </div>
-              <div className="md:w-3/5 p-8 md:p-12 text-[#F5FDFF] relative">
-                {/* Decorative corner gradient */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-[#0098AF]/20 to-transparent rounded-bl-3xl"></div>
-
-                <h2
-                  className={`text-4xl md:text-5xl font-bold mb-8 transition-all duration-700 ${
-                    isVisible
-                      ? "translate-y-0 opacity-100"
-                      : "translate-y-6 opacity-0"
-                  }`}
-                  style={{ transitionDelay: "300ms" }}
-                >
-                  Project Overview
-                </h2>
-
-                <div
-                  className={`space-y-6 transition-all duration-700 ${
-                    isVisible
-                      ? "translate-y-0 opacity-100"
-                      : "translate-y-6 opacity-0"
-                  }`}
-                  style={{ transitionDelay: "400ms" }}
-                >
-                  <p className="text-xl leading-relaxed text-[#F5FDFF]/90">
-                    A major engineering project required rapid mobilization of
-                    skilled professionals across mechanical, electrical, and
-                    piping disciplines. The client needed engineers familiar
-                    with advanced design tools and standards, capable of
-                    integrating with their existing offshore project support
-                    team. We were entrusted with end-to-end staffing – from
-                    understanding requirements to sourcing, screening,
-                    onboarding, and managing compliance.
-                  </p>
-
-                  <p className="text-lg leading-relaxed text-[#F5FDFF]/80">
-                    This project demanded not just technical skill but also
-                    domain familiarity, tool-specific expertise, and quick
-                    adaptability to client processes. Our challenge was to
-                    ensure full operational readiness in under four weeks while
-                    ensuring team stability over the long term.
-                  </p>
-                </div>
-
-                {/* Challenge highlights */}
-                <div
-                  className={`mt-8 grid grid-cols-1 md:grid-cols-2 gap-4 transition-all duration-700 ${
-                    isVisible
-                      ? "translate-y-0 opacity-100"
-                      : "translate-y-6 opacity-0"
-                  }`}
-                  style={{ transitionDelay: "600ms" }}
-                >
-                  <div className="flex items-start space-x-3 p-4 bg-[#F5FDFF]/10 rounded-xl border border-[#F5FDFF]/20">
-                    <Clock className="w-5 h-5 text-[#99D5DF] mt-0.5 flex-shrink-0" />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {[
+                  {
+                    icon: Clock,
+                    title: "Niche Roles",
+                    sub: "Requiring specific tool proficiency",
+                  },
+                  {
+                    icon: Shield,
+                    title: "Standardized Hiring",
+                    sub: "Across departments with varied timelines",
+                  },
+                ].map(({ icon: Icon, title, sub }) => (
+                  <div
+                    key={title}
+                    className="flex items-start gap-3 p-4 bg-white/[0.07] border border-white/10 rounded-xl"
+                  >
+                    <Icon className="w-4 h-4 text-[#0098AF] mt-0.5 flex-shrink-0" />
                     <div>
-                      <div className="font-semibold text-[#F5FDFF] mb-1">
-                        Niche roles
-                      </div>
-                      <div className="text-sm text-[#F5FDFF]/80">
-                        requiring specific tool proficiency
-                      </div>
+                      <p className="text-[13px] font-semibold text-white mb-0.5">
+                        {title}
+                      </p>
+                      <p className="text-[12px] text-white/55">{sub}</p>
                     </div>
                   </div>
-                  <div className="flex items-start space-x-3 p-4 bg-[#F5FDFF]/10 rounded-xl border border-[#F5FDFF]/20">
-                    <Shield className="w-5 h-5 text-[#99D5DF] mt-0.5 flex-shrink-0" />
-                    <div>
-                      <div className="font-semibold text-[#F5FDFF] mb-1">
-                        Standardized hiring
-                      </div>
-                      <div className="text-sm text-[#F5FDFF]/80">
-                        across departments with varied timelines
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Decorative element */}
-                <div className="absolute bottom-6 right-6 w-20 h-20 border-2 border-[#0098AF]/30 rounded-full opacity-50 animate-spin-slow"></div>
+                ))}
               </div>
             </div>
           </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+// ─── Objectives ───────────────────────────────────────────────────────────────
+
+const Objectives = () => {
+  const ref = useRef<HTMLElement>(null);
+  const isInView = useInView(ref, { once: true, amount: 0.15 });
+
+  return (
+    <section
+      ref={ref}
+      className="py-20 md:py-28 bg-white dark:bg-[#0a0a0f] relative overflow-hidden"
+    >
+      <Grid light />
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+          <motion.div
+            initial={{ opacity: 0, x: -18 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6 }}
+            className="relative rounded-xl overflow-hidden border border-[#e8eaed] dark:border-[#1e1e2e] group"
+          >
+            <Image
+              src={overviewImage}
+              alt="Objective"
+              width={800}
+              height={500}
+              className="w-full h-[340px] md:h-[420px] object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#003C46]/30 to-transparent" />
+            <div className="absolute top-4 left-4 flex items-center gap-2 px-3 py-1.5 bg-white/90 dark:bg-[#0d0d14]/90 rounded-full border border-[#e8eaed] dark:border-[#1e1e2e]">
+              <Target className="w-3.5 h-3.5 text-[#0098AF]" />
+              <span className="text-[12px] font-semibold text-[#003C46] dark:text-white">
+                Mission Critical
+              </span>
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#0098AF] to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 18 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="bg-[#003C46] rounded-xl p-8 md:p-10 relative overflow-hidden border border-[#0098AF]/20"
+          >
+            <Grid />
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[#0098AF]/15 rounded-full blur-3xl pointer-events-none -translate-y-1/2 translate-x-1/3" />
+            <div className="relative z-10">
+              <SectionLabel>Our Objective</SectionLabel>
+              <h2 className="text-3xl font-bold text-white font-display mb-5">
+                Objective
+              </h2>
+              <p className="text-[15px] text-white/75 leading-relaxed mb-6">
+                Delivering experienced engineering professionals to support
+                design, development, and execution across{" "}
+                <span className="text-[#0098AF] font-semibold">
+                  capital projects, manufacturing setups, and plant engineering
+                  functions.
+                </span>
+              </p>
+              <div className="grid grid-cols-1 gap-3">
+                {[
+                  "Full compliance coverage",
+                  "Seamless onboarding",
+                  "Domain-specific tool expertise",
+                  "Zero attrition target",
+                ].map((item) => (
+                  <div
+                    key={item}
+                    className="flex items-center gap-3 p-3.5 bg-white/[0.07] border border-white/10 rounded-lg"
+                  >
+                    <CheckCircle className="w-4 h-4 text-[#0098AF] flex-shrink-0" />
+                    <span className="text-[13px] text-white/80">{item}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="flex items-center gap-2.5 mt-6">
+                <div className="w-2 h-2 rounded-full bg-[#0098AF]" />
+                <span className="text-[13px] font-semibold text-[#0098AF]">
+                  Mission Accomplished
+                </span>
+                <CheckCircle className="w-4 h-4 text-[#0098AF]" />
+              </div>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
   );
 };
 
-const Objectives = () => {
-  const [setRef, isVisible] = useIntersectionObserver();
+// ─── Approach ─────────────────────────────────────────────────────────────────
+
+const steps = [
+  {
+    title: "Requirement Scoping & Skill Mapping",
+    description:
+      "Worked closely with project leads to define skill sets, project alignment, and tool-specific criteria.",
+    icon: Target,
+  },
+  {
+    title: "Sourcing Strategy",
+    description:
+      "Deployed targeted hiring campaigns across mechanical, electrical, and instrumentation talent pools.",
+    icon: Users,
+  },
+  {
+    title: "Tool-Based Evaluation",
+    description:
+      "Screened candidates for software/tool proficiency (e.g., SmartPlant 3D, CAESAR II, STAAD, SPI).",
+    icon: Code,
+  },
+  {
+    title: "Onboarding & Compliance",
+    description:
+      "Streamlined background verification, documentation, and payroll onboarding.",
+    icon: CheckCircle,
+  },
+  {
+    title: "Post-Deployment Support",
+    description:
+      "Continuous check-ins, engagement tracking, and attrition control processes.",
+    icon: Shield,
+  },
+  {
+    title: "Ongoing Coordination",
+    description:
+      "Regular follow-ups for performance check-ins, engagement, and attrition control.",
+    icon: TrendingUp,
+  },
+];
+
+const ProjectApproach = () => {
+  const ref = useRef<HTMLElement>(null);
+  const isInView = useInView(ref, { once: true, amount: 0.1 });
 
   return (
     <section
-      ref={setRef}
-      className="py-16 bg-gradient-to-br from-[#F5FDFF] via-[#F5FDFF] to-[#E6F0F5] relative overflow-hidden"
+      ref={ref}
+      className="py-20 md:py-28 bg-[#f7f8fa] dark:bg-[#0d0d14] relative overflow-hidden"
     >
-      {/* Background pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-1/4 left-1/4 w-3 h-3 bg-[#0098AF] rounded-full animate-ping"></div>
-        <div className="absolute top-3/4 right-1/3 w-2 h-2 bg-[#0098AF] rounded-full animate-pulse"></div>
-        <div className="absolute top-1/2 right-1/4 w-4 h-4 border border-[#0098AF] rounded-full animate-spin-slow"></div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div
-          className={`transition-all duration-1000 ease-out ${
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-          }`}
+      <Grid light />
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.55 }}
+          className="mb-12"
         >
-          <div className="md:flex md:items-center md:space-x-16">
-            <div className="md:w-2/5 mb-12 md:mb-0">
-              <div className="relative group">
-                <Image
-                  src={overviewImage}
-                  alt="Team objective visualization"
-                  className="w-full h-80 md:h-[420px] object-cover rounded-3xl shadow-2xl transition-transform duration-700 group-hover:scale-105"
-                  width={800}
-                  height={80}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#003C46]/30 via-transparent to-[#0098AF]/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+          <SectionLabel>Methodology</SectionLabel>
+          <SectionHeading>
+            Our <em className="not-italic text-[#0098AF]">approach.</em>
+          </SectionHeading>
+          <p className="text-[15px] text-[#556677] dark:text-[#8899aa] max-w-xl leading-relaxed">
+            A proven contract staffing model tailored to engineering roles —
+            ensuring seamless integration and exceptional results.
+          </p>
+        </motion.div>
 
-                {/* Floating objective badge */}
-                <div className="absolute top-6 left-6 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full border border-[#0098AF]/20">
-                  <div className="flex items-center space-x-2">
-                    <Target className="w-4 h-4 text-[#0098AF]" />
-                    <span className="text-sm font-semibold text-[#003C46]">
-                      Mission Critical
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-[#e8eaed] dark:bg-[#1e1e2e] rounded-xl overflow-hidden border border-[#e8eaed] dark:border-[#1e1e2e]">
+          {steps.map((step, index) => {
+            const Icon = step.icon;
+            return (
+              <motion.div
+                key={step.title}
+                initial={{ opacity: 0 }}
+                animate={isInView ? { opacity: 1 } : {}}
+                transition={{ duration: 0.4, delay: index * 0.07 }}
+                className="group bg-white dark:bg-[#0a0a0f] hover:bg-[#f7fbfc] dark:hover:bg-[#0098AF]/[0.04] transition-colors duration-200 p-7 relative"
+              >
+                <span className="text-[10px] font-bold tracking-[0.15em] text-[#aabbcc] mb-4 block">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <div className="w-10 h-10 rounded-full bg-[#0098AF]/10 flex items-center justify-center mb-4 group-hover:bg-[#0098AF] transition-colors duration-200">
+                  <Icon className="w-5 h-5 text-[#0098AF] group-hover:text-white transition-colors duration-200" />
+                </div>
+                <h3 className="text-[19px] font-semibold text-[#003C46] dark:text-white font-display mb-2 group-hover:text-[#0098AF] transition-colors duration-200">
+                  {step.title}
+                </h3>
+                <p className="text-[15px] text-[#778899] dark:text-[#6677aa] leading-relaxed">
+                  {step.description}
+                </p>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// ─── Key Results ──────────────────────────────────────────────────────────────
+
+const results = [
+  {
+    title: "Rapid Deployment",
+    description: "From requirement to full team deployment",
+    icon: Zap,
+    metric: "< 4 weeks",
+  },
+  {
+    title: "Zero Attrition",
+    description: "Perfect team retention throughout contract period",
+    icon: Shield,
+    metric: "0% turnover",
+  },
+  {
+    title: "Cost Efficiency",
+    description: "Reduced hiring costs through streamlined process",
+    icon: TrendingUp,
+    metric: "35% savings",
+  },
+  {
+    title: "Quality Assurance",
+    description: "All engineers met or exceeded expectations",
+    icon: CheckCircle,
+    metric: "100% success",
+  },
+];
+
+const keyPositions = [
+  { name: "Mechanical Design Engineers", count: "8", icon: Users },
+  { name: "Electrical & Instrumentation Engineers", count: "6", icon: Code },
+  { name: "Piping Layout & Stress Engineers", count: "5", icon: Target },
+  { name: "SmartPlant & SPI Specialists", count: "4", icon: Database },
+  { name: "Plant Maintenance Support", count: "3", icon: Shield },
+  { name: "HVAC & Utility Systems Designers", count: "2", icon: CheckCircle },
+];
+
+const kpiData = [
+  {
+    metric: "Hiring Turnaround Time",
+    before: "8–10 weeks",
+    after: "< 4 weeks",
+    improvement: "60% faster",
+  },
+  {
+    metric: "Team Retention Rate",
+    before: "85%",
+    after: "100%",
+    improvement: "+15%",
+  },
+  {
+    metric: "Client Satisfaction Score",
+    before: "8.2/10",
+    after: "9.8/10",
+    improvement: "+20%",
+  },
+  {
+    metric: "Compliance Accuracy",
+    before: "Manual process",
+    after: "Fully automated",
+    improvement: "100%",
+  },
+];
+
+const KeyResults = () => {
+  const ref = useRef<HTMLElement>(null);
+  const isInView = useInView(ref, { once: true, amount: 0.1 });
+
+  return (
+    <section
+      ref={ref}
+      className="py-20 md:py-28 bg-white dark:bg-[#0a0a0f] relative overflow-hidden"
+    >
+      <Grid light />
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.55 }}
+          className="mb-12"
+        >
+          <SectionLabel>Outcomes</SectionLabel>
+          <SectionHeading>
+            Key results{" "}
+            <em className="not-italic text-[#0098AF]">&amp; impact.</em>
+          </SectionHeading>
+          <p className="text-[15px] text-[#556677] dark:text-[#8899aa] max-w-xl leading-relaxed">
+            Measurable outcomes that exceeded expectations and delivered
+            exceptional value.
+          </p>
+        </motion.div>
+
+        {/* 4 metric cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+          {results.map((result, index) => {
+            const Icon = result.icon;
+            return (
+              <motion.div
+                key={result.title}
+                initial={{ opacity: 0, y: 18 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: index * 0.07 }}
+                className="group bg-[#f7f8fa] dark:bg-[#0d0d14] border border-[#e8eaed] dark:border-[#1e1e2e] rounded-xl p-6 hover:border-[#0098AF]/30 transition-colors duration-200 relative overflow-hidden"
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <div className="w-9 h-9 rounded-full bg-[#0098AF]/10 flex items-center justify-center group-hover:bg-[#0098AF] transition-colors duration-200">
+                    <Icon className="w-4 h-4 text-[#0098AF] group-hover:text-white transition-colors duration-200" />
+                  </div>
+                  <span className="text-[22px] font-bold text-[#0098AF] font-display">
+                    {result.metric}
+                  </span>
+                </div>
+                <h3 className="text-[14px] font-semibold text-[#003C46] dark:text-white mb-1.5 group-hover:text-[#0098AF] transition-colors duration-200">
+                  {result.title}
+                </h3>
+                <p className="text-[13px] text-[#778899] dark:text-[#6677aa] leading-relaxed">
+                  {result.description}
+                </p>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* Positions + KPI table */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          {/* Key positions */}
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.25 }}
+            className="bg-[#f7f8fa] dark:bg-[#0d0d14] border border-[#e8eaed] dark:border-[#1e1e2e] rounded-xl overflow-hidden"
+          >
+            <div className="px-5 py-3.5 border-b border-[#e8eaed] dark:border-[#1e1e2e]">
+              <p className="text-[11px] font-bold tracking-[0.15em] uppercase text-[#aabbcc]">
+                Key Positions Filled
+              </p>
+            </div>
+            <div className="divide-y divide-[#e8eaed] dark:divide-[#1e1e2e]">
+              {keyPositions.map(({ name, count, icon: Icon }) => (
+                <div
+                  key={name}
+                  className="flex items-center justify-between px-5 py-3.5 hover:bg-white dark:hover:bg-[#0a0a0f] transition-colors duration-150"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-7 h-7 rounded-full bg-[#0098AF]/10 flex items-center justify-center flex-shrink-0">
+                      <Icon className="w-3.5 h-3.5 text-[#0098AF]" />
+                    </div>
+                    <span className="text-[13px] font-medium text-[#556677] dark:text-[#8899aa]">
+                      {name}
+                    </span>
+                  </div>
+                  <span className="text-[13px] font-bold text-[#003C46] dark:text-white">
+                    {count}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* KPI table */}
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="border border-[#e8eaed] dark:border-[#1e1e2e] rounded-xl overflow-hidden"
+          >
+            <div className="px-5 py-3.5 border-b border-[#e8eaed] dark:border-[#1e1e2e] bg-[#f7f8fa] dark:bg-[#0d0d14]">
+              <p className="text-[11px] font-bold tracking-[0.15em] uppercase text-[#aabbcc]">
+                Performance Metrics
+              </p>
+            </div>
+            <div className="divide-y divide-[#e8eaed] dark:divide-[#1e1e2e]">
+              {kpiData.map((row, i) => (
+                <div
+                  key={i}
+                  className="px-5 py-4 hover:bg-[#f7fbfc] dark:hover:bg-[#0098AF]/[0.03] transition-colors duration-150"
+                >
+                  <p className="text-[13px] font-semibold text-[#003C46] dark:text-white mb-1.5">
+                    {row.metric}
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <div className="text-[12px] text-[#778899] dark:text-[#6677aa]">
+                      <span className="line-through mr-2">{row.before}</span>
+                      <span className="text-[#0098AF] font-semibold">
+                        {row.after}
+                      </span>
+                    </div>
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-[#0098AF]/10 text-[#0098AF] text-[11px] font-bold">
+                      {row.improvement}
                     </span>
                   </div>
                 </div>
-              </div>
+              ))}
             </div>
-            <div className="md:w-3/5">
-              <div className="bg-gradient-to-br from-[#003C46] via-[#003C46] to-[#0098AF]/90 p-10 md:p-12 rounded-3xl text-[#F5FDFF] shadow-2xl relative overflow-hidden hover:shadow-3xl transition-all duration-700 group border border-[#0098AF]/20">
-                {/* Animated background elements */}
-                <div className="absolute top-0 right-0 w-40 h-40 bg-[#0098AF]/10 rounded-full -translate-y-20 translate-x-20 group-hover:scale-150 transition-transform duration-1000"></div>
-                <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#99D5DF]/10 rounded-full translate-y-16 -translate-x-16 group-hover:scale-125 transition-transform duration-1000"></div>
-
-                <div
-                  className={`relative z-10 transition-all duration-700 ${
-                    isVisible
-                      ? "translate-x-0 opacity-100"
-                      : "translate-x-6 opacity-0"
-                  }`}
-                  style={{ transitionDelay: "200ms" }}
-                >
-                  <h2 className="text-4xl md:text-5xl font-bold mb-8">
-                    Objective
-                  </h2>
-
-                  <div className="space-y-6">
-                    <p className="text-xl leading-relaxed text-[#F5FDFF]/90">
-                      Delivering experienced engineering professionals to
-                      support design, development, and execution across capital
-                      projects, manufacturing setups, and plant engineering
-                      functions.
-                    </p>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
-                      <div className="flex items-center space-x-3 p-4 bg-[#F5FDFF]/10 rounded-xl border border-[#F5FDFF]/20">
-                        <CheckCircle className="w-5 h-5 text-[#99D5DF] flex-shrink-0" />
-                        <span className="text-[#F5FDFF]/90">
-                          Full compliance coverage
-                        </span>
-                      </div>
-                      <div className="flex items-center space-x-3 p-4 bg-[#F5FDFF]/10 rounded-xl border border-[#F5FDFF]/20">
-                        <CheckCircle className="w-5 h-5 text-[#99D5DF] flex-shrink-0" />
-                        <span className="text-[#F5FDFF]/90">
-                          Seamless onboarding
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Success indicator with animation */}
-                <div
-                  className={`flex items-center space-x-3 mt-10 text-[#99D5DF] relative z-10 transition-all duration-700 ${
-                    isVisible
-                      ? "translate-x-0 opacity-100"
-                      : "translate-x-6 opacity-0"
-                  }`}
-                  style={{ transitionDelay: "600ms" }}
-                >
-                  <div className="w-3 h-3 bg-[#99D5DF] rounded-full animate-pulse"></div>
-                  <span className="font-semibold text-lg">
-                    Mission Accomplished
-                  </span>
-                  <CheckCircle className="w-6 h-6 animate-bounce" />
-                </div>
-              </div>
-            </div>
-          </div>
+          </motion.div>
         </div>
+
+        {/* Success summary banner */}
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="bg-[#003C46] rounded-xl p-8 text-center relative overflow-hidden border border-[#0098AF]/20"
+        >
+          <Grid />
+          <div className="absolute top-0 right-0 w-64 h-64 bg-[#0098AF]/15 rounded-full blur-3xl pointer-events-none -translate-y-1/2 translate-x-1/3" />
+          <div className="relative z-10">
+            <div className="w-12 h-12 rounded-full bg-[#0098AF]/20 flex items-center justify-center mx-auto mb-4">
+              <CheckCircle className="w-6 h-6 text-[#0098AF]" />
+            </div>
+            <h3 className="text-2xl font-bold text-white font-display mb-3">
+              Project Successfully Completed
+            </h3>
+            <p className="text-[15px] text-white/65 max-w-2xl mx-auto leading-relaxed">
+              Delivered a complete engineering team of 40+ professionals with
+              zero attrition, exceeding all performance metrics and client
+              expectations.
+            </p>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
 };
 
-const ProjectApproach = () => {
-  const [setRef, isVisible] = useIntersectionObserver();
+// ─── Tools & Testimonial ─────────────────────────────────────────────────────
 
-  const steps = [
-    {
-      title: "Requirement Scoping & Skill Mapping",
-      description:
-        "Worked closely with project leads to define skill sets, project alignment, and tool-specific criteria.",
-      icon: <Target className="w-5 h-5" />,
-      color: "from-[#0098AF] to-[#007B8F]",
-    },
-    {
-      title: "Sourcing Strategy",
-      description:
-        "Deployed targeted hiring campaigns across mechanical, electrical, and instrumentation talent pools.",
-      icon: <Users className="w-5 h-5" />,
-      color: "from-[#007B8F] to-[#0098AF]",
-    },
-    {
-      title: "Tool-Based Evaluation",
-      description:
-        "Screened candidates for software/tool proficiency (e.g., SmartPlant 3D, CAESAR II, STAAD, SPI).",
-      icon: <Code className="w-5 h-5" />,
-      color: "from-[#0098AF] to-[#99D5DF]",
-    },
-    {
-      title: "Onboarding & Compliance",
-      description:
-        "Streamlined background verification, documentation, and payroll onboarding.",
-      icon: <CheckCircle className="w-5 h-5" />,
-      color: "from-[#99D5DF] to-[#0098AF]",
-    },
-    {
-      title: "Post-Deployment Support",
-      description:
-        "Continuous check-ins, engagement tracking, and attrition control processes.",
-      icon: <Shield className="w-5 h-5" />,
-      color: "from-[#0098AF] to-[#007B8F]",
-    },
-    {
-      title: "Ongoing Coordination",
-      description:
-        "Regular follow-ups for performance check-ins, engagement, and attrition control.",
-      icon: <TrendingUp className="w-5 h-5" />,
-      color: "from-[#007B8F] to-[#0098AF]",
-    },
-  ];
-
-  return (
-    <section
-      ref={setRef}
-      className="py-16 bg-gradient-to-br from-[#E6F0F5] via-[#F5FDFF] to-[#E6F0F5] relative overflow-hidden"
-    >
-      {/* Enhanced background decoration */}
-      <div className="absolute top-20 right-10 w-80 h-80 bg-[#0098AF]/5 rounded-full blur-3xl animate-float"></div>
-      <div className="absolute bottom-20 left-10 w-64 h-64 bg-[#99D5DF]/10 rounded-full blur-2xl animate-float-delayed"></div>
-      <div className="absolute top-1/2 left-1/4 w-4 h-4 bg-[#0098AF]/30 rounded-full animate-ping"></div>
-      <div className="absolute top-1/3 right-1/3 w-6 h-6 border-2 border-[#0098AF]/20 rounded-full animate-spin-slow"></div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div
-          className={`mb-20 transition-all duration-800 ease-out ${
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
-          }`}
-        >
-          <h2 className="text-4xl md:text-5xl font-bold text-[#003C46] mb-6 leading-tight">
-            Our{" "}
-            <span className="bg-gradient-to-r from-[#0098AF] to-[#007B8F] bg-clip-text text-transparent">
-              Approach
-            </span>
-          </h2>
-          <p className="text-xl text-[#5B5B5B] max-w-7xl mx-auto">
-            We deployed our proven contract staffing model tailored to IT
-            development roles, ensuring seamless integration and exceptional
-            results.
-          </p>
-        </div>
-
-        <div
-          className={`transition-all duration-1000 ease-out delay-200 ${
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-          }`}
-        >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {steps.map((step, index) => (
-              <div
-                key={index}
-                className={`bg-white/90 backdrop-blur-sm p-8 rounded-2xl border-l-4 border-[#0098AF] shadow-xl hover:shadow-2xl transition-all duration-700 hover:scale-[1.02] hover:border-l-8 group relative overflow-hidden ${
-                  isVisible
-                    ? "translate-x-0 opacity-100"
-                    : "translate-x-8 opacity-0"
-                }`}
-                style={{ transitionDelay: `${400 + index * 150}ms` }}
-              >
-                {/* Gradient background on hover */}
-                <div className="absolute inset-0 bg-gradient-to-r from-[#0098AF]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-                <div className="flex items-start space-x-6 relative z-10">
-                  <div
-                    className={`flex-shrink-0 w-12 h-12 bg-gradient-to-r ${step.color} text-white rounded-2xl flex items-center justify-center font-bold text-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg`}
-                  >
-                    {step.icon}
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center space-x-3 mb-4">
-                      <h3 className="font-bold text-[#003C46] text-xl group-hover:text-[#0098AF] transition-colors duration-300">
-                        {step.title}
-                      </h3>
-                      <div className="w-8 h-0.5 bg-[#0098AF]/30 group-hover:bg-[#0098AF] group-hover:w-12 transition-all duration-500"></div>
-                    </div>
-                    <p className="text-[#5B5B5B] leading-relaxed text-lg group-hover:text-[#003C46] transition-colors duration-300">
-                      {step.description}
-                    </p>
-                  </div>
-
-                  {/* Step number */}
-                  <div className="text-6xl font-bold text-[#0098AF]/10 group-hover:text-[#0098AF]/20 transition-colors duration-500">
-                    {String(index + 1).padStart(2, "0")}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
+const technologies = [
+  { name: "SmartPlant 3D", icon: Code, level: "Expert" },
+  { name: "AutoCAD", icon: Globe, level: "Expert" },
+  { name: "CAESAR II", icon: Database, level: "Advanced" },
+  { name: "STAAD.Pro", icon: GitBranch, level: "Advanced" },
+  { name: "SPI", icon: Globe, level: "Expert" },
+  { name: "SolidWorks", icon: Code, level: "Advanced" },
+];
 
 const TechAndTestimonial = () => {
-  const [setRef, isVisible] = useIntersectionObserver();
-
-  const technologies = [
-    {
-      name: "SmartPlant 3D",
-      icon: <Code className="w-5 h-5" />,
-      level: "Expert",
-    },
-    { name: "AutoCAD", icon: <Globe className="w-5 h-5" />, level: "Expert" },
-    {
-      name: "CAESAR II",
-      icon: <Database className="w-5 h-5" />,
-      level: "Advanced",
-    },
-    {
-      name: "STAAD.Pro",
-      icon: <GitBranch className="w-5 h-5" />,
-      level: "Advanced",
-    },
-    {
-      name: "SPI",
-      icon: <Globe className="w-5 h-5" />,
-      level: "Expert",
-    },
-    {
-      name: "SolidWorks",
-      icon: <Code className="w-5 h-5" />,
-      level: "Advanced",
-    },
-  ];
+  const ref = useRef<HTMLElement>(null);
+  const isInView = useInView(ref, { once: true, amount: 0.15 });
 
   return (
     <section
-      ref={setRef}
-      className="py-16 bg-gradient-to-br from-[#E6F0F5] via-[#F5FDFF] to-[#E6F0F5] relative overflow-hidden"
+      ref={ref}
+      className="py-20 md:py-28 bg-[#f7f8fa] dark:bg-[#0d0d14] relative overflow-hidden"
     >
-      {/* Enhanced animated background elements */}
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div
-          className={`mb-12 transition-all duration-800 ease-out ${
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
-          }`}
+      <Grid light />
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.55 }}
+          className="mb-12"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-[#003C46] mb-6 leading-tight">
-            Tools &{" "}
-            <span className="bg-gradient-to-r from-[#0098AF] to-[#007B8F] bg-clip-text text-transparent">
-              Testimonial
-            </span>
-          </h2>
-          <p className="text-xl text-[#5B5B5B] max-w-7xl mx-auto">
-            Cutting-edge Tools and skilled professionals deployed for maximum
-            impact.
-          </p>
-        </div>
+          <SectionLabel>Technology</SectionLabel>
+          <SectionHeading>
+            Tools{" "}
+            <em className="not-italic text-[#0098AF]">&amp; testimonial.</em>
+          </SectionHeading>
+        </motion.div>
 
-        <div
-          className={`transition-all duration-1000 ease-out delay-200 ${
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-          }`}
-        >
-          <div className="md:flex md:space-x-16">
-            <div className="md:w-3/5 space-y-10">
-              {/* Enhanced Technologies Grid */}
-              <div className="bg-white/95 backdrop-blur-sm p-10 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-700 border border-[#0098AF]/10 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-[#0098AF]/10 to-transparent rounded-bl-3xl"></div>
-
-                <h3
-                  className={`text-2xl font-bold text-[#003C46] mb-8 transition-all duration-500 ${
-                    isVisible
-                      ? "translate-x-0 opacity-100"
-                      : "translate-x-4 opacity-0"
-                  }`}
-                  style={{ transitionDelay: "300ms" }}
-                >
-                  Core Tools
-                </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {technologies.map((tech, index) => (
-                    <div
-                      key={index}
-                      className={`flex items-center justify-between p-2 bg-gradient-to-r from-[#0098AF]/5 to-[#99D5DF]/5 rounded-xl hover:from-[#0098AF]/10 hover:to-[#99D5DF]/10 transition-all duration-500 hover:scale-105 hover:shadow-lg group border border-[#0098AF]/10 ${
-                        isVisible
-                          ? "translate-y-0 opacity-100"
-                          : "translate-y-4 opacity-0"
-                      }`}
-                      style={{ transitionDelay: `${400 + index * 100}ms` }}
-                    >
-                      <div className="flex items-center space-x-4">
-                        <div className="text-[#0098AF] group-hover:scale-125 group-hover:text-[#007B8F] transition-all duration-300"></div>
-                        <div>
-                          <div className="text-[#003C46] font-semibold group-hover:text-[#0098AF] transition-colors duration-300">
-                            {tech.name}
-                          </div>
-                          <div className="text-sm text-[#5B5B5B] group-hover:text-[#003C46] transition-colors duration-300">
-                            {tech.level}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Core tools */}
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5 }}
+            className="bg-white dark:bg-[#0a0a0f] border border-[#e8eaed] dark:border-[#1e1e2e] rounded-xl overflow-hidden"
+          >
+            <div className="px-6 py-4 border-b border-[#e8eaed] dark:border-[#1e1e2e]">
+              <p className="text-[11px] font-bold tracking-[0.15em] uppercase text-[#aabbcc]">
+                Core Tools
+              </p>
             </div>
-
-            {/* Enhanced Testimonial */}
-            <div className="md:w-2/5 mt-10 md:mt-0">
-              <div className="bg-white/95 backdrop-blur-sm p-10 rounded-2xl shadow-xl border-l-4 border-[#0098AF] hover:border-l-8 hover:shadow-2xl transition-all duration-500 group relative overflow-hidden">
-                {/* Enhanced decorative elements */}
-                <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-[#0098AF]/10 to-transparent rounded-bl-3xl"></div>
-                <div className="absolute top-4 right-4 text-8xl text-[#0098AF]/10 font-serif leading-none">
-                  &quot;
-                </div>
-                <div className="absolute bottom-4 left-4 text-6xl text-[#0098AF]/10 font-serif leading-none">
-                  &quot;
-                </div>
-
-                <h3
-                  className={`text-2xl font-bold text-[#003C46] mb-3 relative z-10 transition-all duration-500 ${
-                    isVisible
-                      ? "translate-y-0 opacity-100"
-                      : "translate-y-4 opacity-0"
-                  }`}
-                  style={{ transitionDelay: "1300ms" }}
+            <div className="grid grid-cols-2 gap-px bg-[#e8eaed] dark:bg-[#1e1e2e]">
+              {technologies.map(({ name, icon: Icon, level }) => (
+                <div
+                  key={name}
+                  className="group bg-white dark:bg-[#0a0a0f] hover:bg-[#f7fbfc] dark:hover:bg-[#0098AF]/[0.04] transition-colors duration-150 p-5 flex items-center gap-3"
                 >
-                  Client Testimonial
-                </h3>
-
-                <div className="relative z-10">
-                  <blockquote
-                    className={`text-[#5B5B5B] italic text-xl leading-relaxed mb-4 transition-all duration-500 ${
-                      isVisible
-                        ? "translate-y-0 opacity-100"
-                        : "translate-y-4 opacity-0"
-                    }`}
-                    style={{ transitionDelay: "1400ms" }}
-                  >
-                    &quot;The teamCognition’s engineering staffing model made it
-                    easy for us to quickly bring in a skilled,
-                    multi-disciplinary team with the right tools and experience.
-                    Their support helped us stay on schedule without putting
-                    extra pressure on our internal recruitment team&quot;
-                  </blockquote>
-
-                  <div
-                    className={`flex items-center space-x-4 transition-all duration-500 ${
-                      isVisible
-                        ? "translate-y-0 opacity-100"
-                        : "translate-y-4 opacity-0"
-                    }`}
-                    style={{ transitionDelay: "1500ms" }}
-                  >
-                    <div className="w-12 h-12 bg-gradient-to-r from-[#0098AF] to-[#99D5DF] rounded-full flex items-center justify-center">
-                      <Users className="w-6 h-6 text-white" />
-                    </div>
-                    <div>
-                      <cite className="text-[#0098AF] font-bold text-lg not-italic">
-                        HR Head
-                      </cite>
-                      <div className="text-[#5B5B5B] text-sm">Client</div>
-                    </div>
+                  <div className="w-9 h-9 rounded-full bg-[#0098AF]/10 flex items-center justify-center flex-shrink-0 group-hover:bg-[#0098AF] transition-colors duration-200">
+                    <Icon className="w-4 h-4 text-[#0098AF] group-hover:text-white transition-colors duration-200" />
+                  </div>
+                  <div>
+                    <p className="text-[13px] font-semibold text-[#003C46] dark:text-white">
+                      {name}
+                    </p>
+                    <p className="text-[11px] text-[#aabbcc]">{level}</p>
                   </div>
                 </div>
+              ))}
+            </div>
+          </motion.div>
 
-                {/* Hover effect background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#0098AF]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+          {/* Testimonial */}
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="bg-white dark:bg-[#0a0a0f] border border-[#e8eaed] dark:border-[#1e1e2e] rounded-xl p-8 relative overflow-hidden group hover:border-[#0098AF]/30 transition-colors duration-200"
+          >
+            <p className="text-[11px] font-bold tracking-[0.22em] uppercase text-[#0098AF] mb-4">
+              Client Testimonial
+            </p>
+            <blockquote className="text-[15px] text-[#556677] dark:text-[#8899aa] leading-[1.85] italic mb-7">
+              "Cognition's engineering staffing model made it easy for us to
+              quickly bring in a skilled, multi-disciplinary team with the right
+              tools and experience. Their support helped us stay on schedule
+              without putting extra pressure on our internal recruitment team."
+            </blockquote>
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-[#0098AF]/10 flex items-center justify-center">
+                <Users className="w-5 h-5 text-[#0098AF]" />
+              </div>
+              <div>
+                <p className="text-[13px] font-semibold text-[#003C46] dark:text-white">
+                  HR Head
+                </p>
+                <p className="text-[12px] text-[#aabbcc]">Engineering Client</p>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
   );
 };
 
+// ─── CTA ──────────────────────────────────────────────────────────────────────
+
 const CTASection = () => {
-  const [setRef, isVisible] = useIntersectionObserver();
+  const ref = useRef<HTMLElement>(null);
+  const isInView = useInView(ref, { once: true, amount: 0.3 });
 
   return (
     <section
-      ref={setRef}
-      className="py-16 bg-gradient-to-br from-[#0098AF] via-[#0098AF] to-[#007B8F] relative overflow-hidden"
+      ref={ref}
+      className="relative py-20 md:py-24 bg-[#003C46] overflow-hidden"
     >
-      {/* Enhanced decorative elements */}
-      <div className="absolute bottom-0 left-1/3 w-96 h-96 bg-black/20 rounded-full blur-3xl animate-pulse"></div>
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#0098AF]/90 via-transparent to-[#007B8F]/90"></div>
+      <Grid />
+      <div className="absolute top-0 right-0 w-96 h-96 bg-[#0098AF]/20 rounded-full blur-3xl pointer-events-none -translate-y-1/2 translate-x-1/3" />
+      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#0098AF]/60 to-transparent" />
 
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div
-          className={`transition-all duration-1000 ease-out ${
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
-          }`}
-        >
-          {/* Enhanced badge */}
-
-          <h2
-            className={`text-2xl sm:text-4xl lg:text-5xl font-bold text-[#F5FDFF] mb-6 leading-tight transition-all duration-700 ${
-              isVisible ? "scale-100" : "scale-95"
-            }`}
-            style={{ transitionDelay: "300ms" }}
-          >
-            Ready to Scale Your{" "}
-            <span className=" bg-gradient-to-r from-white to-[#99D5DF] bg-clip-text text-transparent">
-              Team?
-            </span>
-          </h2>
-
-          <p
-            className={`text-sm sm:text-lg text-[#F5FDFF]/90 mb-12 leading-relaxed transition-all duration-700 ${
-              isVisible
-                ? "translate-y-0 opacity-100"
-                : "translate-y-4 opacity-0"
-            }`}
-            style={{ transitionDelay: "400ms" }}
-          >
-            Let us help you build a high-performing team with
-            <span className="text-white font-semibold"> zero hassle</span> and
-            <span className="text-white font-semibold">
-              {" "}
-              guaranteed results
-            </span>
-            .
-          </p>
-
-          {/* Enhanced CTA buttons */}
-          <div
-            className={`flex flex-col sm:flex-row gap-6 justify-center items-center transition-all duration-700 ${
-              isVisible
-                ? "translate-y-0 opacity-100"
-                : "translate-y-4 opacity-0"
-            }`}
-            style={{ transitionDelay: "600ms" }}
-          >
-            <Link href="/contact">
-              <button className="inline-flex items-center space-x-3 bg-[#F5FDFF] text-[#003C46] px-8 py-4 rounded-2xl font-bold text-xl hover:bg-[#E6F0F5]  hover:shadow-2xl transition-all duration-500 group transform hover:-translate-y-1">
-                <span>Start Your Project</span>
-                <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform duration-300" />
-              </button>
-            </Link>
-            <Link href="/projects">
-              <button className="inline-flex items-center space-x-3 border-2 border-white/30 text-white px-8 py-4 rounded-2xl font-bold text-xl hover:bg-white/10 hover:border-white/50  transition-all duration-500 group backdrop-blur-sm">
-                <span>View More Projects</span>
-                <Globe className="w-6 h-6 group-hover:rotate-12 transition-transform duration-300" />
-              </button>
-            </Link>
-          </div>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+        className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
+      >
+        <p className="text-[10px] font-bold tracking-[0.22em] uppercase text-[#0098AF] mb-4">
+          Ready to Scale?
+        </p>
+        <h2 className="text-4xl md:text-5xl font-bold text-white font-display leading-tight mb-5">
+          Ready to scale your{" "}
+          <em className="not-italic text-[#0098AF]">team?</em>
+        </h2>
+        <p className="text-[15px] text-white/65 leading-relaxed max-w-2xl mx-auto mb-9">
+          Let us help you build a high-performing engineering team with zero
+          hassle and guaranteed results.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Link href="/contact">
+            <button className="group inline-flex items-center gap-2 px-7 py-3 bg-[#0098AF] hover:bg-[#007B8F] text-white text-[15px] font-semibold rounded-lg transition-colors duration-200">
+              Start Your Project
+              <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+            </button>
+          </Link>
+          <Link href="/projects">
+            <button className="group inline-flex items-center gap-2 px-7 py-3 border border-white/20 hover:border-white/40 hover:bg-white/[0.06] text-white text-[15px] font-semibold rounded-lg transition-colors duration-200">
+              View More Projects
+              <Globe className="w-4 h-4" />
+            </button>
+          </Link>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };
+
+// ─── App ──────────────────────────────────────────────────────────────────────
 
 function App() {
   return (
-    <div className="min-h-screen font-['Inter',sans-serif] antialiased">
+    <div className="w-full bg-white dark:bg-[#0a0a0f]">
       <MegaMenu />
-      <main>
-        <Hero />
-        <RecentProjects />
-        <ProjectOverview />
-        <Objectives />
-        <ProjectApproach />
-        <KeyResults />
-        <TechAndTestimonial />
-        <CTASection />
-      </main>
+      <Hero />
+      <ProjectObjective />
+      <ProjectOverview />
+      <Objectives />
+      <ProjectApproach />
+      <KeyResults />
+      <TechAndTestimonial />
+      <CTASection />
       <Footer />
     </div>
   );
