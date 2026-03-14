@@ -14,8 +14,8 @@ export default function CareersPage() {
     <div className="min-h-screen bg-gray-50 text-gray-900 font-sans overflow-hidden">
       <MegaMenu />
       <HeroSection />
-      <BenefitsSection />
       <OpenPositions />
+      <BenefitsSection />
       <AboutSection />
       <Footer />
     </div>
