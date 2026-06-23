@@ -5,7 +5,7 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import type { StaticImageData } from "next/image";
 
-// ─── Logo imports (unchanged) ──────────────────────────────────────────────────
+//  Logo imports (unchanged) ──
 import AI_logo from "@/constants/images/software-logo/AI_logo.jpg";
 import altairHyperWorks_logo from "@/constants/images/software-logo/altairHyperWorks_logo.jpg";
 import AltiumDesigner_logo from "@/constants/images/software-logo/AltiumDesigner_logo.jpg";
@@ -138,7 +138,7 @@ const softwareLogos = [
   { name: "Windchill", logo: windchill_logo },
 ];
 
-// ─── LogoCard ─────────────────────────────────────────────────────────────────
+//  LogoCard ──
 
 const LogoCard = ({ software }: { software: { name: string; logo: StaticImageData } }) => (
   <div className="flex-shrink-0 bg-white dark:bg-[#0d0d14] border border-[#e8eaed] dark:border-[#1e1e2e] rounded-xl p-4 mx-2.5 hover:border-[#0098AF]/30 transition-colors duration-200 group">
@@ -157,7 +157,7 @@ const LogoCard = ({ software }: { software: { name: string; logo: StaticImageDat
   </div>
 );
 
-// ─── SoftwareCarousel (exported) ──────────────────────────────────────────────
+//  SoftwareCarousel (exported) ─
 
 export const SoftwareCarousel = () => {
   const ref = useRef<HTMLElement>(null);

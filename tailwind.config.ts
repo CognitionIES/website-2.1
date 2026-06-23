@@ -13,7 +13,7 @@ export default {
   ],
   theme: {
     extend: {
-      // ─── Typography ──────────────────────────────────────────────────────────
+      //  Typography ─
       fontFamily: {
         // font-sans  → Inter (body, UI, labels — everything by default)
         sans: ["var(--font-inter)", "ui-sans-serif", "system-ui", "sans-serif"],
@@ -25,7 +25,7 @@ export default {
         calibri: ["var(--font-inter)", "sans-serif"],
       },
 
-      // ─── Colors ──────────────────────────────────────────────────────────────
+      //  Colors ──
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
@@ -77,14 +77,14 @@ export default {
         },
       },
 
-      // ─── Border radius ───────────────────────────────────────────────────────
+      //  Border radius ─
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
 
-      // ─── Background gradients ────────────────────────────────────────────────
+      //  Background gradients 
       backgroundImage: {
         "frosty-minimalist":
           "linear-gradient(to bottom, #F5FDFF 0%, rgba(153, 213, 223, 0.3) 100%)",
@@ -95,7 +95,7 @@ export default {
           "linear-gradient(to bottom right, #F5FDFF 0%, rgba(153, 213, 223, 0.5) 50%, rgba(91, 91, 91, 0.2) 100%)",
       },
 
-      // ─── Keyframes & animations ──────────────────────────────────────────────
+      //  Keyframes & animations ─
       keyframes: {
         "accordion-down": {
           from: { height: "0" },

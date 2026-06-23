@@ -27,7 +27,7 @@ import saasImage from "@/constants/images/home/our-services/saas.jpg";
 import buildImage from "@/constants/images/build-operate/hero.jpg";
 import staffImage from "@/constants/images/home/staffing.jpg";
 
-// ─── Shared helpers ───────────────────────────────────────────────────────────
+//  Shared helpers ──
 
 const Grid = ({ light = false }: { light?: boolean }) => (
   <div
@@ -51,7 +51,7 @@ const SectionHeading = ({ children }: { children: React.ReactNode }) => (
   </h2>
 );
 
-// ─── Hero ─────────────────────────────────────────────────────────────────────
+//  Hero 
 
 const Hero = () => {
   const ref = useRef<HTMLElement>(null);
@@ -162,7 +162,7 @@ const Hero = () => {
   );
 };
 
-// ─── About / Intro ────────────────────────────────────────────────────────────
+//  About / Intro 
 
 const aboutStats = [
   { icon: Award, number: "10+", label: "Years Experience" },
@@ -261,7 +261,7 @@ const AboutSection = () => {
   );
 };
 
-// ─── Services showcase ────────────────────────────────────────────────────────
+//  Services showcase ──
 
 const services = [
   {
@@ -409,7 +409,7 @@ const ServicesShowcase = () => {
   );
 };
 
-// ─── FAQ Accordion ────────────────────────────────────────────────────────────
+//  FAQ Accordion 
 
 const faqs = [
   {
@@ -594,7 +594,7 @@ const AccordionSection = () => {
   );
 };
 
-// ─── CTA ──────────────────────────────────────────────────────────────────────
+//  CTA ─
 
 const CTASection = () => {
   const ref = useRef<HTMLElement>(null);
@@ -637,7 +637,7 @@ const CTASection = () => {
   );
 };
 
-// ─── Page ─────────────────────────────────────────────────────────────────────
+//  Page 
 
 export default function ServicesPage() {
   return (

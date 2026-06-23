@@ -24,7 +24,7 @@ import Link from "next/link";
 import Footer from "@/components/footer";
 import { ABOUT_CONSTANTS } from "@/constants/aboutPage/constants";
 
-// ─── Shared helpers ───────────────────────────────────────────────────────────
+//  Shared helpers ──
 
 const Grid = ({ light = false }: { light?: boolean }) => (
   <div
@@ -42,7 +42,7 @@ const SectionLabel = ({ children }: { children: React.ReactNode }) => (
   </p>
 );
 
-// ─── Hero ─────────────────────────────────────────────────────────────────────
+//  Hero 
 
 const Hero = () => {
   const { IMAGES } = ABOUT_CONSTANTS;
@@ -155,7 +155,7 @@ const Hero = () => {
   );
 };
 
-// ─── About Section ────────────────────────────────────────────────────────────
+//  About Section 
 
 const AboutSection = () => {
   const { IMAGES, TEXT, STATS } = ABOUT_CONSTANTS;
@@ -238,7 +238,7 @@ const AboutSection = () => {
   );
 };
 
-// ─── Mission & Vision ─────────────────────────────────────────────────────────
+//  Mission & Vision 
 
 const MissionVision = () => {
   const { IMAGES, TEXT } = ABOUT_CONSTANTS;
@@ -324,7 +324,7 @@ const MissionVision = () => {
   );
 };
 
-// ─── Key Values ───────────────────────────────────────────────────────────────
+//  Key Values 
 
 // Fallback icons in order — replace with actual data if KEY_VALUES has icons
 const VALUE_ICONS = [Heart, Shield, Zap, Star];
@@ -402,7 +402,7 @@ const KeyValues = () => {
   );
 };
 
-// ─── Stats Section ────────────────────────────────────────────────────────────
+//  Stats Section 
 
 const STAT_ICONS = [Users, Globe, Award, TrendingUp];
 
@@ -462,7 +462,7 @@ const StatsSection = () => {
   );
 };
 
-// ─── CTA ──────────────────────────────────────────────────────────────────────
+//  CTA ─
 
 const CTASection = () => {
   const { TEXT } = ABOUT_CONSTANTS;
@@ -538,7 +538,7 @@ const CTASection = () => {
   );
 };
 
-// ─── Page ─────────────────────────────────────────────────────────────────────
+//  Page 
 
 export default function AboutPage() {
   return (

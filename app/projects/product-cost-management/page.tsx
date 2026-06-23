@@ -35,7 +35,7 @@ import approachImage from "@/constants/images/projects/pcm/pcm-approach.jpg";
 import keyImage from "@/constants/images/bg/key.jpg";
 import deliverablesImage from "@/constants/images/bg/deliverables.jpg";
 
-// ─── Shared helpers ───────────────────────────────────────────────────────────
+//  Shared helpers ──
 
 const Grid = ({ light = false }: { light?: boolean }) => (
   <div
@@ -59,7 +59,7 @@ const SectionHeading = ({ children }: { children: React.ReactNode }) => (
   </h2>
 );
 
-// ─── Hero ─────────────────────────────────────────────────────────────────────
+//  Hero 
 
 const Hero = () => {
   const ref = useRef<HTMLElement>(null);
@@ -179,7 +179,7 @@ const Hero = () => {
   );
 };
 
-// ─── Client Profile & Project Overview ───────────────────────────────────────
+//  Client Profile & Project Overview 
 
 const AboutSection = () => {
   const ref = useRef<HTMLElement>(null);
@@ -271,7 +271,7 @@ const AboutSection = () => {
   );
 };
 
-// ─── Objectives & Roles ───────────────────────────────────────────────────────
+//  Objectives & Roles ─
 
 const clientObjectives = [
   { label: "Manufacturing Cost Reduction", icon: DollarSign },
@@ -403,7 +403,7 @@ const Objectives = () => {
   );
 };
 
-// ─── Approach ─────────────────────────────────────────────────────────────────
+//  Approach ──
 
 const approachSections = [
   {
@@ -525,7 +525,7 @@ const ProjectApproach = () => {
   );
 };
 
-// ─── Key Findings & Deliverables ──────────────────────────────────────────────
+//  Key Findings & Deliverables ─
 
 const keyFindings = [
   "Major weight savings and design simplification opportunities across valves, cradles, tanks, and support structures.",
@@ -651,7 +651,7 @@ const PCMKeyFindings = () => {
     </section>
   );
 };
-// ─── Summary of Gains ─────────────────────────────────────────────────────────
+//  Summary of Gains 
 
 const summaryGains = [
   { label: "35% Cost of Goods Reduction", icon: TrendingUp },
@@ -784,7 +784,7 @@ const SummaryGains = () => {
   );
 };
 
-// ─── CTA ──────────────────────────────────────────────────────────────────────
+//  CTA ─
 
 const CTASection = () => {
   const ref = useRef<HTMLElement>(null);
@@ -836,7 +836,7 @@ const CTASection = () => {
   );
 };
 
-// ─── Page ─────────────────────────────────────────────────────────────────────
+//  Page 
 
 export default function ProductCostManagement() {
   return (

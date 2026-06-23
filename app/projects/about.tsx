@@ -55,7 +55,7 @@ function CategoryHeader({
   );
 }
 
-// ─── ProjectsSection ──────────────────────────────────────────────────────────
+//  ProjectsSection ─
 
 export function ProjectsSection() {
   const ref = useRef<HTMLElement>(null);

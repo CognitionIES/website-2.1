@@ -16,7 +16,7 @@ import logo from "@/constants/images/cognition-logo-02.png";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
-// ─── Data ─────────────────────────────────────────────────────────────────────
+//  Data 
 
 interface Service {
   title: string;
@@ -56,7 +56,7 @@ const navLinks = [
   { title: "About Us", href: "/about" },
 ];
 
-// ─── Dropdown ─────────────────────────────────────────────────────────────────
+//  Dropdown ──
 
 const ServicesDropdown = ({ onClose }: { onClose: () => void }) => (
   <motion.div
@@ -135,7 +135,7 @@ const ServicesDropdown = ({ onClose }: { onClose: () => void }) => (
   </motion.div>
 );
 
-// ─── Main navbar ──────────────────────────────────────────────────────────────
+//  Main navbar ──
 
 export function MegaMenu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -212,7 +212,7 @@ export function MegaMenu() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-[60px]">
-            {/* ── Logo ────────────────────────────────────────── */}
+            {/* ── Logo  */}
             <Link href="/" className="flex-shrink-0 flex items-center">
               <Image
                 src={logo}
@@ -223,7 +223,7 @@ export function MegaMenu() {
               />
             </Link>
 
-            {/* ── Desktop nav ─────────────────────────────────── */}
+            {/* ── Desktop nav ── */}
             <div className="hidden lg:flex items-center gap-1">
               {/* Home */}
               <Link
@@ -287,7 +287,7 @@ export function MegaMenu() {
               ))}
             </div>
 
-            {/* ── Desktop CTA ─────────────────────────────────── */}
+            {/* ── Desktop CTA ── */}
             <div className="hidden lg:flex items-center gap-3">
               <Link
                 href="/contact"
@@ -298,7 +298,7 @@ export function MegaMenu() {
               </Link>
             </div>
 
-            {/* ── Mobile hamburger ────────────────────────────── */}
+            {/* ── Mobile hamburger  */}
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="lg:hidden relative w-9 h-9 flex items-center justify-center rounded-lg text-[#556677] hover:text-[#003C46] hover:bg-[#f7f8fa] transition-colors duration-200"
@@ -331,7 +331,7 @@ export function MegaMenu() {
           </div>
         </div>
 
-        {/* ── Mobile menu ─────────────────────────────────────── */}
+        {/* ── Mobile menu  */}
         <AnimatePresence>
           {isOpen && (
             <motion.div

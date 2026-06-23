@@ -29,7 +29,7 @@ import aboutImage from "@/constants/images/projects/digitalization/about.jpg";
 import objectiveImage from "@/constants/images/projects/digitalization/objective.jpg";
 import outcomeImage from "@/constants/images/projects/digitalization/outcome.jpg";
 
-// ─── Shared helpers ───────────────────────────────────────────────────────────
+//  Shared helpers ──
 
 const Grid = ({ light = false }: { light?: boolean }) => (
   <div
@@ -53,7 +53,7 @@ const SectionHeading = ({ children }: { children: React.ReactNode }) => (
   </h2>
 );
 
-// ─── Hero ─────────────────────────────────────────────────────────────────────
+//  Hero 
 
 const Hero = () => {
   const ref = useRef<HTMLElement>(null);
@@ -172,7 +172,7 @@ const Hero = () => {
   );
 };
 
-// ─── Project Overview (AboutSection) ─────────────────────────────────────────
+//  Project Overview (AboutSection) ──
 
 const ProjectOverview = () => {
   const ref = useRef<HTMLElement>(null);
@@ -273,7 +273,7 @@ const ProjectOverview = () => {
   );
 };
 
-// ─── Objective ────────────────────────────────────────────────────────────────
+//  Objective ─
 
 const Objective = () => {
   const ref = useRef<HTMLElement>(null);
@@ -345,7 +345,7 @@ const Objective = () => {
   );
 };
 
-// ─── Key Roles (Scope) ────────────────────────────────────────────────────────
+//  Key Roles (Scope) ──
 
 const scopeItems = [
   {
@@ -440,7 +440,7 @@ const Scope = () => {
   );
 };
 
-// ─── Approach ─────────────────────────────────────────────────────────────────
+//  Approach ──
 
 const approachItems = [
   {
@@ -530,7 +530,7 @@ const ApproachSection = () => {
   );
 };
 
-// ─── Outcomes ─────────────────────────────────────────────────────────────────
+//  Outcomes ──
 
 const outcomes = [
   {
@@ -704,7 +704,7 @@ const Outcome = () => {
   );
 };
 
-// ─── Tech & Testimonial ───────────────────────────────────────────────────────
+//  Tech & Testimonial ─
 
 const technologies = [
   {
@@ -822,7 +822,7 @@ const Tech = () => {
   );
 };
 
-// ─── CTA ──────────────────────────────────────────────────────────────────────
+//  CTA ─
 
 const CTASection = () => {
   const ref = useRef<HTMLElement>(null);
@@ -873,7 +873,7 @@ const CTASection = () => {
   );
 };
 
-// ─── Page ─────────────────────────────────────────────────────────────────────
+//  Page 
 
 export default function DigitalizationProject() {
   return (

@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useRef, useState } from "react";
 import { Factory, Stethoscope, Hammer, Zap, Tractor } from "lucide-react";
 import BackgroundGrid from "@/components/ui/backgroundgrid";

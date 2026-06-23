@@ -28,7 +28,7 @@ import aboutImage from "@/constants/images/projects/it/about.jpg";
 import objectiveImage from "@/constants/images/projects/it/objective.jpg";
 import overviewImage from "@/constants/images/projects/it/overview.jpg";
 
-// ─── Shared helpers ───────────────────────────────────────────────────────────
+//  Shared helpers ──
 
 const Grid = ({ light = false }: { light?: boolean }) => (
   <div
@@ -52,7 +52,7 @@ const SectionHeading = ({ children }: { children: React.ReactNode }) => (
   </h2>
 );
 
-// ─── Hero ─────────────────────────────────────────────────────────────────────
+//  Hero 
 
 const Hero = () => {
   const ref = useRef<HTMLElement>(null);
@@ -177,7 +177,7 @@ const Hero = () => {
   );
 };
 
-// ─── Project Objective ────────────────────────────────────────────────────────
+//  Project Objective ──
 
 const ProjectObjective = () => {
   const ref = useRef<HTMLElement>(null);
@@ -274,7 +274,7 @@ const ProjectObjective = () => {
   );
 };
 
-// ─── Project Overview ─────────────────────────────────────────────────────────
+//  Project Overview 
 
 const ProjectOverview = () => {
   const ref = useRef<HTMLElement>(null);
@@ -391,7 +391,7 @@ const ProjectOverview = () => {
   );
 };
 
-// ─── Objective ────────────────────────────────────────────────────────────────
+//  Objective ─
 
 const Objectives = () => {
   const ref = useRef<HTMLElement>(null);
@@ -482,7 +482,7 @@ const Objectives = () => {
   );
 };
 
-// ─── Approach ─────────────────────────────────────────────────────────────────
+//  Approach ──
 
 const steps = [
   {
@@ -583,7 +583,7 @@ const ProjectApproach = () => {
   );
 };
 
-// ─── Key Results ──────────────────────────────────────────────────────────────
+//  Key Results ──
 
 const results = [
   {
@@ -795,7 +795,7 @@ const KeyResults = () => {
   );
 };
 
-// ─── Tech & Testimonial ───────────────────────────────────────────────────────
+//  Tech & Testimonial ─
 
 const technologies = [
   { name: "React.js", icon: Code, level: "Expert" },
@@ -901,7 +901,7 @@ const TechAndTestimonial = () => {
   );
 };
 
-// ─── CTA ──────────────────────────────────────────────────────────────────────
+//  CTA ─
 
 const CTASection = () => {
   const ref = useRef<HTMLElement>(null);
@@ -952,7 +952,7 @@ const CTASection = () => {
   );
 };
 
-// ─── App ──────────────────────────────────────────────────────────────────────
+//  App ─
 
 function App() {
   return (

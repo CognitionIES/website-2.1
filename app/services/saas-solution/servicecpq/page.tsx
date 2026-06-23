@@ -1,5 +1,5 @@
-"use client";
-
+import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
 import React from "react";
 import Hero from "./hero";
 import Features from "./features";
@@ -13,6 +13,23 @@ import VideoShowcase from "./videoShowcase";
 import Partner from "./partner";
 import WhyChoose from "./whyChooseUs";
 import Industries from "./industries";
+
+export const metadata: Metadata = buildMetadata({
+  title: "ServiceCPQ | AI-Powered After-Sales SaaS Platform",
+  description:
+    "ServiceCPQ by Cognition IES is an AI-powered platform unifying Configure Price Quote (CPQ), warranty and claims management, and repair workflows for seamless after-sales service management.",
+  path: "/services/saas-solution/servicecpq",
+  keywords: [
+    "ServiceCPQ",
+    "Configure Price Quote software",
+    "CPQ platform",
+    "after-sales service software",
+    "warranty and claims management software",
+    "repair management software",
+    "AI-powered CPQ",
+    "service management SaaS",
+  ],
+});
 
 const Index = () => {
   return (
@@ -38,3 +55,4 @@ const Index = () => {
 };
 
 export default Index;
+  

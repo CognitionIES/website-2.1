@@ -8,7 +8,7 @@ import {
   Loader2, Smartphone,
 } from "lucide-react";
 
-// ─── Types ────────────────────────────────────────────────────────────────────
+//  Types ──
 
 interface Service {
   title: string;
@@ -17,7 +17,7 @@ interface Service {
   features: string[];
 }
 
-// ─── Data ─────────────────────────────────────────────────────────────────────
+//  Data 
 
 const plantServices: Service[] = [
   {
@@ -139,7 +139,7 @@ const productServices: Service[] = [
   },
 ];
 
-// ─── ServiceCard ──────────────────────────────────────────────────────────────
+//  ServiceCard ──
 
 const ServiceCard = ({ service }: { service: Service }) => (
   <div className="flex-shrink-0 w-80 rounded-xl border border-[#e8eaed] dark:border-[#1e1e2e] bg-white dark:bg-[#0d0d14] p-6 mx-3 group hover:border-[#0098AF]/30 transition-colors duration-200 relative overflow-hidden">
@@ -171,7 +171,7 @@ const ServiceCard = ({ service }: { service: Service }) => (
   </div>
 );
 
-// ─── ServiceSlider ────────────────────────────────────────────────────────────
+//  ServiceSlider 
 
 const ServiceSlider = ({
   title, description, services, direction,
@@ -238,7 +238,7 @@ const ServiceSlider = ({
   );
 };
 
-// ─── ServicesSlider (exported) ────────────────────────────────────────────────
+//  ServicesSlider (exported) 
 
 export const ServicesSlider = () => {
   const ref = useRef<HTMLElement>(null);
