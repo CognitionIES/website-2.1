@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Youtube } from "lucide-react";
 import BackgroundGrid from "@/components/ui/backgroundgrid";
@@ -63,22 +65,8 @@ const VideoShowcase = () => {
           </div>
 
           {/* Caption */}
-          <p className="text-sm text-[#5b5b5b] text-center mt-4 mb-8">
-            A comprehensive walkthrough of our AI-powered after-sales platform
-          </p>
         </div>
       </div>
-
-      {/* Bottom decorative wave */}
-      <div
-        className="absolute bottom-0 left-0 w-full h-12 bg-[#E6F0F5]/60 -z-5"
-        style={{
-          maskImage:
-            "url(\"data:image/svg+xml,%3Csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,40 C80,10 150,50 200,20 C250,0 300,20 350,10 C400,0 450,30 500,15 C550,0 600,15 650,30 C700,45 750,20 800,40 L800,100 L0,100 Z' fill='%23FFFFFF'/%3E%3C/svg%3E\")",
-          maskSize: "800px 100px",
-          maskRepeat: "repeat-x",
-        }}
-      ></div>
     </section>
   );
 };
