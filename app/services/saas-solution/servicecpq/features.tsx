@@ -49,7 +49,7 @@ const KeyFeatures = () => {
           icon: <FileText />,
           title: "Automated Quote Generation",
           description:
-            "Create accurate, detailed quotes using natural language inputs — streamlining even the most complex service configurations.",
+            "Create accurate, detailed quotes using natural language inputs streamlining even the most complex service configurations.",
         },
         {
           icon: <ClipboardCheck />,
@@ -95,7 +95,7 @@ const KeyFeatures = () => {
           icon: <ClipboardCheck />,
           title: "Streamlined Workflows",
           description:
-            "Manage repair jobs end-to-end — from service request intake to job completion, with integrated billing and invoicing.",
+            "Manage repair jobs end-to-end from service request intake to job completion, with integrated billing and invoicing.",
         },
         {
           icon: <Users />,
@@ -127,7 +127,7 @@ const KeyFeatures = () => {
           icon: <ClipboardCheck />,
           title: "Order Management",
           description:
-            "Simplify order placement, payment, and confirmation — accelerating order fulfillment and customer satisfaction.",
+            "Simplify order placement, payment, and confirmation accelerating order fulfillment and customer satisfaction.",
         },
         {
           icon: <Brain />,
@@ -139,7 +139,7 @@ const KeyFeatures = () => {
           icon: <Globe />,
           title: "Global Scalability",
           description:
-            "Support multi-currency, multilingual operations — enabling global sales and service reach with ease.",
+            "Support multi-currency, multilingual operations enabling global sales and service reach with ease.",
         },
       ],
     },

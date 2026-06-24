@@ -31,7 +31,7 @@ export const metadata: Metadata = buildMetadata({
   description:
     "Cognition IES, based in Vadodara, delivers recruitment & resourcing, end-to-end Build & Operate engineering solutions, and ServiceCPQ SaaS software for businesses across India and the USA.",
   path: "/",
-  ogTitle: "Cognition IES — Build Smarter. Hire Better. Scale Faster.",
+  ogTitle: "Cognition IES | Build Smarter. Hire Better. Scale Faster.",
   keywords: [
     "engineering services Vadodara",
     "recruitment services Vadodara",

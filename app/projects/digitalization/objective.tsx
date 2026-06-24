@@ -77,7 +77,7 @@ export default function Objective() {
                 <p className="text-white/90 text-sm">
                   To build and operate a fully digitized manufacturing
                   environment by integrating physical plant data with real-time
-                  digital intelligence — enhancing accuracy, reducing downtime,
+                  digital intelligence enhancing accuracy, reducing downtime,
                   and enabling predictive operations.
                 </p>
               </div>
@@ -99,7 +99,7 @@ export default function Objective() {
                     <p className="text-white/90 text-lg">
                       To build and operate a fully digitized manufacturing
                       environment by integrating physical plant data with
-                      real-time digital intelligence — enhancing accuracy,
+                      real-time digital intelligence enhancing accuracy,
                       reducing downtime, and enabling predictive operations.
                     </p>
                   </div>

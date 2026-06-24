@@ -30,7 +30,7 @@ const testimonials: Testimonial[] = [
   },
   {
     id: "testimonial-2",
-    quote: "Partnering with Cognition IES for our plant's digital transformation has been a game-changer. The precision laser scanning helped us uncover layout inconsistencies. The digital twin they built is not just a model — it's a dynamic tool that gives us real-time visibility into our operations. We've seen significant improvements in our decision-making, reduced downtime, and far fewer issues during equipment installation and changeovers. Cognition IES didn't just deliver a service; they've empowered us with a smarter, scalable way to run our facility.",
+    quote: "Partnering with Cognition IES for our plant's digital transformation has been a game-changer. The precision laser scanning helped us uncover layout inconsistencies. The digital twin they built is not just a model it's a dynamic tool that gives us real-time visibility into our operations. We've seen significant improvements in our decision-making, reduced downtime, and far fewer issues during equipment installation and changeovers. Cognition IES didn't just deliver a service; they've empowered us with a smarter, scalable way to run our facility.",
     author: "Anonymous",
     position: "Project Manager",
     company: "Confidential Client",

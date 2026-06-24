@@ -42,10 +42,10 @@ const servicesData: Service[] = [
     tag: "Core",
   },
   {
-    title: "SaaS Solutions — ServiceCPQ",
+    title: "SaaS Solutions ServiceCPQ",
     href: "/services/saas-solution/servicecpq",
     icon: <Server className="w-4 h-4" />,
-    description: "Configure, price, quote — automated",
+    description: "Configure, price, quote automated",
     tag: "New",
   },
 ];

@@ -92,7 +92,7 @@ const faqs = [
   {
     question: "What recruitment models do we offer?",
     answer:
-      "We provide Direct Hire, Contract Staffing, Contract-to-Hire, Recruitment Process Outsourcing (RPO), and Project-Based Hiring — giving clients flexibility to meet different talent needs.",
+      "We provide Direct Hire, Contract Staffing, Contract-to-Hire, Recruitment Process Outsourcing (RPO), and Project-Based Hiring giving clients flexibility to meet different talent needs.",
     category: "Recruitment",
   },
   {
@@ -124,7 +124,7 @@ const faqs = [
   {
     question: "What does the Build & Operate model mean?",
     answer:
-      "It means we take end-to-end ownership — from requirement analysis and team setup to execution, operations, and scaling — ensuring seamless delivery and long-term success.",
+      "It means we take end-to-end ownership from requirement analysis and team setup to execution, operations, and scaling ensuring seamless delivery and long-term success.",
     category: "BuildOperate",
   },
   {
@@ -148,7 +148,7 @@ const faqs = [
   {
     question: "Do we stay involved after project delivery?",
     answer:
-      "Yes. We don’t just build and leave — we operate, monitor, and optimize continuously to ensure sustained performance and scalability.",
+      "Yes. We don’t just build and leave we operate, monitor, and optimize continuously to ensure sustained performance and scalability.",
     category: "BuildOperate",
   },
 ];

@@ -94,8 +94,8 @@ export default function AboutSection() {
                   </p>
                   <p className="text-white/90 text-sm sm:text-base leading-relaxed mt-2">
                     Under a Build & Operate model, Cognition IES took full
-                    ownership — from digital engineering setup to real-time
-                    operational monitoring — delivering a live digital twin
+                    ownership from digital engineering setup to real-time
+                    operational monitoring delivering a live digital twin
                     ecosystem and ongoing operational support.
                   </p>
                 </div>
@@ -124,8 +124,8 @@ export default function AboutSection() {
                     </p>
                     <p className="text-white/90 text-base sm:text-lg leading-relaxed text-justify mt-4">
                       Under a Build & Operate model, Cognition IES took full
-                      ownership — from digital engineering setup to real-time
-                      operational monitoring — delivering a live digital twin
+                      ownership from digital engineering setup to real-time
+                      operational monitoring delivering a live digital twin
                       ecosystem and ongoing operational support.
                     </p>
                   </div>

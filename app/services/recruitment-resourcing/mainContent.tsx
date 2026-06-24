@@ -20,7 +20,7 @@ export default function AboutSection() {
   };
 
   const quote =
-    "In today's fast-paced and ever-evolving job market, finding the right opportunity or the right talent can feel overwhelming. That's where we come in. At Cognition IES, we believe recruitment is more than just matching resumes with job descriptions — it's about understanding people, purpose, and potential. We work closely with you to ensure every connection is meaningful, strategic, and long-lasting.";
+    "In today's fast-paced and ever-evolving job market, finding the right opportunity or the right talent can feel overwhelming. That's where we come in. At Cognition IES, we believe recruitment is more than just matching resumes with job descriptions it's about understanding people, purpose, and potential. We work closely with you to ensure every connection is meaningful, strategic, and long-lasting.";
 
   return (
     <section

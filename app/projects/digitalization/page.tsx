@@ -140,7 +140,7 @@ const Hero = () => {
           transition={{ duration: 0.55, delay: 0.2 }}
           className="mt-4 text-[15px] text-white/65 max-w-xl leading-relaxed"
         >
-          Transforming industries with cutting-edge digital solutions — from
+          Transforming industries with cutting-edge digital solutions from
           physical plant to live digital twin.
         </motion.p>
       </div>
@@ -243,8 +243,8 @@ const ProjectOverview = () => {
                 </p>
                 <p className="text-[15px] text-[#556677] dark:text-[#8899aa] leading-relaxed">
                   Under a Build & Operate model, Cognition IES took full
-                  ownership — from digital engineering setup to real-time
-                  operational monitoring — delivering a live digital twin
+                  ownership from digital engineering setup to real-time
+                  operational monitoring delivering a live digital twin
                   ecosystem and ongoing operational support.
                 </p>
               </div>
@@ -312,7 +312,7 @@ const Objective = () => {
               <p className="text-[15px] text-white/75 leading-relaxed mb-6">
                 To build and operate a fully digitized manufacturing environment
                 by integrating physical plant data with real-time digital
-                intelligence — enhancing accuracy, reducing downtime, and
+                intelligence enhancing accuracy, reducing downtime, and
                 enabling{" "}
                 <span className="text-[#0098AF] font-semibold">
                   predictive operations.

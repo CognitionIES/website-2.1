@@ -48,7 +48,7 @@ const processSteps: ProcessStep[] = [
   {
     id: "offer",
     title: "Offer & Onboarding Support",
-    description: "We ensure smooth offer rollouts, counteroffer handling, background checks, and onboarding support — especially for contract and RPO hires.",
+    description: "We ensure smooth offer rollouts, counteroffer handling, background checks, and onboarding support especially for contract and RPO hires.",
     deliverable: "Compliance, documentation, payroll integration (for C2H/Contract).",
     icon: DocumentIcon,
   },

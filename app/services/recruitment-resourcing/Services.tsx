@@ -18,7 +18,7 @@ const services: Service[] = [
     title: "Time & Material",
     subtitle: "Pay only for the hours or effort utilized.",
     description:
-      "Scale quickly without long-term commitments. Our contract staffing services provide skilled professionals for short- or mid-term assignments. We manage everything from sourcing and onboarding to payroll and compliance — so you can focus on delivery, not HR.",
+      "Scale quickly without long-term commitments. Our contract staffing services provide skilled professionals for short- or mid-term assignments. We manage everything from sourcing and onboarding to payroll and compliance so you can focus on delivery, not HR.",
     image: "https://images.pexels.com/photos/3184339/pexels-photo-3184339..webp?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop",
   },
   {
@@ -26,7 +26,7 @@ const services: Service[] = [
     title: "Recruitment Process Outsource",
     subtitle: "End-to-End Hiring, Handled by Experts",
     description:
-      "Outsource your recruitment engine and reduce cost-per-hire. With RPO, our team acts as an extension of your HR department, managing the entire hiring process — sourcing, screening, interviews, compliance, and analytics — with speed, consistency, and scale.",
+      "Outsource your recruitment engine and reduce cost-per-hire. With RPO, our team acts as an extension of your HR department, managing the entire hiring process sourcing, screening, interviews, compliance, and analytics with speed, consistency, and scale.",
     image: "https://images.pexels.com/photos/3184291/pexels-photo-3184291..webp?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop",
   },
   {
@@ -120,7 +120,7 @@ export default function ServicesSection() {
             <em className="not-italic text-[#0098AF]">models.</em>
           </h2>
           <p className="text-[15px] text-[#556677] dark:text-[#8899aa] max-w-xl leading-relaxed">
-            Tailored hiring solutions to meet your business needs — whether you're scaling fast or building for the future.
+            Tailored hiring solutions to meet your business needs whether you're scaling fast or building for the future.
           </p>
         </motion.div>
 

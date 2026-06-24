@@ -21,7 +21,7 @@ const WhyChoose = () => {
       icon: <HandshakeIcon className="h-6 w-6" />,
       title: "End-to-End Support",
       description:
-        "From the first consultation to long-term post-implementation assistance, our dedicated experts are with you at every stage — ensuring your success is our success.",
+        "From the first consultation to long-term post-implementation assistance, our dedicated experts are with you at every stage ensuring your success is our success.",
     },
   ];
 
