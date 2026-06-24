@@ -16,8 +16,19 @@ import Hero from "./hero";
 import CTASection from "@/components/CTA";
 import faqs from "@/constants/faqs";
 import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
 
-
+export const metadata: Metadata = buildMetadata({
+  title: "FAQs",
+  description:
+    "Answers to common questions about Cognition IES's recruitment & resourcing, engineering services, and ServiceCPQ SaaS platform.",
+  path: "/faq",
+  keywords: [
+    "Cognition IES FAQ",
+    "engineering services questions",
+    "recruitment services questions",
+  ],
+});
 
 const FAQ = () => {
   const [isInView, setIsInView] = useState(false);

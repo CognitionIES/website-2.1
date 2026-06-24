@@ -26,6 +26,18 @@ import heroImage from "@/constants/images/hero/services-hero.webp";
 import saasImage from "@/constants/images/home/our-services/saas.webp";
 import buildImage from "@/constants/images/build-operate/hero.webp";
 import staffImage from "@/constants/images/home/staffing.webp";
+import { buildMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = buildMetadata({
+  title: "Our Services",
+  description:
+    "Explore Cognition IES's core services — Recruitment & Resourcing, Engineering Services, and ServiceCPQ SaaS solutions — built to help businesses scale across India and the USA.",
+  path: "/services",
+  keywords: [
+    "Cognition IES services",
+    "recruitment engineering SaaS company",
+  ],
+});
 
 //  Shared helpers ──
 

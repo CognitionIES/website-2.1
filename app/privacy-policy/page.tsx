@@ -8,9 +8,19 @@ import { motion, Variants } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
 
 
-
+export const metadata: Metadata = buildMetadata({
+  title: "Privacy Policy",
+  description:
+    "Read Cognition IES's privacy policy covering how we collect, use, and protect your personal information.",
+  path: "/privacy-policy",
+  keywords: [
+    "Cognition IES privacy policy",
+    "data protection policy",
+  ],
+});
 
 const PrivacyPolicy = () => {
   const [isInView, setIsInView] = useState(false);

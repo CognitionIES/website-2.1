@@ -23,8 +23,25 @@ import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import Footer from "@/components/footer";
 import { ABOUT_CONSTANTS } from "@/constants/aboutPage/constants";
+import { buildMetadata } from "@/lib/seo";
+import { Metadata } from "next";
 
-//  Shared helpers ──
+export const metadata: Metadata = buildMetadata({
+  title: "Engineering & Recruitment Services in Vadodara",
+  description:
+    "Cognition IES, based in Vadodara, delivers recruitment & resourcing, end-to-end Build & Operate engineering solutions, and ServiceCPQ SaaS software for businesses across India and the USA.",
+  path: "/",
+  ogTitle: "Cognition IES — Build Smarter. Hire Better. Scale Faster.",
+  keywords: [
+    "engineering services Vadodara",
+    "recruitment services Vadodara",
+    "recruitment and resourcing",
+    "engineering staffing solutions",
+    "build and operate engineering",
+    "ServiceCPQ SaaS platform",
+    "engineering company Vadodara",
+  ],
+});
 
 const Grid = ({ light = false }: { light?: boolean }) => (
   <div

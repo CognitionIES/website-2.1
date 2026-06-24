@@ -12,10 +12,11 @@ import EngagementCarousel from "@/components/HomePage/EngagementModel";
 import HomeClientSections from "./HomeClientSections";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Engineering, Recruitment & SaaS Solutions",
+  title: "Cognition IES | Build Smarter. Hire Better. Scale Faster.",
   description:
     "Cognition IES delivers recruitment & resourcing, end-to-end Build & Operate engineering solutions, and ServiceCPQ SaaS software for businesses across India and the USA.",
   path: "/",
+  ogTitle: "Cognition IES | Build Smarter. Hire Better. Scale Faster.",
   keywords: [
     "recruitment and resourcing",
     "engineering staffing solutions",
