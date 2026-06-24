@@ -13,10 +13,10 @@ import {
   CarouselPrevious,
   CarouselNext,
 } from "@/components/ui/carousel";
-import digitalImage from "@/constants/images/home/our-recent-projects/digitalization.jpg";
-import pcmImage2 from "@/constants/images/home/our-recent-projects/pcm.jpg";
+import digitalImage from "@/constants/images/home/our-recent-projects/digitalization.webp";
+import pcmImage2 from "@/constants/images/home/our-recent-projects/pcm.webp";
 import Link from "next/link";
-import heroImage from "@/constants/images/hero/pexels-fauxels-3183197.jpg";
+import heroImage from "@/constants/images/hero/pexels-fauxels-3183197.webp";
 import { Button } from "@/components/ui/button";
 
 type Project = {

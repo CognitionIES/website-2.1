@@ -22,10 +22,10 @@ import { MegaMenu } from "@/components/ui/Megamenu/MegaMenu";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Footer from "@/components/footer";
-import heroImage from "@/constants/images/hero/services-hero.png";
-import saasImage from "@/constants/images/home/our-services/saas.jpg";
-import buildImage from "@/constants/images/build-operate/hero.jpg";
-import staffImage from "@/constants/images/home/staffing.jpg";
+import heroImage from "@/constants/images/hero/services-hero.webp";
+import saasImage from "@/constants/images/home/our-services/saas.webp";
+import buildImage from "@/constants/images/build-operate/hero.webp";
+import staffImage from "@/constants/images/home/staffing.webp";
 
 //  Shared helpers ──
 

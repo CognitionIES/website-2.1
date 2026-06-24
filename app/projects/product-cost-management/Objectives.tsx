@@ -4,8 +4,8 @@
 import { motion, Variants } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import objectiveImage from "@/constants/images/projects/pcm/objective.jpg";
-import objectiveImage2 from "@/constants/images/projects/pcm/objective-two.jpg";
+import objectiveImage from "@/constants/images/projects/pcm/objective.webp";
+import objectiveImage2 from "@/constants/images/projects/pcm/objective-two.webp";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 export default function Objectives() {

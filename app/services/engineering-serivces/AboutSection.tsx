@@ -3,7 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 import { useRef } from "react";
-import aboutImage from "@/constants/images/hero/build-operate.png";
+import aboutImage from "@/constants/images/hero/build-operate.webp";
 
 export const AboutSection = () => {
   const ref = useRef<HTMLElement>(null);

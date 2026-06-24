@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import saasImage from "@/constants/images/home/our-services/saas.jpg";
+import saasImage from "@/constants/images/home/our-services/saas.webp";
 import { ArrowUpRight, Settings, Factory, Monitor, ArrowLeft, ArrowRight } from "lucide-react";
-import buildImage from "@/constants/images/build-operate/hero.jpg";
+import buildImage from "@/constants/images/build-operate/hero.webp";
 import Image from "next/image";
 import Link from "next/link";
-import staffImage from "@/constants/images/home/staffing.jpg";
+import staffImage from "@/constants/images/home/staffing.webp";
 import { motion } from "framer-motion";
 
 const services = [

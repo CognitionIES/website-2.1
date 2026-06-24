@@ -1,12 +1,12 @@
 // Constants for the About page to keep content and assets modular and reusable
-import HeroImage from "@/constants/images/about/about-hero.jpg";
-import OurJourneyImage from "@/constants/images/about/about-our-journey.jpg";
-import flexScaleImage from "@/constants/images/about/flex-scale.jpg";
-import lifeCycleImage from "@/constants/images/about/lifecyle-mastery.jpg";
-import qualityCoreImage from "@/constants/images/about/quality-core.jpg";
-import coInnovativeImage from "@/constants/images/about/coinnovative.jpg";
-import missionVisionImage from "@/constants/images/about/missionvision.jpg";
-import statsImage from "@/constants/images/about/stats.jpg";
+import HeroImage from "@/constants/images/about/about-hero.webp";
+import OurJourneyImage from "@/constants/images/about/about-our-journey.webp";
+import flexScaleImage from "@/constants/images/about/flex-scale.webp";
+import lifeCycleImage from "@/constants/images/about/lifecyle-mastery.webp";
+import qualityCoreImage from "@/constants/images/about/quality-core.webp";
+import coInnovativeImage from "@/constants/images/about/coinnovative.webp";
+import missionVisionImage from "@/constants/images/about/missionvision.webp";
+import statsImage from "@/constants/images/about/stats.webp";
 export const ABOUT_CONSTANTS = {
   // Image URLs
   IMAGES: {

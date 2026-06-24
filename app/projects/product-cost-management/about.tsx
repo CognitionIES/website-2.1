@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { easeOut } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import aboutImage from "@/constants/images/projects/pcm/project-overview.jpg";
+import aboutImage from "@/constants/images/projects/pcm/project-overview.webp";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 export default function AboutSection() {

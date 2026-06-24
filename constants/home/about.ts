@@ -1,4 +1,4 @@
-import aboutImage from "@/constants/images/home/who-we-are.jpg";
+import aboutImage from "@/constants/images/home/who-we-are.webp";
 
 export const ABOUT_CONSTANTS = {
   TITLE: "Who We Are?",

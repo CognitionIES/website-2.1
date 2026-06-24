@@ -3,7 +3,7 @@
 
 import Image from "next/image";
 import React from "react";
-import objectiveImage from "@/constants/images/projects/digitalization/objective.jpg";
+import objectiveImage from "@/constants/images/projects/digitalization/objective.webp";
 import { useEffect, useRef, useState } from "react";
 import { motion, Variants } from "framer-motion";
 

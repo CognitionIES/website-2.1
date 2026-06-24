@@ -27,13 +27,13 @@ import { MegaMenu } from "@/components/ui/Megamenu/MegaMenu";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import Footer from "@/components/footer";
-import heroImage from "@/constants/images/projects/pcm/hero.jpg";
-import aboutImage from "@/constants/images/projects/pcm/project-overview.jpg";
-import objectiveImage from "@/constants/images/projects/pcm/objective.jpg";
-import objectiveImage2 from "@/constants/images/projects/pcm/objective-two.jpg";
-import approachImage from "@/constants/images/projects/pcm/pcm-approach.jpg";
-import keyImage from "@/constants/images/bg/key.jpg";
-import deliverablesImage from "@/constants/images/bg/deliverables.jpg";
+import heroImage from "@/constants/images/projects/pcm/hero.webp";
+import aboutImage from "@/constants/images/projects/pcm/project-overview.webp";
+import objectiveImage from "@/constants/images/projects/pcm/objective.webp";
+import objectiveImage2 from "@/constants/images/projects/pcm/objective-two.webp";
+import approachImage from "@/constants/images/projects/pcm/pcm-approach.webp";
+import keyImage from "@/constants/images/bg/key.webp";
+import deliverablesImage from "@/constants/images/bg/deliverables.webp";
 
 //  Shared helpers ──
 

@@ -1,5 +1,5 @@
 // constants/brochurePage/constants.js
-import heroImage from "@/constants/images/brochure/hero.jpg";
+import heroImage from "@/constants/images/brochure/hero.webp";
 
 export const BROCHURE_CONSTANTS = {
   BANNER_IMAGE: { heroImage },

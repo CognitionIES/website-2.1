@@ -5,7 +5,7 @@ import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import { motion, Variants } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
-import approachImage from "@/constants/images/projects/pcm/pcm-approach.jpg";
+import approachImage from "@/constants/images/projects/pcm/pcm-approach.webp";
 
 export default function ProjectApproach() {
   const [isInView, setIsInView] = useState(false);

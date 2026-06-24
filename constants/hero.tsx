@@ -1,13 +1,13 @@
 import { StaticImageData } from "next/image";
-//import productImage from "./images/home/hero/product.jpg";
-//import processImage from "./images/home/hero/process.jpg";
-//import aimlImage from "./images/home/hero/ai-ml.jpg";
-import saasImage from "@/constants/images/home/hero/saas.jpg";
-import recruitmentImage from "@/constants/images/home/hero/recruit.jpg";
-import saas2 from "@/constants/images/home/hero/saas-mobile.jpg";
-//import process2 from "@/constants/images/home/hero/process-mobile.jpg";
-import recruit2 from "@/constants/images/home/hero/recruit-mobile.jpg";
-import buildImage from "@/constants/images/build-operate/hero.jpg";
+//import productImage from "./images/home/hero/product.webp";
+//import processImage from "./images/home/hero/process.webp";
+//import aimlImage from "./images/home/hero/ai-ml.webp";
+import saasImage from "@/constants/images/home/hero/saas.webp";
+import recruitmentImage from "@/constants/images/home/hero/recruit.webp";
+import saas2 from "@/constants/images/home/hero/saas-mobile.webp";
+//import process2 from "@/constants/images/home/hero/process-mobile.webp";
+import recruit2 from "@/constants/images/home/hero/recruit-mobile.webp";
+import buildImage from "@/constants/images/build-operate/hero.webp";
 
 export interface HeroSlide {
   id: number;

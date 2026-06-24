@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { useRef } from "react";
 import { useInView } from "framer-motion";
-import aboutImage1 from "@/constants/images/staffing-recruitment/about-2.jpg";
+import aboutImage1 from "@/constants/images/staffing-recruitment/about-2.webp";
 
 export default function AboutSection() {
   const ref = useRef<HTMLElement>(null);

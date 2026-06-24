@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { ChevronRight, Home, ArrowDown } from "lucide-react";
 import Image from "next/image";
-import heroImage from "@/constants/images/hero/careers-hero.png";
+import heroImage from "@/constants/images/hero/careers-hero.webp";
 import Link from "next/link";
 
 export default function CareersHero() {

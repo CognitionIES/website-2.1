@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import sizeImage from "@/constants/images/hero/careers-hero.png";
+import sizeImage from "@/constants/images/hero/careers-hero.webp";
 import { Users, Target, TrendingUp } from "lucide-react";
 
 export default function ExpertiseHighlight() {

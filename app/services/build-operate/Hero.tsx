@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { ChevronRight, Home } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import heroImage from "@/constants/images/build-operate/hero.jpg";
+import heroImage from "@/constants/images/build-operate/hero.webp";
 
 export default function Hero() {
   return (

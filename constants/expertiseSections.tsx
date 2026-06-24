@@ -1,4 +1,4 @@
-  import logos1 from "../constants/images/logos1.png";
+  import logos1 from "../constants/images/logos1.webp";
 
   const servicesSections = {
       mechanical: {
@@ -18,10 +18,10 @@
           "Design Optimization (weight/cost Reduction)"
         ],
         logos:  [
-          { src: logos1 || "/fallback-image.png", alt: "CATIA" },
-           { src: "https://upload.wikimedia.org/wikipedia/en/3/3c/Siemens_NX_Logo.png", alt: "Siemens NX" },
-           { src: "https://upload.wikimedia.org/wikipedia/en/d/d3/SolidWorks_Logo.png", alt: "SolidWorks" },
-           { src: "https://upload.wikimedia.org/wikipedia/commons/9/9c/Solid_Edge_Logo.png", alt: "Solid Edge" }
+          { src: logos1 || "/fallback-image.webp", alt: "CATIA" },
+           { src: "https://upload.wikimedia.org/wikipedia/en/3/3c/Siemens_NX_Logo.webp", alt: "Siemens NX" },
+           { src: "https://upload.wikimedia.org/wikipedia/en/d/d3/SolidWorks_Logo.webp", alt: "SolidWorks" },
+           { src: "https://upload.wikimedia.org/wikipedia/commons/9/9c/Solid_Edge_Logo.webp", alt: "Solid Edge" }
         ]
       },
     analysis: {
@@ -41,7 +41,7 @@
         "CAE/CFD Solutions"
       ],
       logos: [
-        { src: "https://upload.wikimedia.org/wikipedia/commons/3/3c/Ansys_logo.png", alt: "ANSYS" },
+        { src: "https://upload.wikimedia.org/wikipedia/commons/3/3c/Ansys_logo.webp", alt: "ANSYS" },
         { src: "https://upload.wikimedia.org/wikipedia/commons/6/68/Altair_Engineering_logo.svg", alt: "Altair" }
       ]
     },
@@ -63,7 +63,7 @@
       ],
       logos: [
         { src: "https://upload.wikimedia.org/wikipedia/commons/5/59/KiCad-Logo.svg", alt: "KiCad" },
-        { src: "https://upload.wikimedia.org/wikipedia/commons/9/9d/Altium_Designer_logo.png", alt: "Altium" }
+        { src: "https://upload.wikimedia.org/wikipedia/commons/9/9d/Altium_Designer_logo.webp", alt: "Altium" }
       ]
     },
     hydraulic: {
@@ -83,7 +83,7 @@
         "Maintenance Planning"
       ],
       logos: [
-        { src: "https://upload.wikimedia.org/wikipedia/commons/3/3c/Ansys_logo.png", alt: "ANSYS" },
+        { src: "https://upload.wikimedia.org/wikipedia/commons/3/3c/Ansys_logo.webp", alt: "ANSYS" },
         { src: "https://upload.wikimedia.org/wikipedia/commons/6/68/Altair_Engineering_logo.svg", alt: "Altair" }
       ]
     },
@@ -104,7 +104,7 @@
         "Quality Control and Inspection"
       ],
       logos: [
-        { src: "https://upload.wikimedia.org/wikipedia/commons/3/3c/Ansys_logo.png", alt: "ANSYS" },
+        { src: "https://upload.wikimedia.org/wikipedia/commons/3/3c/Ansys_logo.webp", alt: "ANSYS" },
         { src: "https://upload.wikimedia.org/wikipedia/commons/6/68/Altair_Engineering_logo.svg", alt: "Altair" }
       ]
     },
@@ -125,7 +125,7 @@
         "Real-time Operating Systems"
       ],
       logos: [
-        { src: "https://upload.wikimedia.org/wikipedia/commons/3/3c/Ansys_logo.png", alt: "ANSYS" },
+        { src: "https://upload.wikimedia.org/wikipedia/commons/3/3c/Ansys_logo.webp", alt: "ANSYS" },
         { src: "https://upload.wikimedia.org/wikipedia/commons/6/68/Altair_Engineering_logo.svg", alt: "Altair" }
       ]
     },
@@ -146,7 +146,7 @@
         "SOPs and Regulatory Documentation"
       ],
       logos: [
-        { src: "https://upload.wikimedia.org/wikipedia/commons/3/3c/Ansys_logo.png", alt: "ANSYS" },
+        { src: "https://upload.wikimedia.org/wikipedia/commons/3/3c/Ansys_logo.webp", alt: "ANSYS" },
         { src: "https://upload.wikimedia.org/wikipedia/commons/6/68/Altair_Engineering_logo.svg", alt: "Altair" }
       ]
     },
@@ -164,7 +164,7 @@
         "Environmental Compliance",
         "Selection of Components (Pumps, Valves, Actuators etc.)",
       ],logos: [
-        { src: "https://upload.wikimedia.org/wikipedia/commons/3/3c/Ansys_logo.png", alt: "ANSYS" },
+        { src: "https://upload.wikimedia.org/wikipedia/commons/3/3c/Ansys_logo.webp", alt: "ANSYS" },
         { src: "https://upload.wikimedia.org/wikipedia/commons/6/68/Altair_Engineering_logo.svg", alt: "Altair" }
       ]
     }

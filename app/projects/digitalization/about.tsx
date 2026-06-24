@@ -4,7 +4,7 @@
 import { motion, Variants } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import aboutImage from "@/constants/images/projects/digitalization/about.jpg";
+import aboutImage from "@/constants/images/projects/digitalization/about.webp";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 export default function AboutSection() {

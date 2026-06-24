@@ -2626,12 +2626,12 @@ body {
   --tw-bg-opacity: 0.6;
 }
 
-.bg-\[url\(\'\/images\/career-pattern\.jpg\'\)\] {
-  background-image: url('/images/career-pattern.jpg');
+.bg-\[url\(\'\/images\/career-pattern\.webp\'\)\] {
+  background-image: url('/images/career-pattern.webp');
 }
 
-.bg-\[url\(\'\/images\/mobility-pattern\.jpg\'\)\] {
-  background-image: url('/images/mobility-pattern.jpg');
+.bg-\[url\(\'\/images\/mobility-pattern\.webp\'\)\] {
+  background-image: url('/images/mobility-pattern.webp');
 }
 
 .bg-\[url\(\'https\:\/\/images\.unsplash\.com\/photo-1581091226825-a6a2a5aee158\?ixlib\=rb-4\.0\.3\'\)\] {

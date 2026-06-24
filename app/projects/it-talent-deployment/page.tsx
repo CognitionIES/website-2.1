@@ -23,10 +23,10 @@ import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import Footer from "@/components/footer";
 import { ArrowDown } from "lucide-react";
-import heroImage from "@/constants/images/projects/it/hero.jpg";
-import aboutImage from "@/constants/images/projects/it/about.jpg";
-import objectiveImage from "@/constants/images/projects/it/objective.jpg";
-import overviewImage from "@/constants/images/projects/it/overview.jpg";
+import heroImage from "@/constants/images/projects/it/hero.webp";
+import aboutImage from "@/constants/images/projects/it/about.webp";
+import objectiveImage from "@/constants/images/projects/it/objective.webp";
+import overviewImage from "@/constants/images/projects/it/overview.webp";
 
 //  Shared helpers ──
 

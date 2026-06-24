@@ -4,8 +4,8 @@ import { motion, useReducedMotion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useIsMobile } from "@/hooks/use-mobile"; // Adjust path as needed
 import Image from "next/image"; // Ensure Image is imported from next/image
-import blueBulletImage from "@/constants/images/Bullet_Points/bullet_point_blue_1.png";
-import BulletPointGray from "@/constants/images/Bullet_Points/gray.png";
+import blueBulletImage from "@/constants/images/Bullet_Points/bullet_point_blue_1.webp";
+import BulletPointGray from "@/constants/images/Bullet_Points/gray.webp";
 
 interface ScrollSectionProps {
   index: number;

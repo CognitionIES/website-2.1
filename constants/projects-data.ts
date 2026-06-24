@@ -1,7 +1,7 @@
-import digitalImage from "@/constants/images/home/our-recent-projects/digitalization.jpg";
-//import pcmImage2 from "@/constants/images/home/our-recent-projects/pcm.jpg";
+import digitalImage from "@/constants/images/home/our-recent-projects/digitalization.webp";
+//import pcmImage2 from "@/constants/images/home/our-recent-projects/pcm.webp";
 import { StaticImageData } from "next/image";
-import heroImage from "@/constants/images/hero/pexels-fauxels-3183197.jpg";
+import heroImage from "@/constants/images/hero/pexels-fauxels-3183197.webp";
 
 export interface Project {
   id: string;

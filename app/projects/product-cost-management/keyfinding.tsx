@@ -4,8 +4,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform, Variants } from "framer-motion";
 import { CheckCircle } from "lucide-react";
-import keyImage from "@/constants/images/bg/key.jpg";
-import deliverablesImage from "@/constants/images/bg/deliverables.jpg";
+import keyImage from "@/constants/images/bg/key.webp";
+import deliverablesImage from "@/constants/images/bg/deliverables.webp";
 import Image from "next/image";
 import { useIsMobile } from "@/hooks/use-mobile";
 

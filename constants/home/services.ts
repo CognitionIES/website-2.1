@@ -48,9 +48,9 @@
 // };
 // constants/home/services.js
 
-//import process from "@/constants/images/process-1.jpeg";
-// import product from "@/constants/images/home/product-1.jpeg"
-// import process2 from "@/constants/images/home/process-3.jpeg"
+//import process from "@/constants/images/process-1..webp";
+// import product from "@/constants/images/home/product-1..webp"
+// import process2 from "@/constants/images/home/process-3..webp"
 
 // export const SERVICES = [
 //   {
@@ -84,10 +84,10 @@
 //   DESCRIPTION:
 //     "Driving innovation and efficiency through advanced engineering solutions, optimizing products and processes for maximum performance.",
 // };
-// import process from "@/constants/images/home/process-1.jpeg";
+// import process from "@/constants/images/home/process-1..webp";
 
-import product from "@/constants/images/home/product-1.jpeg";
-import process2 from "@/constants/images/home/process-3.jpeg";
+import product from "@/constants/images/home/product-1..webp";
+import process2 from "@/constants/images/home/process-3..webp";
 export const SERVICE_CARDS = [
   {
     id: 1,

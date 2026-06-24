@@ -12,7 +12,7 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 import Link from "next/link";
-import logo from "@/constants/images/cognition-logo-02.png";
+import logo from "@/constants/images/cognition-logo-02.webp";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 

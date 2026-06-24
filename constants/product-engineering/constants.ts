@@ -1,16 +1,16 @@
 // This file holds all constants for the product engineering page
 
-import supplyImage1 from "@/constants/images/product/side/supply.jpg";
-import mechImage1 from "@/constants/images/product/side/mech.jpg";
-import elecImage1 from "@/constants/images/product/side/elec.jpg";
-import protoImage1 from "@/constants/images/product/side/prototyping.jpg";
-import hydraImage1 from "@/constants/images/product/side/hydraulic.jpg";
-import assetImage1 from "@/constants/images/product/side/asset.jpg";
-//import embeddedImage1 from "@/constants/images/product/side/embedded.jpg";
-import caeImage1 from "@/constants/images/product/side/cae.png"
-import techImage1 from "@/constants/images/product/side/tech.jpeg"
-import aboutImage from "@/constants/images/product/about.jpg"
-import embeddedImage2 from "@/constants/images/product/side/embedded-1.jpg"
+import supplyImage1 from "@/constants/images/product/side/supply.webp";
+import mechImage1 from "@/constants/images/product/side/mech.webp";
+import elecImage1 from "@/constants/images/product/side/elec.webp";
+import protoImage1 from "@/constants/images/product/side/prototyping.webp";
+import hydraImage1 from "@/constants/images/product/side/hydraulic.webp";
+import assetImage1 from "@/constants/images/product/side/asset.webp";
+//import embeddedImage1 from "@/constants/images/product/side/embedded.webp";
+import caeImage1 from "@/constants/images/product/side/cae.webp"
+import techImage1 from "@/constants/images/product/side/tech..webp"
+import aboutImage from "@/constants/images/product/about.webp"
+import embeddedImage2 from "@/constants/images/product/side/embedded-1.webp"
 import { faGears, faMagnifyingGlassChart, faPlugCircleBolt } from "@fortawesome/free-solid-svg-icons";
 import { Cpu, FileText, Layers, Printer, Truck, Workflow } from "lucide-react";
 
@@ -43,7 +43,7 @@ export const PRODUCT_ENGINEERING_CONSTANTS = {
     DESCRIPTION_2:
       "We blend creativity with technical expertise to support every phase of the product journey. Our collaborative approach ensures alignment with your goals, delivering solutions that are both scalable and sustainable.",
     IMAGE:
-    aboutImage,
+      aboutImage,
   },
 
   // Services Section

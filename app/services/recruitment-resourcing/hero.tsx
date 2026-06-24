@@ -6,7 +6,7 @@ import { useInView } from "framer-motion";
 import Link from "next/link";
 import { FiChevronRight, FiHome } from "react-icons/fi";
 import { ArrowDown } from "lucide-react";
-import heroImage from "@/constants/images/staffing-recruitment/hero.jpg";
+import heroImage from "@/constants/images/staffing-recruitment/hero.webp";
 import Image from "next/image";
 
 export default function Hero() {

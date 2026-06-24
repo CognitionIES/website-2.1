@@ -4,8 +4,8 @@ import React, { forwardRef, useState, useEffect, useRef } from "react";
 import { motion, useReducedMotion, Variants } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Image from "next/image";
-import BulletPointGray from "@/constants/images/Bullet_Points/gray.png";
-import BulletPointBlue from "@/constants/images/Bullet_Points/bullet_point_blue_1.png";
+import BulletPointGray from "@/constants/images/Bullet_Points/gray.webp";
+import BulletPointBlue from "@/constants/images/Bullet_Points/bullet_point_blue_1.webp";
 import { useIsMobile } from "@/hooks/use-mobile"; // Adjust path as needed
 import { ChevronDown, ChevronUp } from "lucide-react"; // Import icons for expand/collapse
 

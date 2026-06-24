@@ -3,7 +3,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { motion, Variants } from "framer-motion";
-import outcomeImage from "@/constants/images/projects/digitalization/outcome.jpg";
+import outcomeImage from "@/constants/images/projects/digitalization/outcome.webp";
 import Image from "next/image";
 import { useIsMobile } from "@/hooks/use-mobile"; // Assuming this hook exists
 

@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 
 const SITE_NAME = "Cognition IES";
 const BASE_URL = "https://www.cognitionies.com";
-const DEFAULT_OG_IMAGE = "/og-default.jpg";
+const DEFAULT_OG_IMAGE = "/og-default.webp";
 
 // Site-wide keywords merged into every page, on top of page-specific ones.
 export const BASE_KEYWORDS = [

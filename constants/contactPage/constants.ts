@@ -1,5 +1,5 @@
 // This file holds all constants for the contact page
-import contactImage from "@/constants/images/conatct.jpg"
+import contactImage from "@/constants/images/conatct.webp"
 
 export const CONTACT_CONSTANTS = {
   // Hero Section

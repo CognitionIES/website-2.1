@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { FiChevronDown, FiChevronRight, FiHome } from "react-icons/fi";
 import Image from "next/image";
 import Link from "next/link";
-import Hero_Image from "@/constants/images/FAQ/hero.jpg";
+import Hero_Image from "@/constants/images/FAQ/hero.webp";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 export default function hero() {

@@ -24,10 +24,10 @@ import { MegaMenu } from "@/components/ui/Megamenu/MegaMenu";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import Footer from "@/components/footer";
-import heroImage from "@/constants/images/home/our-recent-projects/digitalization.jpg";
-import aboutImage from "@/constants/images/projects/digitalization/about.jpg";
-import objectiveImage from "@/constants/images/projects/digitalization/objective.jpg";
-import outcomeImage from "@/constants/images/projects/digitalization/outcome.jpg";
+import heroImage from "@/constants/images/home/our-recent-projects/digitalization.webp";
+import aboutImage from "@/constants/images/projects/digitalization/about.webp";
+import objectiveImage from "@/constants/images/projects/digitalization/objective.webp";
+import outcomeImage from "@/constants/images/projects/digitalization/outcome.webp";
 
 //  Shared helpers ──
 

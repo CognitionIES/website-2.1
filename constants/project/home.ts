@@ -1,4 +1,4 @@
-import HeroImage from "@/constants/images/projects/digitalization/hero.jpg";
+import HeroImage from "@/constants/images/projects/digitalization/hero.webp";
 
 export const PROJECTS_PAGE_CONSTANTS = {
   HERO: {
