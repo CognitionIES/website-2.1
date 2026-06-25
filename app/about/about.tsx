@@ -1,183 +1,104 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { motion } from "framer-motion";
+"use client";
+import { motion, useInView } from "framer-motion";
 import { ABOUT_CONSTANTS } from "@/constants/aboutPage/constants";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
-export default function AboutSection() {
-  const { IMAGES, TEXT, STATS, ANIMATIONS } = ABOUT_CONSTANTS;
-  const [hasAnimated, setHasAnimated] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
+const Grid = ({ light = false }: { light?: boolean }) => (
+  <div
+    className={`absolute inset-0 pointer-events-none ${light ? "opacity-[0.025]" : "opacity-[0.06]"}`}
+    style={{
+      backgroundImage: `linear-gradient(${light ? "#003C46" : "rgba(255,255,255,0.3)"} 1px, transparent 1px), linear-gradient(90deg, ${light ? "#003C46" : "rgba(255,255,255,0.3)"} 1px, transparent 1px)`,
+      backgroundSize: "64px 64px",
+    }}
+  />
+);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasAnimated) {
-          setHasAnimated(true);
-        }
-      },
-      {
-        threshold: 0.1,
-        rootMargin: "0px 0px -10% 0px",
-      }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-    };
-  }, [hasAnimated]);
+const SectionLabel = ({ children }: { children: React.ReactNode }) => (
+  <p className="text-[10px] font-bold tracking-[0.22em] uppercase text-[#0098AF] mb-3">
+    {children}
+  </p>
+);
+const AboutSection = () => {
+  const { IMAGES, TEXT, STATS } = ABOUT_CONSTANTS;
+  const ref = useRef<HTMLElement>(null);
+  const isInView = useInView(ref, { once: true, amount: 0.1 });
 
   return (
     <section
-      id="about"
-      ref={sectionRef}
-      className="relative w-full py-16 sm:py-20 lg:py-16 overflow-hidden"
+      ref={ref}
+      className="py-20 md:py-28 bg-white dark:bg-[#0a0a0f] relative overflow-hidden"
     >
-      {/* Sophisticated Background */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background: "linear-gradient(180deg, #FFFFFF 0%, #F3FAFA 100%)",
-        }}
-      />
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(to right, rgba(199, 236, 238, 0.05), transparent, rgba(199, 236, 238, 0.05))",
-        }}
-      />
-
+      <Grid light />
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header Section */}
-        <motion.div
-          variants={ANIMATIONS.FADE_UP}
-          initial="hidden"
-          animate={hasAnimated ? "visible" : "hidden"}
-          className="mb-8 "
-        >
-          <span className="inline-block px-3 py-1 bg-[#0098af]/10 text-[#0098af] text-xs font-medium uppercase tracking-wider rounded-full mb-4">
-            About Us
-          </span>
-          <h2 className="text-3xl sm:text-4xl   font-bold text-[#003C46] mb-6 leading-tight">
-            {TEXT.STORY_TITLE}
-          </h2>
-        </motion.div>
-
-        {/* Main Content Grid */}
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start ">
-          {/* Text Content */}
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+          {/* Text content */}
           <motion.div
-            variants={ANIMATIONS.FADE_UP}
-            initial="hidden"
-            animate={hasAnimated ? "visible" : "hidden"}
-            className="space-y-8"
+            initial={{ opacity: 0, y: 18 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
           >
-            <div className="prose prose-lg max-w-none">
-              <p className="text-lg text-[#6B8299] leading-relaxed mb-6 text-justify">
+            <SectionLabel>About Us</SectionLabel>
+            <h2 className="text-4xl md:text-[2.75rem] font-bold text-[#003C46] dark:text-white font-display leading-tight mb-6">
+              {TEXT.STORY_TITLE}
+            </h2>
+            <div className="space-y-4 mb-8">
+              <p className="text-[15px] text-[#556677] dark:text-[#8899aa] leading-relaxed">
                 {TEXT.STORY_P1}
               </p>
-              <p className="text-lg text-[#6B8299] leading-relaxed mb-6 text-justify">
+              <p className="text-[15px] text-[#556677] dark:text-[#8899aa] leading-relaxed">
                 {TEXT.STORY_P2}
               </p>
-              <p className="text-lg text-[#1F2E3D] font-medium leading-relaxed text-justify">
+              <p className="text-[15px] text-[#003C46] dark:text-white/80 font-medium leading-relaxed">
                 {TEXT.STORY_P3}
               </p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8 relative">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={
-                  hasAnimated
-                    ? { opacity: 0.15, scale: 1 }
-                    : { opacity: 0, scale: 0.95 }
-                }
-                transition={{ duration: 0.8, ease: "easeOut" }}
-                className="absolute inset-0 bg-[#0098AF] opacity-10 rounded-lg blur-xl -z-10"
-              />
-              {STATS.slice(0, 2).map((stat, index) => (
-                <div
-                  key={index}
-                  className="flex items-center space-x-4 bg-[#0098AF] opacity-90 p-4 rounded-lg shadow-md border border-[#0098AF] opacity-30"
-                >
-                  <div className="w-12 h-12 bg-[#5B5B5B] rounded-full flex items-center justify-center">
-                    <span className="text-white font-bold text-xl">
+
+            {/* Stats chips */}
+            <div className="grid grid-cols-2 gap-3">
+              {STATS.slice(0, 2).map(
+                (stat: { stat: string; label: string }, index: number) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.4, delay: 0.2 + index * 0.08 }}
+                    className="border border-[#e8eaed] dark:border-[#1e1e2e] rounded-xl p-5 hover:border-[#0098AF]/30 transition-colors duration-200 group"
+                  >
+                    <p className="text-3xl font-bold text-[#0098AF] font-display mb-1">
                       {stat.stat}
-                    </span>
-                  </div>
-                  <p className="text-lg leading-relaxed text-white font-medium">
-                    {stat.label}
-                  </p>
-                </div>
-              ))}
+                    </p>
+                    <p className="text-[13px] text-[#778899] dark:text-[#6677aa]">
+                      {stat.label}
+                    </p>
+                  </motion.div>
+                ),
+              )}
             </div>
           </motion.div>
 
-          {/* Image Section */}
+          {/* Image */}
           <motion.div
-            variants={ANIMATIONS.FADE_UP}
-            initial="hidden"
-            animate={hasAnimated ? "visible" : "hidden"}
-            className="relative"
+            initial={{ opacity: 0, x: 18 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="relative rounded-2xl overflow-hidden border border-[#e8eaed] dark:border-[#1e1e2e] group hover:border-[#0098AF]/30 transition-colors duration-200"
           >
-            <motion.div
-              className="relative group"
-              whileHover={{ scale: 1.02 }}
-              transition={{ duration: 0.3 }}
-            >
-              {/* Decorative Elements */}
-              <div
-                className="absolute -inset-4 rounded-2xl blur-xl"
-                style={{
-                  background:
-                    "linear-gradient(to bottom right, rgba(0, 152, 175, 0.2), rgba(199, 236, 238, 0.2))",
-                  transition: "opacity 0.5s",
-                }}
-              />
-              <div
-                className="absolute inset-0 rounded-2xl"
-                style={{
-                  background:
-                    "linear-gradient(to bottom right, rgba(0, 152, 175, 0.1), transparent)",
-                }}
-              />
-
-              {/* Main Image Container */}
-              <div
-                className="relative overflow-hidden rounded-2xl"
-                style={{
-                  boxShadow: "0 16px 32px rgba(0, 0, 0, 0.15)",
-                  border: "1px solid rgba(209, 217, 224, 0.5)",
-                }}
-              >
-                <Image
-                  src={IMAGES.STORY_IMAGE.OurJourneyImage}
-                  alt="Our engineering journey and company growth"
-                  className="w-full h-[440px] sm:h-[540px] object-cover group-hover:scale-105"
-                  style={{ transition: "transform 0.7s" }}
-                  loading="lazy"
-                />
-
-                {/* Image Overlay */}
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    background:
-                      "linear-gradient(to top, rgba(0, 60, 70, 0.2), transparent, transparent)",
-                    transition: "opacity 0.5s",
-                  }}
-                />
-              </div>
-            </motion.div>
+            <Image
+              src={IMAGES.STORY_IMAGE}
+              alt="Our engineering journey"
+              width={640}
+              height={540}
+              className="w-full h-[440px] sm:h-[500px] object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#003C46]/20 to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#0098AF] to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
           </motion.div>
         </div>
       </div>
     </section>
   );
-}
+};
+
+export default AboutSection;

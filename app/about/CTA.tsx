@@ -1,64 +1,99 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ABOUT_CONSTANTS } from "@/constants/aboutPage/constants";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useRef } from "react";
+import { ArrowRight, Globe } from "lucide-react";
 
-export default function CTASection() {
-  const { TEXT, ANIMATIONS } = ABOUT_CONSTANTS;
-  const isMobile = useIsMobile();
+const Eyebrow = ({
+  children,
+  invert = false,
+}: {
+  children: React.ReactNode;
+  invert?: boolean;
+}) => (
+  <span
+    className={`inline-block text-[10px] font-black tracking-[0.3em] uppercase mb-3 ${invert ? "text-[#0098AF]" : "text-[#0098AF]"}`}
+  >
+    {children}
+  </span>
+);
+
+
+const CTASection = () => {
+  const { TEXT } = ABOUT_CONSTANTS;
+  const ref = useRef<HTMLElement>(null);
+  const isInView = useInView(ref, { once: true, amount: 0.2 });
 
   return (
-    <section className="py-12 sm:py-8 lg:py-12 bg-gradient-to-r from-[#0098AF] to-[#5B5B5B] text-white relative">
-      <div className="max-w-[95%] sm:max-w-4xl md:max-w-7xl mx-auto px-4 sm:px-6 text-center items-center">
+    <section
+      ref={ref}
+      className="relative bg-[#f5f4f0] py-28 md:py-36 overflow-hidden"
+    >
+      <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
+        {/* Top rule — animates in from left */}
         <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={ANIMATIONS.STAGGER_CHILDREN}
-        >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 tracking-tight">
-            {TEXT.CTA_TITLE}
-          </h2>
-          <div className="text-center">
-            <p className="text-base sm:text-lg font-light text-center max-w-2xl mx-auto mb-6 sm:mb-8 relative">
-              {TEXT.CTA_DESC}
-              {!isMobile && (
-                <motion.span
-                  initial={{ scaleX: 0 }}
-                  whileInView={{ scaleX: 1 }}
-                  transition={{ duration: 1 }}
-                  style={{ transformOrigin: "center" }}
-                  className="absolute top-7 left-[58%] -translate-x-[30%] w-[19%] h-0.5 bg-white opacity-50"
-                />
-              )}
-            </p>
-          </div>
-          <div
-            className={`flex ${
-              isMobile ? "flex-col space-y-4" : "justify-center space-x-6"
-            }`}
+          initial={{ scaleX: 0 }}
+          animate={isInView ? { scaleX: 1 } : {}}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="w-full h-px bg-[#003C46]/15 mb-14 origin-left"
+        />
+
+        {/* Asymmetric: big heading left, actions right */}
+        <div className="grid grid-cols-12 items-end gap-8">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+            className="col-span-12 md:col-span-8"
           >
-            <Link href="/contact">
-              <Button
-                variant="default"
-                className="bg-white text-[#5B5B5B] hover:bg-gray-100 px-8 py-3 sm:px-10 sm:py-4 rounded-full text-base sm:text-lg font-semibold shadow-lg relative overflow-hidden"
-              >
-                Get in Touch
-              </Button>
-            </Link>
-            <Link href="/#services-showcase">
-              <Button
-                variant="outline"
-                className="text-[#0098AF] border-white hover:bg-white hover:text-[#0098AF] px-8 py-3 sm:px-10 sm:py-4 rounded-full text-base sm:text-lg font-semibold shadow-lg relative overflow-hidden"
-              >
-                Explore Services
-              </Button>
-            </Link>
-          </div>
-        </motion.div>
+            <Eyebrow>Work With Us</Eyebrow>
+            <h2
+              className="text-5xl md:text-7xl font-black text-[#003C46] leading-[0.9] tracking-[-0.04em]"
+              style={{ fontFamily: "'Georgia', serif" }}
+            >
+              {TEXT.CTA_TITLE}
+            </h2>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.55, delay: 0.15 }}
+            className="col-span-12 md:col-span-4 space-y-6"
+          >
+            <p className="text-[14px] text-[#556677] leading-relaxed">
+              {TEXT.CTA_DESC}
+            </p>
+            <div className="flex flex-col gap-3">
+              <Link href="/contact">
+                <button className="w-full group flex items-center justify-between px-6 py-4 bg-[#003C46] hover:bg-[#0098AF] text-white text-[13px] font-black tracking-[0.15em] uppercase rounded-xl transition-colors duration-200">
+                  Get in Touch
+                  <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
+                </button>
+              </Link>
+              <Link href="/#services-showcase">
+                <button className="w-full group flex items-center justify-between px-6 py-4 border border-[#003C46]/20 hover:border-[#0098AF]/50 hover:bg-[#0098AF]/[0.05] text-[#003C46] text-[13px] font-black tracking-[0.15em] uppercase rounded-xl transition-colors duration-200">
+                  Explore Services
+                  <Globe className="w-4 h-4" />
+                </button>
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Bottom rule — animates from right */}
+        <motion.div
+          initial={{ scaleX: 0 }}
+          animate={isInView ? { scaleX: 1 } : {}}
+          transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          className="w-full h-px bg-[#003C46]/15 mt-16 origin-right"
+        />
       </div>
     </section>
   );
-}
+};
+
+export default CTASection;

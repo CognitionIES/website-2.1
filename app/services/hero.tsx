@@ -1,17 +1,15 @@
 "use client";
+
+import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { FiChevronDown, FiChevronRight, FiHome } from "react-icons/fi";
 import Image from "next/image";
 import Link from "next/link";
-import { ABOUT_CONSTANTS } from "@/constants/aboutPage/constants";
-import { useIsMobile } from "@/hooks/use-mobile";
-import { useRef } from "react";
-import { ArrowDown, ChevronRight, Home } from "lucide-react";
+import { ChevronRight, Home, ArrowDown } from "lucide-react";
+import heroImage from "@/constants/images/hero/services-hero.webp";
 
-const Hero = () => {
-  const { IMAGES } = ABOUT_CONSTANTS;
+export function Hero() {
   const ref = useRef<HTMLElement>(null);
-  const isInView = useInView(ref, { once: true, amount: 0.1 });
+  const isInView = useInView(ref, { once: true, amount: 0.05 });
 
   return (
     <section
@@ -19,8 +17,8 @@ const Hero = () => {
       className="relative h-[480px] md:h-[520px] overflow-hidden"
     >
       <Image
-        src={IMAGES.HERO_IMAGE}
-        alt="Cognition IES"
+        src={heroImage}
+        alt="Our Services"
         fill
         className="object-cover"
         priority
@@ -29,7 +27,6 @@ const Hero = () => {
       <div className="absolute inset-0 bg-gradient-to-t from-[#002930]/50 via-transparent to-transparent" />
       <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#0098AF]/50 to-transparent" />
 
-      {/* Particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {[...Array(10)].map((_, i) => (
           <motion.div
@@ -61,7 +58,7 @@ const Hero = () => {
             <Home className="w-3.5 h-3.5" /> Home
           </Link>
           <ChevronRight className="w-3 h-3 text-white/30" />
-          <span className="text-[#0098AF]/90">About Us</span>
+          <span className="text-[#0098AF]/90">Services</span>
         </motion.nav>
 
         <motion.p
@@ -70,16 +67,16 @@ const Hero = () => {
           transition={{ duration: 0.5, delay: 0.05 }}
           className="text-[10px] font-bold tracking-[0.22em] uppercase text-[#0098AF] mb-3"
         >
-          Who We Are
+          What We Offer
         </motion.p>
 
         <motion.h1
           initial={{ opacity: 0, y: 18 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.65, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="text-4xl sm:text-5xl md:text-[3.25rem] font-bold text-white leading-tight max-w-3xl font-display"
+          className="text-4xl sm:text-5xl md:text-[3.25rem] font-bold text-white leading-tight max-w-2xl font-display"
         >
-          Cognition IES <em className="not-italic text-[#0098AF]">Pvt. Ltd.</em>
+          Our <em className="not-italic text-[#0098AF]">Services.</em>
         </motion.h1>
 
         <motion.p
@@ -88,7 +85,8 @@ const Hero = () => {
           transition={{ duration: 0.55, delay: 0.2 }}
           className="mt-4 text-[15px] text-white/65 max-w-xl leading-relaxed"
         >
-          Empowering Growth Through People and Technology.
+          From recruiting the right talent to engineering solutions and SaaS
+          tools — we help you grow with confidence.
         </motion.p>
       </div>
 
@@ -101,7 +99,6 @@ const Hero = () => {
         <ArrowDown className="w-5 h-5" />
       </motion.div>
 
-      {/* Bottom clip — next section is white */}
       <div
         className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none z-20"
         style={{ clipPath: "ellipse(55% 100% at 50% 100%)" }}
@@ -117,6 +114,4 @@ const Hero = () => {
       </div>
     </section>
   );
-};
-
-export default Hero;
+}

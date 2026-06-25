@@ -1,6 +1,10 @@
+"use client";
+
+import { motion } from "framer-motion";
+
 import React from "react";
 import { CAREERS_CONSTANTS } from "@/constants/careersPage/constants";
-import { motion } from "framer-motion";
+
 
 const BenefitsSection = () => {
   const { ITEMS } = CAREERS_CONSTANTS.BENEFITS;

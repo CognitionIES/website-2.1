@@ -1,14 +1,18 @@
 "use client";
 
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+
+import timeImage from "@/constants/images/staffing-recruitment/time.webp"
+import rpoImage from "@/constants/images/staffing-recruitment/rpo.webp"
+import projectImage from "@/constants/images/staffing-recruitment/rpo-1.webp"
 
 interface Service {
   title: string;
   subtitle: string;
   description: string;
-  image: string;
+  image: StaticImageData;
   id: string;
 }
 
@@ -19,7 +23,7 @@ const services: Service[] = [
     subtitle: "Pay only for the hours or effort utilized.",
     description:
       "Scale quickly without long-term commitments. Our contract staffing services provide skilled professionals for short- or mid-term assignments. We manage everything from sourcing and onboarding to payroll and compliance so you can focus on delivery, not HR.",
-    image: "https://images.pexels.com/photos/3184339/pexels-photo-3184339..webp?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop",
+    image: timeImage,
   },
   {
     id: "rpo",
@@ -27,7 +31,7 @@ const services: Service[] = [
     subtitle: "End-to-End Hiring, Handled by Experts",
     description:
       "Outsource your recruitment engine and reduce cost-per-hire. With RPO, our team acts as an extension of your HR department, managing the entire hiring process sourcing, screening, interviews, compliance, and analytics with speed, consistency, and scale.",
-    image: "https://images.pexels.com/photos/3184291/pexels-photo-3184291..webp?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop",
+    image: rpoImage,
   },
   {
     id: "project-based",
@@ -35,7 +39,7 @@ const services: Service[] = [
     subtitle: "Onboard Full Teams for Specific Deliverables",
     description:
       "Deploy pre-assembled talent for mission-critical milestones. Ideal for product launches, system rollouts, or digital transformation projects, our project-based hiring delivers fully-equipped tech or engineering teams with defined scopes, timelines, and KPIs.",
-    image: "https://images.pexels.com/photos/3184638/pexels-photo-3184638..webp?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop",
+    image: projectImage,
   },
 ];
 

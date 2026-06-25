@@ -1,5 +1,4 @@
 // app/careers/page.tsx
-"use client";
 
 import Footer from "@/components/footer";
 import { MegaMenu } from "@/components/ui/Megamenu/MegaMenu";
@@ -9,7 +8,7 @@ import AboutSection from "./AboutSection";
 import OpenPositions from "./OpenPositions";
 import { buildMetadata } from "@/lib/seo";
 import { Metadata } from "next";
-// import OpenPositions from "./OpenPositions";  ← add when ready
+
 export const metadata: Metadata = buildMetadata({
   title: "Careers",
   description:
@@ -21,6 +20,7 @@ export const metadata: Metadata = buildMetadata({
     "recruitment company jobs",
   ],
 });
+
 export default function CareersPage() {
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900 font-sans overflow-hidden">
