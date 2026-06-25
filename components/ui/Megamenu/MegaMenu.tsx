@@ -219,6 +219,8 @@ export function MegaMenu() {
                 alt="Cognition IES"
                 width={120}
                 height={36}
+                priority
+                fetchPriority="high"
                 className="h-8 w-auto object-contain"
               />
             </Link>

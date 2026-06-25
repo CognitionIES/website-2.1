@@ -85,13 +85,15 @@ const AboutSection = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="relative rounded-2xl overflow-hidden border border-[#e8eaed] dark:border-[#1e1e2e] group hover:border-[#0098AF]/30 transition-colors duration-200"
           >
-            <Image
-              src={IMAGES.STORY_IMAGE}
-              alt="Our engineering journey"
-              width={640}
-              height={540}
-              className="w-full h-[440px] sm:h-[500px] object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-            />
+           <Image
+            src={IMAGES.STORY_IMAGE}
+            alt="Our engineering journey"
+            width={640}
+            height={540}
+            priority
+            fetchPriority="high"
+            className="w-full h-[440px] sm:h-[500px] object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+          />
             <div className="absolute inset-0 bg-gradient-to-t from-[#003C46]/20 to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#0098AF] to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
           </motion.div>

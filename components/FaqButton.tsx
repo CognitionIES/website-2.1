@@ -34,7 +34,7 @@ const FaqButton = () => {
           height={64}
           className="object-contain transition-transform duration-200 ease-in-out"
           style={{ transform: isHovered ? "scale(1)" : "scale(0.75)" }}
-          priority
+          loading="eager"
         />
       </button>
     </div>

@@ -34,7 +34,7 @@ export default function CompanyInfo() {
           width={220}
           height={52}
           className="brightness-110"
-          priority
+          loading="lazy"
         />
       </motion.div>
 

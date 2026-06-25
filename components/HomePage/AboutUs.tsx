@@ -118,6 +118,8 @@ const AboutUs = () => {
               src={ABOUT_CONSTANTS.IMAGE}
               alt="Team collaboration"
               fill
+              loading="lazy"
+              sizes="(max-width: 768px) 100vw, 540px"
               className="object-cover"
             />
           </motion.div>

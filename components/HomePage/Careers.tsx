@@ -75,8 +75,9 @@ const Careers: React.FC = () => {
               src={IMAGE}
               alt="Team collaborating in office"
               fill
+              sizes="(max-width: 768px) 100vw, 66vw"
+              loading="lazy"
               className="object-cover"
-              priority
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#003C46]/20 to-transparent" />
             <div className="absolute bottom-4 left-4 bg-white/90 dark:bg-[#0d0d14]/90 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-[#e8eaed] dark:border-[#1e1e2e]">

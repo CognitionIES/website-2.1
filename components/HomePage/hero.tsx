@@ -60,6 +60,8 @@ function Hero() {
               alt={slide.title}
               fill
               priority={index === 0}
+              fetchPriority={index === 0 ? "high" : undefined}
+              loading={index === 0 ? undefined : "lazy"}
               sizes="100vw"
               className="w-full h-full object-cover"
             />

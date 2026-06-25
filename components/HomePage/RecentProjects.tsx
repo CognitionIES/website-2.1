@@ -132,7 +132,7 @@ const RecentProjects = () => {
         >
           <Carousel opts={{ align: "start", loop: true }} className="w-full">
             <CarouselContent className="-ml-4">
-              {projects.map((project, index) => (
+              {projects.map((project) => (
                 <CarouselItem
                   key={project.id}
                   className={cn("pl-4", isMobile ? "basis-full" : "basis-1/2")}
@@ -147,7 +147,7 @@ const RecentProjects = () => {
                         fill
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
                         sizes="(max-width: 768px) 100vw, 50vw"
-                        {...(index < 2 ? { priority: true } : { loading: "lazy" })}
+                        loading="lazy"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-[#003C46]/50 to-transparent opacity-60" />
                       <span className="absolute top-4 left-4 px-2.5 py-1 bg-white/95 dark:bg-[#0d0d14]/90 rounded-full text-[11px] font-semibold text-[#003C46] dark:text-white tracking-wide">
