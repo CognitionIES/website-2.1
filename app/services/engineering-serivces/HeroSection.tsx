@@ -16,7 +16,7 @@ export default function HeroSection() {
   return (
     <section ref={ref} className="relative h-[480px] md:h-[520px] overflow-hidden">
 
-      {/* Background image */}
+      {/* Background image — no grid over this */}
       <Image
         src={heroImage}
         alt="Engineering Services"
@@ -25,20 +25,14 @@ export default function HeroSection() {
         priority
       />
 
-      {/* Layered overlays */}
+      {/* Colour overlays only — no grid texture on the photo */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#003C46]/85 via-[#004f5e]/75 to-[#0098AF]/60" />
       <div className="absolute inset-0 bg-gradient-to-t from-[#002930]/50 via-transparent to-transparent" />
 
-      {/* Grid texture */}
-      <div
-        className="absolute inset-0 opacity-[0.06] pointer-events-none"
-        style={{
-          backgroundImage: `linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)`,
-          backgroundSize: "64px 64px",
-        }}
-      />
+      {/* Top accent line */}
+      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#0098AF]/50 to-transparent" />
 
-      {/* Deterministic particles — no Math.random, no SSR mismatch */}
+      {/* Deterministic particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {[...Array(10)].map((_, i) => (
           <motion.div
@@ -55,9 +49,6 @@ export default function HeroSection() {
           />
         ))}
       </div>
-
-      {/* Top accent line */}
-      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#0098AF]/50 to-transparent" />
 
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col justify-center">
@@ -121,11 +112,24 @@ export default function HeroSection() {
         <ArrowDown className="w-5 h-5" />
       </motion.div>
 
-      {/* Bottom clip */}
+      {/*
+        Bottom clip — fill matches the section directly below this hero
+        (AboutSection uses bg-[#f7f8fa] / dark:bg-[#0d0d14])
+      */}
       <div
-        className="absolute bottom-0 left-0 right-0 h-10 bg-white dark:bg-[#0a0a0f]"
+        className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none z-20"
         style={{ clipPath: "ellipse(55% 100% at 50% 100%)" }}
-      />
+      >
+        <div className="absolute inset-0 bg-[#f7f8fa] dark:bg-[#0d0d14]" />
+        <div
+          className="absolute inset-0 opacity-[0.025] dark:opacity-[0.04]"
+          style={{
+            backgroundImage: `linear-gradient(#003C46 1px, transparent 1px), linear-gradient(90deg, #003C46 1px, transparent 1px)`,
+            backgroundSize: "64px 64px",
+          }}
+        />
+      </div>
+
     </section>
   );
 }

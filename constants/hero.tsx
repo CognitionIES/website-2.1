@@ -1,11 +1,7 @@
 import { StaticImageData } from "next/image";
-//import productImage from "./images/home/hero/product.webp";
-//import processImage from "./images/home/hero/process.webp";
-//import aimlImage from "./images/home/hero/ai-ml.webp";
 import saasImage from "@/constants/images/home/hero/saas.webp";
 import recruitmentImage from "@/constants/images/home/hero/recruit.webp";
 import saas2 from "@/constants/images/home/hero/saas-mobile.webp";
-//import process2 from "@/constants/images/home/hero/process-mobile.webp";
 import recruit2 from "@/constants/images/home/hero/recruit-mobile.webp";
 import buildImage from "@/constants/images/build-operate/hero.webp";
 
