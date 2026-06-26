@@ -14,7 +14,7 @@ import HomeClientSections from "./HomeClientSections";
 export const metadata: Metadata = buildMetadata({
   title: "Cognition IES | Build Smarter. Hire Better. Scale Faster.",
   description:
-    "Cognition IES delivers recruitment & resourcing, end-to-end Build & Operate engineering solutions, and ServiceCPQ SaaS software for businesses across India and the USA.",
+    "Build Smarter. Hire Better. Scale Faster.",
   path: "/",
   ogTitle: "Cognition IES | Build Smarter. Hire Better. Scale Faster.",
   keywords: [
